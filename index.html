@@ -282,6 +282,7 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
   <div class="tabs">
     <div class="tab-btn active" data-tab="t1">Tổng quan</div>
     <div class="tab-btn" data-tab="t2">Lưu đồ chi tiết nguồn</div>
+    <div class="tab-btn" data-tab="t3">Sơ đồ luồng dữ liệu</div>
   </div>
 
   <!-- TAB 1: TỔNG QUAN -->
@@ -1008,6 +1009,10 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
 
 </div><!-- /tab-content t2 -->
 
+<!-- TAB 3: SƠ ĐỒ LUỒNG DỮ LIỆU - BÁO CÁO LƯƠNG -->
+<div class="tab-content" id="t3">
+  <div id="diagram-luong"></div>
+</div>
 
 </div><!-- /page p1 -->
 
@@ -1144,6 +1149,7 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
   <div class="tabs">
     <div class="tab-btn active" data-tab="mt1">Tổng quan</div>
     <div class="tab-btn" data-tab="mt2">Lưu đồ chi tiết nguồn</div>
+    <div class="tab-btn" data-tab="mt3">Sơ đồ luồng dữ liệu</div>
   </div>
 
   <!-- TAB 1: TỔNG QUAN -->
@@ -1452,6 +1458,11 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
 
   </div><!-- /tab-content mt2 -->
 
+  <!-- TAB 3: SƠ ĐỒ LUỒNG DỮ LIỆU - MAN-MONTH -->
+  <div class="tab-content" id="mt3">
+    <div id="diagram-mm"></div>
+  </div>
+
 </div><!-- /page m1 -->
 
 <!-- ═══ MM PAGE 2: INPUT ═══ -->
@@ -1671,5 +1682,441 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
     });
   })();
 </script>
+
+<!-- ═══════════════════════════════════════════
+     SƠ ĐỒ LUỒNG 5 TẦNG — SHARED COMPONENT
+═══════════════════════════════════════════ -->
+<style>
+/* ── DIAGRAM WRAPPER ── */
+.dg-wrap { font-family:var(--sans); overflow-x:auto; }
+
+/* ── TIER ROWS (ngang) ── */
+.dg-tier-row {
+  display:flex;
+  align-items:stretch;
+  border-radius:12px;
+  margin-bottom:0;
+  overflow:hidden;
+  border:1px solid rgba(0,0,0,.07);
+}
+
+/* Tier label ở bên trái mỗi hàng */
+.dg-tier-label {
+  flex-shrink:0; width:100px;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:5px; padding:14px 10px;
+  text-align:center;
+}
+.dg-tier-num {
+  width:26px; height:26px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:800; color:#fff;
+}
+.dg-tier-text {
+  font-size:10px; font-weight:700; letter-spacing:.05em;
+  text-transform:uppercase; line-height:1.3;
+}
+
+/* Tier cells (một ô per nhánh nguồn) */
+.dg-tier-cells {
+  flex:1; display:flex;
+  border-left:2px solid rgba(0,0,0,.08);
+}
+.dg-cell {
+  flex:1; padding:12px 10px;
+  border-right:1px solid rgba(0,0,0,.06);
+  display:flex; flex-direction:column;
+  align-items:center; gap:6px;
+  min-width:140px;
+}
+.dg-cell:last-child { border-right:none; }
+
+/* ── ARROW ROW ── */
+.dg-arrow-row {
+  display:flex; height:28px;
+  margin:0;
+}
+.dg-arrow-spacer { width:102px; flex-shrink:0; }
+.dg-arrow-cells { flex:1; display:flex; border-left:2px solid transparent; }
+.dg-arrow-cell {
+  flex:1; display:flex; align-items:center; justify-content:center;
+  font-size:18px; font-weight:300; min-width:140px;
+  position:relative;
+}
+/* vertical line in arrow cell */
+.dg-arrow-cell::before {
+  content:'';position:absolute;top:0;bottom:0;left:50%;
+  width:2px; background:var(--ac,#ccc); opacity:.25;
+  transform:translateX(-50%);
+}
+.dg-arrow-cell span { position:relative; z-index:1; opacity:.55; font-size:16px; }
+
+/* ── NODES ── */
+.dg-node {
+  border-radius:8px; padding:8px 12px;
+  font-size:11.5px; font-weight:600;
+  text-align:center; width:100%; box-sizing:border-box;
+  transition:transform .15s, box-shadow .15s;
+  line-height:1.35;
+}
+.dg-node:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,.18); }
+.dg-node-sub { font-size:10px; font-weight:400; margin-top:3px; opacity:.8; line-height:1.3; }
+
+/* Tier 1 */
+.dg-n1 { color:#fff; }
+
+/* Tier 2 */
+.dg-n2 {
+  background:#fff; border:2px solid; cursor:pointer;
+  transition:background .15s, transform .15s, box-shadow .15s;
+}
+.dg-n2:hover { filter:brightness(.97); }
+.dg-n2.filled { }
+.dg-n2 .dg-id-tag { font-size:9px; font-family:var(--mono,monospace); margin-top:3px; opacity:.55; }
+
+/* Tier 3 */
+.dg-n3 { background:rgba(0,0,0,.04); border:1px solid rgba(0,0,0,.1); color:var(--fg,#111); font-size:11px; font-weight:500; }
+
+/* Tier 4 */
+.dg-n4 { font-size:11px; font-weight:700; }
+
+/* Tier 5 */
+.dg-n5 { color:#fff; font-size:12.5px; font-weight:700; }
+
+/* Tier BG colors */
+.tier-bg-1 { background:rgba(21,101,192,.06); }
+.tier-bg-2 { background:rgba(25,118,210,.05); }
+.tier-bg-3 { background:rgba(46,125,50,.05); }
+.tier-bg-4 { background:rgba(230,81,0,.05); }
+.tier-bg-5 { background:rgba(106,27,154,.06); }
+
+/* ── POPUP ── */
+.dg-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,.45);
+  z-index:9000; display:none; align-items:center; justify-content:center;
+}
+.dg-overlay.open { display:flex; }
+.dg-popup {
+  background:#fff; border-radius:14px; padding:26px 30px;
+  width:420px; max-width:92vw;
+  box-shadow:0 24px 64px rgba(0,0,0,.22);
+}
+.dg-pop-title { font-size:15px; font-weight:700; color:var(--fg,#111); margin-bottom:4px; }
+.dg-pop-sub {
+  font-size:11px; color:var(--fg-muted,#666);
+  background:rgba(0,0,0,.05); padding:4px 10px; border-radius:6px;
+  display:inline-block; margin-bottom:18px; font-family:var(--mono,monospace);
+}
+.dg-pop label { font-size:12px; font-weight:600; color:var(--fg,#111); display:block; margin-bottom:5px; }
+.dg-pop input, .dg-pop textarea {
+  width:100%; border:1px solid rgba(0,0,0,.15);
+  border-radius:7px; padding:9px 11px; font-size:13px;
+  font-family:var(--sans); outline:none; box-sizing:border-box;
+  transition:border-color .15s; margin-bottom:14px;
+}
+.dg-pop input:focus, .dg-pop textarea:focus {
+  border-color:var(--primary,#4051b5);
+  box-shadow:0 0 0 3px rgba(64,81,181,.1);
+}
+.dg-pop textarea { resize:vertical; min-height:90px; margin-bottom:4px; }
+.dg-pop-hint { font-size:11px; color:rgba(0,0,0,.38); margin-bottom:14px; }
+.dg-pop-actions { display:flex; gap:8px; justify-content:flex-end; }
+.dg-pop-save {
+  background:var(--primary,#4051b5); color:#fff; border:none;
+  border-radius:7px; padding:9px 20px; font-size:13px; font-weight:600; cursor:pointer;
+}
+.dg-pop-save:hover { background:#3344a0; }
+.dg-pop-cancel {
+  background:none; border:1px solid rgba(0,0,0,.15);
+  border-radius:7px; padding:9px 14px; font-size:13px; cursor:pointer; color:var(--fg-muted,#666);
+}
+</style>
+
+<!-- POPUP (shared, single instance) -->
+<div class="dg-overlay" id="dg-ov">
+  <div class="dg-popup dg-pop">
+    <div class="dg-pop-title">Đặt tên & trường dữ liệu</div>
+    <div class="dg-pop-sub" id="dg-pop-id">—</div>
+    <label>Tên hiển thị (tầng 2)</label>
+    <input type="text" id="dg-pop-name" placeholder="Ví dụ: Timesheet, Request for benefit..."/>
+    <label>Trường dữ liệu lấy ra (tầng 3)</label>
+    <textarea id="dg-pop-fields" placeholder="Mỗi dòng 1 trường&#10;Ví dụ:&#10;Username&#10;Department&#10;Workday"></textarea>
+    <div class="dg-pop-hint">↵ Enter để xuống dòng · Esc để đóng</div>
+    <div class="dg-pop-actions">
+      <button class="dg-pop-cancel" id="dg-pop-cancel">Hủy</button>
+      <button class="dg-pop-save"   id="dg-pop-save">Lưu ↗</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ═══ COLOR PALETTE ═══ */
+const C = {
+  bp:    {bg:'#1565c0',rgb:'21,101,192',  t2bg:'#e3f2fd'},
+  bs:    {bg:'#00838f',rgb:'0,131,143',   t2bg:'#e0f7fa'},
+  sc:    {bg:'#c62828',rgb:'198,40,40',   t2bg:'#ffebee'},
+  hrm:   {bg:'#2e7d32',rgb:'46,125,50',   t2bg:'#e8f5e9'},
+  tbl:   {bg:'#6a1b9a',rgb:'106,27,154',  t2bg:'#f3e5f5'},
+  'mm-bs':{bg:'#00838f',rgb:'0,131,143',  t2bg:'#e0f7fa'},
+  'mm-bp':{bg:'#1565c0',rgb:'21,101,192', t2bg:'#e3f2fd'},
+  'mm-dm':{bg:'#2e7d32',rgb:'46,125,50',  t2bg:'#e8f5e9'},
+  'mm-st':{bg:'#7c3aed',rgb:'124,58,237', t2bg:'#ede9fe'},
+};
+
+/* ═══ DATA ═══ */
+const RPT = {
+  luong:{
+    label:'Báo cáo Lương', sub:'Power BI · Tháng → NV → code/dpm × Type', bg:'#4051b5',
+    sources:[
+      {id:'bp',  label:'base_payroll',  sub:'.record · .payroll',
+       ids:[
+         {id:'bp-rec', dn:'Payroll record',  df:'payroll_name\npayroll_status\nreport_month\nreport_year\nuser_id\ncolumns (JSONB)'},
+         {id:'bp-mst', dn:'Payroll master',  df:'payroll_id\npayroll_name\npayroll_status'},
+       ],
+       metrics:['Payroll_code','Payroll_tet','Payroll_t13','Payroll_paid_leave','Payroll_dpm','Payroll_salary','Payroll_PIT_paid','Payroll_Other_bonus','Payroll_Income_for_pit'],
+      },
+      {id:'bs',  label:'base_service',  sub:'.ticket',
+       ids:[
+         {id:'bs-11998',  dn:'Timesheet',       df:'username\ndepartment\ndate\nworkday\ncode_of_budget'},
+         {id:'bs-12071',  dn:'Bonus/Adj/Off',   df:'form[Bonus Table]\nform[Adjustment Table]\nform[Offboarding Table]'},
+         {id:'bs-12480',  dn:'Welfare',         df:'form[Expense breakdown]\nuser_id\nvalue'},
+         {id:'bs-perdiem',dn:'Perdiem',         df:'employee_code\nusername\nnon_taxable\ntaxable'},
+       ],
+       metrics:['Payroll_perform','Payroll_welfare','Payroll_adjustment','Payroll_Offboarding','Payroll_perdiem','fact_ticket_form_timesheet'],
+      },
+      {id:'sc',  label:'base_schedule', sub:'.overtime · .request',
+       ids:[{id:'sc-ot',dn:'Overtime confirmed',df:'paid_hours\ntong_tien_tang_ca\nuser_id\ndate'}],
+       metrics:['Payroll_ot'],
+      },
+      {id:'hrm', label:'base_hrm',      sub:'.employee + base_account',
+       ids:[{id:'hrm-emp',dn:'Employee master',df:'user_id\ncode\nname\nusername\noffice_name\nposition_name\nteam_name'}],
+       metrics:['dim_user'],
+      },
+      {id:'tbl', label:'base_table',    sub:'.data',
+       ids:[
+         {id:'tbl-82',dn:'Code ngân sách (id=82)',df:'id\nvals\ncode_of_budget_plan'},
+         {id:'tbl-69',dn:'Phòng ban (id=69)',      df:'id\nvals\ndepartment_name'},
+       ],
+       metrics:['dim_table_code','department'],
+      },
+    ],
+  },
+  mm:{
+    label:'Man-month Report', sub:'Power BI · Project → NV → Tháng × Metric', bg:'#0c8599',
+    sources:[
+      {id:'mm-bs',label:'base_service',  sub:'.ticket (svc=11998)',
+       ids:[
+         {id:'mm-ts', dn:'Timesheet',      df:'username\ndepartment\ndate\nworkday\ncode_of_budget\nis_fixed'},
+         {id:'mm-sow',dn:'Sum of workday', df:'id\nservice_sum_work_day'},
+         {id:'mm-ftf',dn:'Ticket form',    df:'ticket_id\nform_data\nservice_id'},
+       ],
+       metrics:['fact_ticket_form_timesheet','Sum_of_workday','fact_ticket_form'],
+      },
+      {id:'mm-bp',label:'base_payroll',  sub:'.record',
+       ids:[{id:'mm-bp-rec',dn:'Ngày lương cơ sở',df:'user_id\nreport_month\nngay_luong_co_so\nngay_co_so'}],
+       metrics:['payroll'],
+      },
+      {id:'mm-dm',label:'data_mart',     sub:'man_month schema',
+       ids:[
+         {id:'mm-dm-u',   dn:'dim_user',            df:'user_id\nusername\ncode\nname\nteam_name'},
+         {id:'mm-dm-c',   dn:'dim_table_code',      df:'code_of_budget_plan\nrow_id\nvals'},
+         {id:'mm-dm-t',   dn:'dim_ticket',          df:'ticket_id\nservice_id\nroot_id'},
+         {id:'mm-dm-p',   dn:'dim_project_task/list',df:'task_id\ntask_name\nproject_code'},
+         {id:'mm-dm-ftpd',dn:'fact_ticket_project_document',df:'project_code\ntotal_mm\nnon_contracted_mm'},
+         {id:'mm-dm-d',   dn:'department',          df:'deparment_code\ntype\nname'},
+       ],
+       metrics:['dim_user','dim_table_code','dim_ticket','dim_project_task','fact_ticket_project_document','department','Department_order'],
+      },
+      {id:'mm-st',label:'Static (base64)',sub:'Nhúng trong Power Query',
+       ids:[
+         {id:'mm-st-up',dn:'User_past',       df:'user_id\nusername\ncode\nname\nemail'},
+         {id:'mm-st-lm',dn:'list_metric',     df:'No.\nMetrics\nSignificant\nData source'},
+         {id:'mm-st-ps',dn:'payroll_support', df:'user_id\nreport_month\ncolumns_value\nusername'},
+       ],
+       metrics:['User_past','list_metric','payroll_support'],
+      },
+    ],
+  },
+};
+
+/* ═══ STORAGE ═══ */
+function sk(id){ return 'dg3_'+id; }
+function gd(id){ try{ return JSON.parse(localStorage.getItem(sk(id))||'null'); }catch(e){ return null; } }
+function sd(id,v){ try{ localStorage.setItem(sk(id),JSON.stringify(v)); }catch(e){} }
+function seed(){
+  Object.values(RPT).forEach(r=>r.sources.forEach(s=>s.ids.forEach(i=>{ if(!gd(i.id)) sd(i.id,{name:i.dn,fields:i.df}); })));
+}
+
+/* ═══ HELPERS ═══ */
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ═══ RENDER ═══ */
+function render(rptId, cid){
+  const el=document.getElementById(cid);
+  if(!el) return;
+  const R=RPT[rptId], srcs=R.sources;
+  const N=srcs.length;
+
+  /* --- build 5 tier rows + 4 arrow rows = 9 rows total --- */
+
+  function tierLabel(num,text,numBg,rowBg,textColor){
+    return `<div class="dg-tier-label ${rowBg}" style="background:inherit">
+      <div class="dg-tier-num" style="background:${numBg}">${num}</div>
+      <div class="dg-tier-text" style="color:${textColor||'var(--fg-muted)'};font-size:10px">${esc(text)}</div>
+    </div>`;
+  }
+
+  function arrowRow(){
+    let cells='';
+    srcs.forEach(src=>{
+      const col=C[src.id]||{bg:'#888'};
+      cells+=`<div class="dg-arrow-cell" style="--ac:${col.bg}"><span style="color:${col.bg}">↓</span></div>`;
+    });
+    return `<div class="dg-arrow-row">
+      <div class="dg-arrow-spacer"></div>
+      <div class="dg-arrow-cells">${cells}</div>
+    </div>`;
+  }
+
+  /* TIER 1 */
+  let t1cells='';
+  srcs.forEach(src=>{
+    const col=C[src.id]||{bg:'#555'};
+    t1cells+=`<div class="dg-cell">
+      <div class="dg-node dg-n1" style="background:${col.bg}">
+        ${esc(src.label)}<div class="dg-node-sub">${esc(src.sub)}</div>
+      </div>
+    </div>`;
+  });
+  const row1=`<div class="dg-tier-row tier-bg-1" style="border-bottom:2px solid rgba(21,101,192,.15)">
+    ${tierLabel(1,'Hệ thống nguồn','#1565c0','','#1565c0')}
+    <div class="dg-tier-cells">${t1cells}</div>
+  </div>`;
+
+  /* TIER 2 */
+  let t2cells='';
+  srcs.forEach(src=>{
+    const col=C[src.id]||{bg:'#555',t2bg:'#eee'};
+    let nodes='';
+    src.ids.forEach(item=>{
+      const d=gd(item.id);
+      const nm=d?d.name:item.dn;
+      nodes+=`<div class="dg-node dg-n2" style="border-color:${col.bg};background:${col.t2bg};color:${col.bg}"
+        data-id="${esc(item.id)}" data-rpt="${rptId}" data-cid="${cid}">
+        ${esc(nm)}
+        <div class="dg-id-tag" style="color:${col.bg}">${esc(item.id)}</div>
+      </div>`;
+    });
+    t2cells+=`<div class="dg-cell">${nodes}</div>`;
+  });
+  const row2=`<div class="dg-tier-row tier-bg-2" style="border-bottom:2px solid rgba(25,118,210,.15)">
+    ${tierLabel(2,'Queue / Form / ID','#1976d2','','#1976d2')}
+    <div class="dg-tier-cells">${t2cells}</div>
+  </div>`;
+
+  /* TIER 3 */
+  let t3cells='';
+  srcs.forEach(src=>{
+    const col=C[src.id]||{bg:'#555'};
+    const allF=[];
+    src.ids.forEach(item=>{
+      const d=gd(item.id);
+      const flds=d&&d.fields?d.fields:item.df;
+      flds.split('\n').filter(Boolean).forEach(f=>{ const t=f.trim(); if(t&&!allF.includes(t)) allF.push(t); });
+    });
+    const nodes=allF.map(f=>`<div class="dg-node dg-n3">${esc(f)}</div>`).join('');
+    t3cells+=`<div class="dg-cell">${nodes}</div>`;
+  });
+  const row3=`<div class="dg-tier-row tier-bg-3" style="border-bottom:2px solid rgba(46,125,50,.15)">
+    ${tierLabel(3,'Trường dữ liệu','#2e7d32','','#2e7d32')}
+    <div class="dg-tier-cells">${t3cells}</div>
+  </div>`;
+
+  /* TIER 4 */
+  let t4cells='';
+  srcs.forEach(src=>{
+    const col=C[src.id]||{bg:'#555',rgb:'85,85,85'};
+    const nodes=src.metrics.map(m=>`<div class="dg-node dg-n4"
+      style="background:rgba(${col.rgb||'85,85,85'},.1);border:1.5px solid ${col.bg};color:${col.bg}">${esc(m)}</div>`).join('');
+    t4cells+=`<div class="dg-cell">${nodes}</div>`;
+  });
+  const row4=`<div class="dg-tier-row tier-bg-4" style="border-bottom:2px solid rgba(230,81,0,.15)">
+    ${tierLabel(4,'Bảng Power Query','#e65100','','#e65100')}
+    <div class="dg-tier-cells">${t4cells}</div>
+  </div>`;
+
+  /* TIER 5 */
+  let t5cells='';
+  srcs.forEach(()=>{
+    t5cells+=`<div class="dg-cell">
+      <div class="dg-node dg-n5" style="background:${R.bg}">
+        ${esc(R.label)}<div class="dg-node-sub">${esc(R.sub)}</div>
+      </div>
+    </div>`;
+  });
+  const row5=`<div class="dg-tier-row tier-bg-5">
+    ${tierLabel(5,'Báo cáo','#6a1b9a','','#6a1b9a')}
+    <div class="dg-tier-cells">${t5cells}</div>
+  </div>`;
+
+  el.innerHTML=`<div class="dg-wrap">
+    <p style="font-size:12px;color:var(--fg-muted);margin-bottom:16px;font-style:italic">
+      Click vào ô ở <strong>tầng 2</strong> để đặt tên và nhập trường dữ liệu.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:0;border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.08);min-width:max-content">
+      ${row1}
+      ${arrowRow()}
+      ${row2}
+      ${arrowRow()}
+      ${row3}
+      ${arrowRow()}
+      ${row4}
+      ${arrowRow()}
+      ${row5}
+    </div>
+  </div>`;
+
+  el.querySelectorAll('.dg-n2[data-id]').forEach(nd=>{
+    nd.addEventListener('click',()=>openPop(nd.getAttribute('data-id'),nd.getAttribute('data-rpt'),nd.getAttribute('data-cid')));
+  });
+}
+
+/* ═══ POPUP ═══ */
+let _id=null,_rpt=null,_cid=null;
+function findItem(rptId,id){ for(const s of RPT[rptId].sources){ const i=s.ids.find(x=>x.id===id); if(i) return{item:i,src:s}; } return{}; }
+
+function openPop(id,rptId,cid){
+  _id=id;_rpt=rptId;_cid=cid;
+  const{item,src}=findItem(rptId,id);
+  const d=gd(id);
+  document.getElementById('dg-pop-id').textContent=id+(src?'  ·  '+src.label:'');
+  document.getElementById('dg-pop-name').value =d?d.name :(item?item.dn:'');
+  document.getElementById('dg-pop-fields').value=d?d.fields:(item?item.df:'');
+  document.getElementById('dg-ov').classList.add('open');
+  setTimeout(()=>document.getElementById('dg-pop-name').focus(),60);
+}
+function closePop(){ document.getElementById('dg-ov').classList.remove('open'); _id=null; }
+document.getElementById('dg-pop-cancel').addEventListener('click',closePop);
+document.getElementById('dg-ov').addEventListener('click',function(e){ if(e.target===this) closePop(); });
+document.getElementById('dg-pop-save').addEventListener('click',function(){
+  if(!_id) return;
+  sd(_id,{name:document.getElementById('dg-pop-name').value.trim(),fields:document.getElementById('dg-pop-fields').value.trim()});
+  closePop();
+  render(_rpt,_cid);
+});
+document.getElementById('dg-pop-name').addEventListener('keydown',e=>{ if(e.key==='Escape') closePop(); });
+
+/* ═══ INIT ═══ */
+seed();
+render('luong','diagram-luong');
+render('mm','diagram-mm');
+
+})();
+</script>
+
 </body>
 </html>

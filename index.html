@@ -258,7 +258,7 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
     <div class="nav-item" data-page="m4" data-rpt="mm"><span class="nav-num">04</span>Filter / Xem</div>
   </div>
 
-  <div class="nav-footer">data_warehouse · data_mart<br>Power BI Desktop<br>Base Enterprise JSC</div>
+  <div class="nav-footer">data warehouse · data mart<br>Power BI Desktop<br>Base Enterprise JSC</div>
 </nav>
 
 <main class="main">
@@ -302,66 +302,66 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
       </div>
       <div class="flow-body">
         <div class="flow-lane lane1">
-          <div class="fnode n-src">base_payroll<div class="fnode-sub">.record · .payroll</div></div>
+          <div class="fnode n-src">Payroll<div class="fnode-sub">.record · .payroll</div></div>
           <div class="v-arrow">↓</div>
-          <div class="fnode n-src">base_service<div class="fnode-sub">.ticket (svc 11998, 12071, 12480)</div></div>
+          <div class="fnode n-src">Service<div class="fnode-sub">.ticket (svc 11998, 12071, 12480)</div></div>
           <div class="v-arrow">↓</div>
-          <div class="fnode n-src">base_schedule<div class="fnode-sub">.overtime · .request</div></div>
+          <div class="fnode n-src">Schedule<div class="fnode-sub">.overtime · .request</div></div>
           <div class="v-arrow">↓</div>
-          <div class="fnode n-src">base_hrm<div class="fnode-sub">.employee · .office · .position…</div></div>
+          <div class="fnode n-src">HRM<div class="fnode-sub">.employee · .office · .position…</div></div>
           <div class="v-arrow">↓</div>
-          <div class="fnode n-src">base_account<div class="fnode-sub">.group (username)</div></div>
+          <div class="fnode n-src">base account<div class="fnode-sub">.group (username)</div></div>
           <div class="v-arrow">↓</div>
-          <div class="fnode n-src">base_table<div class="fnode-sub">.data (table_id 69 / 82)</div></div>
+          <div class="fnode n-src">Table<div class="fnode-sub">.data (table id 69 / 82)</div></div>
         </div>
         <div class="flow-lane lane2">
           <div class="fgroup">
             <div class="fgroup-label">Timesheet (3 phiên bản)</div>
-            <div class="fnode n-mart" style="margin-bottom:6px">fact_ticket_form_timesheet<div class="fnode-sub">Latest version</div></div>
-            <div class="fnode n-mart" style="margin-bottom:6px">fact_ticket_form_timesheet_1a<div class="fnode-sub">is_fixed = 1</div></div>
-            <div class="fnode n-mart">fact_ticket_form_timesheet_new<div class="fnode-sub">Nguồn mới nhất</div></div>
+            <div class="fnode n-mart" style="margin-bottom:6px">fact ticket form timesheet<div class="fnode-sub">Latest version</div></div>
+            <div class="fnode n-mart" style="margin-bottom:6px">fact ticket form timesheet 1a<div class="fnode-sub">is fixed = 1</div></div>
+            <div class="fnode n-mart">fact ticket form timesheet new<div class="fnode-sub">Nguồn mới nhất</div></div>
           </div>
           <div style="height:8px"></div>
           <div class="fgroup">
             <div class="fgroup-label">Danh mục</div>
-            <div class="fnode n-mart" style="margin-bottom:6px">dim_user<div class="fnode-sub">man_month · UNION User_past</div></div>
-            <div class="fnode n-mart" style="margin-bottom:6px">dim_table_code<div class="fnode-sub">luong · table_id = 82</div></div>
-            <div class="fnode n-mart" style="margin-bottom:6px">department<div class="fnode-sub">man_month · table_id = 69</div></div>
-            <div class="fnode n-mart">Perdiem<div class="fnode-sub">luong · base_service.ticket</div></div>
+            <div class="fnode n-mart" style="margin-bottom:6px">dim user<div class="fnode-sub">man month · UNION User past</div></div>
+            <div class="fnode n-mart" style="margin-bottom:6px">dim table code<div class="fnode-sub">luong · table id = 82</div></div>
+            <div class="fnode n-mart" style="margin-bottom:6px">department<div class="fnode-sub">man month · table id = 69</div></div>
+            <div class="fnode n-mart">Perdiem<div class="fnode-sub">luong · Service.ticket</div></div>
           </div>
         </div>
         <div class="flow-lane lane3">
           <div class="fgroup">
             <div class="fgroup-label">Lương Việt Nam</div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_ngay_luong<div class="fnode-sub">Ngày công cơ sở</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_code<div class="fnode-sub">Lương & phụ cấp · BHXH</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_tet<div class="fnode-sub">Thưởng Tết · MM cumsum</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_t13<div class="fnode-sub">Lương tháng 13 · fCumsum</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_paid_leave<div class="fnode-sub">Phép còn lại · MM cumsum</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_ot<div class="fnode-sub">Tăng ca · paid_hours ratio</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_dpm<div class="fnode-sub">Sinh nhật · Xe · Thôi việc</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_perform<div class="fnode-sub">Thưởng KPI · form base64</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_welfare<div class="fnode-sub">Phúc lợi nhân viên</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_perdiem<div class="fnode-sub">Công tác phí theo code</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_adjustment<div class="fnode-sub">Điều chỉnh lương</div></div>
-            <div class="fnode n-pq">Payroll_Offboarding<div class="fnode-sub">Quyết toán nghỉ việc</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll ngay luong<div class="fnode-sub">Ngày công cơ sở</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll code<div class="fnode-sub">Lương & phụ cấp · BHXH</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll tet<div class="fnode-sub">Thưởng Tết · MM cumsum</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll t13<div class="fnode-sub">Lương tháng 13 · fCumsum</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll paid leave<div class="fnode-sub">Phép còn lại · MM cumsum</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll ot<div class="fnode-sub">Tăng ca · paid hours ratio</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll dpm<div class="fnode-sub">Sinh nhật · Xe · Thôi việc</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll perform<div class="fnode-sub">Thưởng KPI · form base64</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll welfare<div class="fnode-sub">Phúc lợi nhân viên</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll perdiem<div class="fnode-sub">Công tác phí theo code</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll adjustment<div class="fnode-sub">Điều chỉnh lương</div></div>
+            <div class="fnode n-pq">Payroll Offboarding<div class="fnode-sub">Quyết toán nghỉ việc</div></div>
           </div>
           <div style="height:8px"></div>
           <div class="fgroup">
             <div class="fgroup-label">Người nước ngoài</div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_salary<div class="fnode-sub">Lương theo project code</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_salary_late<div class="fnode-sub">Lương muộn · Value_late</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_code_foreigners<div class="fnode-sub">BHXH công ty · workday ratio</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_Other_bonus_foreigners<div class="fnode-sub">Thu nhập khác</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_PIT_refund_foreigners<div class="fnode-sub">Hoàn thuế TNCN</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_PIT_paid_foreigners<div class="fnode-sub">Thuế TNCN · TNCT ratio</div></div>
-            <div class="fnode n-pq">Payroll_Income_for_pit<div class="fnode-sub">Thu nhập ODA</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll salary<div class="fnode-sub">Lương theo project code</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll salary late<div class="fnode-sub">Lương muộn · Value late</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll code foreigners<div class="fnode-sub">BHXH công ty · workday ratio</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll Other bonus foreigners<div class="fnode-sub">Thu nhập khác</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll PIT refund foreigners<div class="fnode-sub">Hoàn thuế TNCN</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll PIT paid foreigners<div class="fnode-sub">Thuế TNCN · TNCT ratio</div></div>
+            <div class="fnode n-pq">Payroll Income for pit<div class="fnode-sub">Thu nhập ODA</div></div>
           </div>
         </div>
         <div class="flow-lane lane4">
           <div class="fnode" style="background:#4a148c;color:#fff;margin-bottom:10px">Table.Combine<div class="fnode-sub" style="color:#ce93d8">Gộp 17 bảng thành 1 fact table</div></div>
           <div class="v-arrow">↓</div>
-          <div class="fnode" style="background:#4a148c;color:#fff;margin-bottom:10px">Payroll (Fact Table)<div class="fnode-sub" style="color:#ce93d8">Value · Value_ver1 · Value_late · Different</div></div>
+          <div class="fnode" style="background:#4a148c;color:#fff;margin-bottom:10px">Payroll (Fact Table)<div class="fnode-sub" style="color:#ce93d8">Value · Value ver1 · Value late · Different</div></div>
           <div class="v-arrow">↓</div>
           <div class="fnode" style="background:#bf360c;color:#fff;margin-bottom:10px">Measure: Payroll Value<div class="fnode-sub" style="color:#ffccbc">ISINSCOPE 3 tầng · ROUND(,0)</div></div>
           <div class="v-arrow">↓</div>
@@ -370,8 +370,8 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
           <div style="background:#fff3e0;border:1px solid #ffcc80;border-radius:6px;padding:10px 12px;font-size:11.5px;color:#e65100;line-height:1.6">
             <div style="font-weight:700;margin-bottom:4px">Cột hiển thị:</div>
             <div>• <strong>Value</strong> — version mới nhất</div>
-            <div>• <strong>Value_ver1</strong> — version N-1</div>
-            <div>• <strong>Value_late</strong> — is_fixed=1</div>
+            <div>• <strong>Value ver1</strong> — version N-1</div>
+            <div>• <strong>Value late</strong> — is fixed=1</div>
             <div>• <strong>Different</strong> = Value − ver1</div>
           </div>
           <div style="height:12px"></div>
@@ -481,13 +481,13 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
     <span class="dot" style="background:var(--fg-muted,#888)"></span>Tất cả
   </div>
   <div class="mm-filter mm-filter-bp" data-group="bp">
-    <span class="dot" style="background:#3b5bdb"></span>base_payroll
+    <span class="dot" style="background:#3b5bdb"></span>Payroll
   </div>
   <div class="mm-filter mm-filter-bs" data-group="bs">
-    <span class="dot" style="background:#0c8599"></span>base_service
+    <span class="dot" style="background:#0c8599"></span>Service
   </div>
   <div class="mm-filter mm-filter-sc" data-group="sc">
-    <span class="dot" style="background:#c2410c"></span>base_schedule
+    <span class="dot" style="background:#c2410c"></span>Schedule
   </div>
   <div class="mm-filter mm-filter-dm" data-group="dm">
     <span class="dot" style="background:#2f9e44"></span>Danh mục
@@ -536,15 +536,15 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
 <text x="590" y="30" font-size="9" font-weight="700" fill="#aaa" letter-spacing="1.5" text-anchor="start">BẢNG ĐẦU RA</text>
 
 <!-- ════════════════════════════════════
-     GROUP BP: base_payroll
+     GROUP BP: Payroll
 ════════════════════════════════════ -->
 
 <!-- Source node BP -->
 <g class="mn" data-group="bp" data-id="bp-src" data-badge="NGUỒN" data-color="#3b5bdb"
-   data-title="base_payroll.record + base_payroll.payroll"
-   data-body="Bảng gốc lưu toàn bộ dữ liệu lương. Mỗi bản ghi có payroll_id, payroll_name (tên kỳ lương), payroll_status (approved/draft), report_month, report_year, và cột lương dạng JSONB chứa tất cả các khoản.">
+   data-title="Payroll.record + Payroll.payroll"
+   data-body="Bảng gốc lưu toàn bộ dữ liệu lương. Mỗi bản ghi có payroll id, payroll name (tên kỳ lương), payroll status (approved/draft), report month, report year, và cột lương dạng JSONB chứa tất cả các khoản.">
   <rect x="20" y="45" width="200" height="52" rx="10" fill="#3b5bdb" stroke="#2f4ec4" stroke-width="0.5"/>
-  <text x="120" y="67" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_payroll</text>
+  <text x="120" y="67" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Payroll</text>
   <text x="120" y="85" text-anchor="middle" font-size="10.5" fill="#a5b4fc">.record · .payroll</text>
 </g>
 
@@ -554,167 +554,167 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
 <!-- ── COND: approved + VN ── -->
 <line class="mc" data-group="bp" x1="120" y1="115" x2="285" y2="115" stroke="#3b5bdb" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
 <g class="mn" data-group="bp" data-id="cond-vn" data-badge="FILTER" data-color="#e67700"
-   data-title="payroll_status = approved · Payroll VN"
-   data-body="Lọc: payroll_status = 'approved' AND payroll_name LIKE '%Payroll VN%'. Đây là điều kiện bắt buộc cho tất cả bảng lương Việt Nam — record chưa approved sẽ không xuất hiện.">
+   data-title="payroll status = approved · Payroll VN"
+   data-body="Lọc: payroll status = 'approved' AND payroll name LIKE '%Payroll VN%'. Đây là điều kiện bắt buộc cho tất cả bảng lương Việt Nam — record chưa approved sẽ không xuất hiện.">
   <rect x="285" y="99" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
   <text x="389" y="116" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">approved · Payroll VN</text>
-  <text x="389" y="128" text-anchor="middle" font-size="10" fill="#997a00">payroll_status = 'approved'</text>
+  <text x="389" y="128" text-anchor="middle" font-size="10" fill="#997a00">payroll status = 'approved'</text>
 </g>
 <!-- cond → outputs tree vertical line -->
 <line class="mc" data-group="bp" x1="493" y1="116" x2="560" y2="116" stroke="#e67700" stroke-width="1" opacity=".5"/>
 <line class="mc" data-group="bp" x1="560" y1="90" x2="560" y2="316" stroke="#6741d9" stroke-width="0.5" opacity=".3"/>
 
-<!-- Payroll_ngay_luong -->
+<!-- Payroll ngay luong -->
 <line class="mc" data-group="bp" x1="560" y1="100" x2="590" y2="100" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bp" data-id="Payroll_ngay_luong" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_ngay_luong"
-   data-body="ROW_NUMBER() OVER (PARTITION BY payroll_id ORDER BY last_update DESC) = 1 → dedup bản ghi mới nhất → LATERAL jsonb_each_text(columns) → filter columns_key IN ('ngay_luong_co_so', 'ngay_co_so'). Power Query: replace value = 1 → 22.">
+<g class="mn" data-group="bp" data-id="Payroll ngay luong" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll ngay luong"
+   data-body="ROW NUMBER() OVER (PARTITION BY payroll id ORDER BY last update DESC) = 1 → dedup bản ghi mới nhất → LATERAL jsonb each text(columns) → filter columns key IN ('ngay luong co so', 'ngay co so'). Power Query: replace value = 1 → 22.">
   <rect x="590" y="82" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="99" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_ngay_luong</text>
+  <text x="740" y="99" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll ngay luong</text>
   <text x="740" y="113" text-anchor="middle" font-size="10" fill="#6741d9">Ngày công cơ sở · replace 1→22</text>
 </g>
 
-<!-- Payroll_code -->
+<!-- Payroll code -->
 <line class="mc" data-group="bp" x1="560" y1="140" x2="590" y2="140" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bp" data-id="Payroll_code" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_code"
-   data-body="jsonb unpivot → columns_key IN (tong_phu_cap, on_site, severance, bhxh, bhyt, bhtn, kpcd, actual_salary...) → JOIN base_salary (ngay_luong_co_so) → JOIN dpm (base_hrm + base_account) để lấy department.">
+<g class="mn" data-group="bp" data-id="Payroll code" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll code"
+   data-body="jsonb unpivot → columns key IN (tong phu cap, on site, severance, bhxh, bhyt, bhtn, kpcd, actual salary...) → JOIN base salary (ngay luong co so) → JOIN dpm (HRM + base account) để lấy department.">
   <rect x="590" y="124" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="141" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_code</text>
+  <text x="740" y="141" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll code</text>
   <text x="740" y="155" text-anchor="middle" font-size="10" fill="#6741d9">Lương & phụ cấp · BHXH · department</text>
 </g>
 
-<!-- Payroll_tet -->
+<!-- Payroll tet -->
 <line class="mc" data-group="bp" x1="560" y1="182" x2="590" y2="182" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bp" data-id="Payroll_tet" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_tet"
-   data-body="columns_key = 'thuong_tet' → JOIN fact_ticket_form_timesheet → tính MM = workday / ngay_luong_co_so từng tháng → cumsum theo kỳ quyết toán.">
+<g class="mn" data-group="bp" data-id="Payroll tet" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll tet"
+   data-body="columns key = 'thuong tet' → JOIN fact ticket form timesheet → tính MM = workday / ngay luong co so từng tháng → cumsum theo kỳ quyết toán.">
   <rect x="590" y="165" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="182" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_tet</text>
+  <text x="740" y="182" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll tet</text>
   <text x="740" y="196" text-anchor="middle" font-size="10" fill="#6741d9">Thưởng Tết · MM cumsum kỳ</text>
 </g>
 
-<!-- Payroll_t13 -->
+<!-- Payroll t13 -->
 <line class="mc" data-group="bp" x1="560" y1="224" x2="590" y2="224" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bp" data-id="Payroll_t13" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_t13"
-   data-body="columns_key = 'tien_luong_thang_13' → fCumsum theo kỳ: 7–12/2025 (kỳ đặc biệt), Q1 (tháng 1–3), Q2–Q4 (tháng 4–12). Merge key = Month_group, không phải tháng đơn lẻ.">
+<g class="mn" data-group="bp" data-id="Payroll t13" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll t13"
+   data-body="columns key = 'tien luong thang 13' → fCumsum theo kỳ: 7–12/2025 (kỳ đặc biệt), Q1 (tháng 1–3), Q2–Q4 (tháng 4–12). Merge key = Month group, không phải tháng đơn lẻ.">
   <rect x="590" y="207" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="224" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_t13</text>
+  <text x="740" y="224" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll t13</text>
   <text x="740" y="238" text-anchor="middle" font-size="10" fill="#6741d9">Lương tháng 13 · fCumsum kỳ Q</text>
 </g>
 
-<!-- Payroll_paid_leave -->
+<!-- Payroll paid leave -->
 <line class="mc" data-group="bp" x1="560" y1="266" x2="590" y2="266" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bp" data-id="Payroll_paid_leave" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_paid_leave"
-   data-body="columns_key = 'tien_tra_cho_cac_ngay_phep_con_lai' → JOIN timesheet → MM cumsum theo PayrollPeriods.">
+<g class="mn" data-group="bp" data-id="Payroll paid leave" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll paid leave"
+   data-body="columns key = 'tien tra cho cac ngay phep con lai' → JOIN timesheet → MM cumsum theo PayrollPeriods.">
   <rect x="590" y="249" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="266" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_paid_leave</text>
+  <text x="740" y="266" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll paid leave</text>
   <text x="740" y="280" text-anchor="middle" font-size="10" fill="#6741d9">Phép còn lại · MM cumsum</text>
 </g>
 
-<!-- Payroll_dpm -->
+<!-- Payroll dpm -->
 <line class="mc" data-group="bp" x1="560" y1="308" x2="590" y2="308" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bp" data-id="Payroll_dpm" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_dpm"
-   data-body="columns_key IN (phuc_loi_ho_tro_rua_xe, tien_phu_cap_sinh_nhat, tien_tro_cap_thoi_viec) → JOIN timesheet lấy department → gán vào dept code, không phải budget code. Sinh nhật · Hỗ trợ xe · Thôi việc.">
+<g class="mn" data-group="bp" data-id="Payroll dpm" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll dpm"
+   data-body="columns key IN (phuc loi ho tro rua xe, tien phu cap sinh nhat, tien tro cap thoi viec) → JOIN timesheet lấy department → gán vào dept code, không phải budget code. Sinh nhật · Hỗ trợ xe · Thôi việc.">
   <rect x="590" y="291" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="308" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_dpm</text>
+  <text x="740" y="308" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll dpm</text>
   <text x="740" y="322" text-anchor="middle" font-size="10" fill="#6741d9">Sinh nhật · Xe · Thôi việc → dept code</text>
 </g>
 
 <!-- ── COND: Foreigners ── -->
 <line class="mc" data-group="bp" x1="120" y1="370" x2="285" y2="370" stroke="#3b5bdb" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
 <g class="mn" data-group="bp" data-id="cond-fg" data-badge="FILTER" data-color="#e67700"
-   data-title="approved · Payroll for Foreigners / Late_*"
-   data-body="payroll_name LIKE '%Payroll for Foreigners%' hoặc ILIKE 'Late_%' → áp dụng manual_project_refs override (user_id 881111, 734858, 862716) → UNNEST project codes → CalcValue split/dup handling.">
+   data-title="approved · Payroll for Foreigners / Late *"
+   data-body="payroll name LIKE '%Payroll for Foreigners%' hoặc ILIKE 'Late %' → áp dụng manual project refs override (user id 881111, 734858, 862716) → UNNEST project codes → CalcValue split/dup handling.">
   <rect x="285" y="354" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
   <text x="389" y="371" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">approved · Foreigners</text>
-  <text x="389" y="383" text-anchor="middle" font-size="10" fill="#997a00">+ Late_* · project_refs</text>
+  <text x="389" y="383" text-anchor="middle" font-size="10" fill="#997a00">+ Late * · project refs</text>
 </g>
 <line class="mc" data-group="bp" x1="493" y1="371" x2="560" y2="371" stroke="#e67700" stroke-width="1" opacity=".5"/>
 <line class="mc" data-group="bp" x1="560" y1="356" x2="560" y2="576" stroke="#6741d9" stroke-width="0.5" opacity=".3"/>
 
-<!-- Payroll_salary -->
+<!-- Payroll salary -->
 <line class="mc" data-group="bp" x1="560" y1="366" x2="590" y2="366" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bp" data-id="Payroll_salary" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_salary"
-   data-body="manual_project_refs COALESCE hardcode → project_refs pivot (project_code/1/2) → LATERAL UNNEST project codes → CalcValue split/dup (16 cases). Output: value · project · ngay_luong_co_so · late = 'On-time'.">
+<g class="mn" data-group="bp" data-id="Payroll salary" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll salary"
+   data-body="manual project refs COALESCE hardcode → project refs pivot (project code/1/2) → LATERAL UNNEST project codes → CalcValue split/dup (16 cases). Output: value · project · ngay luong co so · late = 'On-time'.">
   <rect x="590" y="349" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="366" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_salary</text>
+  <text x="740" y="366" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll salary</text>
   <text x="740" y="380" text-anchor="middle" font-size="10" fill="#6741d9">Lương Foreigners · CalcValue · project</text>
 </g>
 
-<!-- Payroll_salary_late -->
+<!-- Payroll salary late -->
 <line class="mc" data-group="bp" x1="560" y1="408" x2="590" y2="408" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bp" data-id="Payroll_salary_late" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_salary_late"
-   data-body="payroll_name ILIKE 'Late_%' · Foreigners → logic giống Payroll_salary nhưng chỉ trả về Value_late. Dùng cho timesheet is_fixed=1 (fact_ticket_form_timesheet_1a).">
+<g class="mn" data-group="bp" data-id="Payroll salary late" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll salary late"
+   data-body="payroll name ILIKE 'Late %' · Foreigners → logic giống Payroll salary nhưng chỉ trả về Value late. Dùng cho timesheet is fixed=1 (fact ticket form timesheet 1a).">
   <rect x="590" y="391" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="408" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_salary_late</text>
-  <text x="740" y="422" text-anchor="middle" font-size="10" fill="#6741d9">Lương muộn Late_* · Value_late</text>
+  <text x="740" y="408" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll salary late</text>
+  <text x="740" y="422" text-anchor="middle" font-size="10" fill="#6741d9">Lương muộn Late * · Value late</text>
 </g>
 
-<!-- Payroll_Other_bonus -->
+<!-- Payroll Other bonus -->
 <line class="mc" data-group="bp" x1="560" y1="450" x2="590" y2="450" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bp" data-id="Payroll_Other_bonus_foreigners" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_Other_bonus_foreigners"
-   data-body="columns_key = 'thu_nhap_khac_tuong_duong_vnd' → approved → Anchor+Window cumsum MM logic.">
+<g class="mn" data-group="bp" data-id="Payroll Other bonus foreigners" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll Other bonus foreigners"
+   data-body="columns key = 'thu nhap khac tuong duong vnd' → approved → Anchor+Window cumsum MM logic.">
   <rect x="590" y="433" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="450" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_Other_bonus_foreigners</text>
+  <text x="740" y="450" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll Other bonus foreigners</text>
   <text x="740" y="464" text-anchor="middle" font-size="10" fill="#6741d9">Thu nhập khác · Anchor+Window MM</text>
 </g>
 
-<!-- Payroll_PIT_refund -->
+<!-- Payroll PIT refund -->
 <line class="mc" data-group="bp" x1="560" y1="492" x2="590" y2="492" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bp" data-id="Payroll_PIT_refund_foreigners" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_PIT_refund_foreigners"
-   data-body="columns_key = 'pit_refund_vnd' → approved → Anchor+Window cumsum × (−1). Kết quả âm vì là hoàn thuế.">
+<g class="mn" data-group="bp" data-id="Payroll PIT refund foreigners" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll PIT refund foreigners"
+   data-body="columns key = 'pit refund vnd' → approved → Anchor+Window cumsum × (−1). Kết quả âm vì là hoàn thuế.">
   <rect x="590" y="475" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="492" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_PIT_refund_foreigners</text>
+  <text x="740" y="492" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll PIT refund foreigners</text>
   <text x="740" y="506" text-anchor="middle" font-size="10" fill="#6741d9">Hoàn thuế TNCN · ×(−1)</text>
 </g>
 
-<!-- Payroll_PIT_paid -->
+<!-- Payroll PIT paid -->
 <line class="mc" data-group="bp" x1="560" y1="534" x2="590" y2="534" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bp" data-id="Payroll_PIT_paid_foreigners" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_PIT_paid_foreigners"
-   data-body="columns_key = 'thue_tncn' → JOIN Salary+Perdiem+Other_bonus+Adjustment+Income_pit → unpivot theo code/dpm → PIT ratio = TNCT code / tổng TNCT NV tháng → × thue_tncn.">
+<g class="mn" data-group="bp" data-id="Payroll PIT paid foreigners" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll PIT paid foreigners"
+   data-body="columns key = 'thue tncn' → JOIN Salary+Perdiem+Other bonus+Adjustment+Income pit → unpivot theo code/dpm → PIT ratio = TNCT code / tổng TNCT NV tháng → × thue tncn.">
   <rect x="590" y="517" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="534" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_PIT_paid_foreigners</text>
+  <text x="740" y="534" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll PIT paid foreigners</text>
   <text x="740" y="548" text-anchor="middle" font-size="10" fill="#6741d9">Thuế TNCN · TNCT ratio per code</text>
 </g>
 
 <!-- ── COND: bhxh + ODA ── -->
 <line class="mc" data-group="bp" x1="120" y1="610" x2="285" y2="610" stroke="#3b5bdb" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
 <g class="mn" data-group="bp" data-id="cond-bhxh" data-badge="FILTER" data-color="#e67700"
-   data-title="bhxh_chi_phi_cong_ty / thu_nhap_mien_thue_oda"
-   data-body="Hai columns_key đặc biệt → approved → JOIN timesheet → phân bổ theo workday ratio = workday dòng / SUM(workday) NV tháng.">
+   data-title="bhxh chi phi cong ty / thu nhap mien thue oda"
+   data-body="Hai columns key đặc biệt → approved → JOIN timesheet → phân bổ theo workday ratio = workday dòng / SUM(workday) NV tháng.">
   <rect x="285" y="594" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
-  <text x="389" y="611" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">bhxh_chi_phi_cong_ty</text>
-  <text x="389" y="623" text-anchor="middle" font-size="10" fill="#997a00">thu_nhap_mien_thue_oda</text>
+  <text x="389" y="611" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">bhxh chi phi cong ty</text>
+  <text x="389" y="623" text-anchor="middle" font-size="10" fill="#997a00">thu nhap mien thue oda</text>
 </g>
 <line class="mc" data-group="bp" x1="493" y1="611" x2="560" y2="611" stroke="#e67700" stroke-width="1" opacity=".5"/>
 <line class="mc" data-group="bp" x1="560" y1="601" x2="560" y2="651" stroke="#6741d9" stroke-width="0.5" opacity=".3"/>
 
-<!-- Payroll_code_foreigners -->
+<!-- Payroll code foreigners -->
 <line class="mc" data-group="bp" x1="560" y1="611" x2="590" y2="611" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bp" data-id="Payroll_code_foreigners" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_code_foreigners"
-   data-body="columns_key = 'bhxh_chi_phi_cong_ty' → JOIN timesheet → workday ratio = workday / SUM(workday) NV tháng → × giá trị bhxh.">
+<g class="mn" data-group="bp" data-id="Payroll code foreigners" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll code foreigners"
+   data-body="columns key = 'bhxh chi phi cong ty' → JOIN timesheet → workday ratio = workday / SUM(workday) NV tháng → × giá trị bhxh.">
   <rect x="590" y="594" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="611" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_code_foreigners</text>
+  <text x="740" y="611" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll code foreigners</text>
   <text x="740" y="625" text-anchor="middle" font-size="10" fill="#6741d9">BHXH công ty · workday ratio</text>
 </g>
 
-<!-- Payroll_Income_for_pit -->
+<!-- Payroll Income for pit -->
 <line class="mc" data-group="bp" x1="560" y1="651" x2="590" y2="651" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bp" data-id="Payroll_Income_for_pit" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_Income_for_pit"
-   data-body="columns_key = 'thu_nhap_mien_thue_oda' → approved → phân bổ workday ratio như Payroll_code_foreigners.">
+<g class="mn" data-group="bp" data-id="Payroll Income for pit" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll Income for pit"
+   data-body="columns key = 'thu nhap mien thue oda' → approved → phân bổ workday ratio như Payroll code foreigners.">
   <rect x="590" y="634" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="651" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_Income_for_pit</text>
+  <text x="740" y="651" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll Income for pit</text>
   <text x="740" y="665" text-anchor="middle" font-size="10" fill="#6741d9">Thu nhập ODA · workday ratio</text>
 </g>
 
@@ -722,13 +722,13 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
 <line x1="20" y1="700" x2="900" y2="700" stroke="#e5e7eb" stroke-width="0.5"/>
 
 <!-- ════════════════════════════════════
-     GROUP BS: base_service.ticket
+     GROUP BS: Service.ticket
 ════════════════════════════════════ -->
 <g class="mn" data-group="bs" data-id="bs-src" data-badge="NGUỒN" data-color="#0c8599"
-   data-title="base_service.ticket"
-   data-body="Bảng lưu tất cả ticket từ các service. Phân biệt qua service_id và block_id. Form data encode base64 trong cột form / ticket_root / root_export. Pattern: DISTINCT ON (root_id) ORDER BY last_update DESC để lấy version mới nhất.">
+   data-title="Service.ticket"
+   data-body="Bảng lưu tất cả ticket từ các service. Phân biệt qua service id và block id. Form data encode base64 trong cột form / ticket root / root export. Pattern: DISTINCT ON (root id) ORDER BY last update DESC để lấy version mới nhất.">
   <rect x="20" y="720" width="200" height="52" rx="10" fill="#0c8599" stroke="#0a6c7d" stroke-width="0.5"/>
-  <text x="120" y="742" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_service</text>
+  <text x="120" y="742" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Service</text>
   <text x="120" y="760" text-anchor="middle" font-size="10.5" fill="#a5f3fc">.ticket</text>
 </g>
 
@@ -738,60 +738,60 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
 <!-- ── COND svc 12071 ── -->
 <line class="mc" data-group="bs" x1="120" y1="790" x2="285" y2="790" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
 <g class="mn" data-group="bs" data-id="cond-svc12071" data-badge="FILTER" data-color="#e67700"
-   data-title="svc=12071 · block=12086 · DISTINCT ON root_id"
-   data-body="service_id=12071, block_id=12086 → DISTINCT ON (root_id) ORDER BY last_update DESC → form_effective = COALESCE(ticket_root→form, root_export→form, form) → base64 decode từng trường.">
+   data-title="svc=12071 · block=12086 · DISTINCT ON root id"
+   data-body="service id=12071, block id=12086 → DISTINCT ON (root id) ORDER BY last update DESC → form effective = COALESCE(ticket root→form, root export→form, form) → base64 decode từng trường.">
   <rect x="285" y="774" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
   <text x="389" y="791" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">svc=12071 · blk=12086</text>
-  <text x="389" y="803" text-anchor="middle" font-size="10" fill="#997a00">DISTINCT ON root_id</text>
+  <text x="389" y="803" text-anchor="middle" font-size="10" fill="#997a00">DISTINCT ON root id</text>
 </g>
 <line class="mc" data-group="bs" x1="493" y1="791" x2="560" y2="791" stroke="#e67700" stroke-width="1" opacity=".5"/>
 <line class="mc" data-group="bs" x1="560" y1="776" x2="560" y2="876" stroke="#6741d9" stroke-width="0.5" opacity=".3"/>
 
-<!-- Payroll_perform -->
+<!-- Payroll perform -->
 <line class="mc" data-group="bs" x1="560" y1="786" x2="590" y2="786" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bs" data-id="Payroll_perform" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_perform"
+<g class="mn" data-group="bs" data-id="Payroll perform" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll perform"
    data-body="form['Bonus Table'] base64 decode → JSON → JOIN timesheet → MM cumsum. Lưu ý: tháng luôn gán = 03/yyyy (tháng 3 năm quyết toán), bất kể chi trả thực tế khi nào.">
   <rect x="590" y="769" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="786" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_perform</text>
+  <text x="740" y="786" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll perform</text>
   <text x="740" y="800" text-anchor="middle" font-size="10" fill="#6741d9">Thưởng KPI · form base64 → tháng 03</text>
 </g>
 
-<!-- Payroll_adjustment -->
+<!-- Payroll adjustment -->
 <line class="mc" data-group="bs" x1="560" y1="828" x2="590" y2="828" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bs" data-id="Payroll_adjustment" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_adjustment"
-   data-body="form['Adjustment Table'] base64 → payment_month từ form['Payment in Payroll month']. Fallback: 11/2025 nếu để trống. Kiểm tra trường này trước khi submit ticket.">
+<g class="mn" data-group="bs" data-id="Payroll adjustment" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll adjustment"
+   data-body="form['Adjustment Table'] base64 → payment month từ form['Payment in Payroll month']. Fallback: 11/2025 nếu để trống. Kiểm tra trường này trước khi submit ticket.">
   <rect x="590" y="811" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="828" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_adjustment</text>
-  <text x="740" y="842" text-anchor="middle" font-size="10" fill="#6741d9">Điều chỉnh · payment_month</text>
+  <text x="740" y="828" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll adjustment</text>
+  <text x="740" y="842" text-anchor="middle" font-size="10" fill="#6741d9">Điều chỉnh · payment month</text>
 </g>
 
-<!-- Payroll_Offboarding -->
+<!-- Payroll Offboarding -->
 <line class="mc" data-group="bs" x1="560" y1="870" x2="590" y2="870" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bs" data-id="Payroll_Offboarding" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_Offboarding"
-   data-body="form['Offboarding Settlement Table'] base64 → payment_month từ form['Payment in Payroll month']. Fallback: 11/2025 nếu để trống.">
+<g class="mn" data-group="bs" data-id="Payroll Offboarding" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll Offboarding"
+   data-body="form['Offboarding Settlement Table'] base64 → payment month từ form['Payment in Payroll month']. Fallback: 11/2025 nếu để trống.">
   <rect x="590" y="853" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="870" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_Offboarding</text>
-  <text x="740" y="884" text-anchor="middle" font-size="10" fill="#6741d9">Quyết toán nghỉ việc · payment_month</text>
+  <text x="740" y="870" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll Offboarding</text>
+  <text x="740" y="884" text-anchor="middle" font-size="10" fill="#6741d9">Quyết toán nghỉ việc · payment month</text>
 </g>
 
 <!-- ── COND svc 12480 ── -->
 <line class="mc" data-group="bs" x1="120" y1="920" x2="285" y2="920" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
 <g class="mn" data-group="bs" data-id="cond-svc12480" data-badge="FILTER" data-color="#e67700"
    data-title="svc=12480 · block=12502 · Expense breakdown"
-   data-body="service_id=12480, block_id=12502 → DISTINCT ON root_id → form['Expense breakdown'] base64 decode → JOIN dim_user theo username.">
+   data-body="service id=12480, block id=12502 → DISTINCT ON root id → form['Expense breakdown'] base64 decode → JOIN dim user theo username.">
   <rect x="285" y="904" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
   <text x="389" y="921" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">svc=12480 · blk=12502</text>
   <text x="389" y="933" text-anchor="middle" font-size="10" fill="#997a00">form[Expense breakdown]</text>
 </g>
 <line class="mc" data-group="bs" x1="493" y1="921" x2="590" y2="921" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bs" data-id="Payroll_welfare" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_welfare"
-   data-body="svc=12480 block=12502 → DISTINCT ON root_id → form['Expense breakdown'] base64 → JSON → JOIN dim_user theo username. Output: user_id, expense_type, value, report_month.">
+<g class="mn" data-group="bs" data-id="Payroll welfare" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll welfare"
+   data-body="svc=12480 block=12502 → DISTINCT ON root id → form['Expense breakdown'] base64 → JSON → JOIN dim user theo username. Output: user id, expense type, value, report month.">
   <rect x="590" y="904" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="921" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_welfare</text>
+  <text x="740" y="921" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll welfare</text>
   <text x="740" y="935" text-anchor="middle" font-size="10" fill="#6741d9">Phúc lợi NV · Expense breakdown</text>
 </g>
 
@@ -799,7 +799,7 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
 <line class="mc" data-group="bs" x1="120" y1="1000" x2="285" y2="1000" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
 <g class="mn" data-group="bs" data-id="cond-ts" data-badge="FILTER" data-color="#e67700"
    data-title="svc=11998 · block IN (12009,16591) · date > 31/12/2025"
-   data-body="service_id=11998, block_id IN (12009, 16591), root_id &lt;&gt; 0 → DISTINCT ON root_id → form['Timesheet table'] base64 → explode rows → to_date(month_display, 'DD/MM/YYYY') → filter date > '2025-12-31'. Khác nhau giữa 3 bảng chỉ ở dedup logic trong Power Query.">
+   data-body="service id=11998, block id IN (12009, 16591), root id &lt;&gt; 0 → DISTINCT ON root id → form['Timesheet table'] base64 → explode rows → to date(month display, 'DD/MM/YYYY') → filter date > '2025-12-31'. Khác nhau giữa 3 bảng chỉ ở dedup logic trong Power Query.">
   <rect x="285" y="984" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
   <text x="389" y="1001" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">svc=11998 · blk 12009/16591</text>
   <text x="389" y="1013" text-anchor="middle" font-size="10" fill="#997a00">date &gt; 31/12/2025</text>
@@ -807,64 +807,64 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
 <line class="mc" data-group="bs" x1="493" y1="1001" x2="560" y2="1001" stroke="#e67700" stroke-width="1" opacity=".5"/>
 <line class="mc" data-group="bs" x1="560" y1="991" x2="560" y2="1083" stroke="#6741d9" stroke-width="0.5" opacity=".3"/>
 
-<!-- fact_timesheet latest -->
+<!-- fact timesheet latest -->
 <line class="mc" data-group="bs" x1="560" y1="1001" x2="590" y2="1001" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bs" data-id="fact_ticket_form_timesheet" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="fact_ticket_form_timesheet (version mới nhất)"
-   data-body="Dedup: lấy version mới nhất (rn_desc=1). Cột output: ticket_id, username, department, date, shift, workday, timeoff, code_of_budget (base64), pic (base64). Dùng cho Value trong hầu hết các bảng Payroll_*.">
+<g class="mn" data-group="bs" data-id="fact ticket form timesheet" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="fact ticket form timesheet (version mới nhất)"
+   data-body="Dedup: lấy version mới nhất (rn desc=1). Cột output: ticket id, username, department, date, shift, workday, timeoff, code of budget (base64), pic (base64). Dùng cho Value trong hầu hết các bảng Payroll *.">
   <rect x="590" y="984" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="1001" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact_ticket_form_timesheet</text>
-  <text x="740" y="1015" text-anchor="middle" font-size="10" fill="#6741d9">Version mới nhất · workday · code_budget</text>
+  <text x="740" y="1001" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact ticket form timesheet</text>
+  <text x="740" y="1015" text-anchor="middle" font-size="10" fill="#6741d9">Version mới nhất · workday · code budget</text>
 </g>
 
-<!-- fact_timesheet_1a -->
+<!-- fact timesheet 1a -->
 <line class="mc" data-group="bs" x1="560" y1="1041" x2="590" y2="1041" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bs" data-id="fact_ticket_form_timesheet_1a" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="fact_ticket_form_timesheet_1a (is_fixed=1)"
-   data-body="is_fixed=1 — luôn lấy toàn bộ không dedup theo version. Dùng riêng cho Payroll_salary_late (Value_late). Cùng SQL nguồn với timesheet_latest, khác biệt nằm ở Power Query dedup logic.">
+<g class="mn" data-group="bs" data-id="fact ticket form timesheet 1a" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="fact ticket form timesheet 1a (is fixed=1)"
+   data-body="is fixed=1 — luôn lấy toàn bộ không dedup theo version. Dùng riêng cho Payroll salary late (Value late). Cùng SQL nguồn với timesheet latest, khác biệt nằm ở Power Query dedup logic.">
   <rect x="590" y="1025" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="1042" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact_ticket_form_timesheet_1a</text>
-  <text x="740" y="1056" text-anchor="middle" font-size="10" fill="#6741d9">is_fixed = 1 · Value_late</text>
+  <text x="740" y="1042" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact ticket form timesheet 1a</text>
+  <text x="740" y="1056" text-anchor="middle" font-size="10" fill="#6741d9">is fixed = 1 · Value late</text>
 </g>
 
-<!-- Payroll_perdiem -->
+<!-- Payroll perdiem -->
 <line class="mc" data-group="bs" x1="560" y1="1083" x2="590" y2="1083" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="bs" data-id="Payroll_perdiem" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_perdiem"
-   data-body="luong.Perdiem từ base_service.ticket → JOIN dim_user theo employee_code(=code) + username. Value = non_taxable + taxable. Đây là bảng trung gian trên data_mart, không truy vấn thẳng từ data_warehouse.">
+<g class="mn" data-group="bs" data-id="Payroll perdiem" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll perdiem"
+   data-body="luong.Perdiem từ Service.ticket → JOIN dim user theo employee code(=code) + username. Value = non taxable + taxable. Đây là bảng trung gian trên data mart, không truy vấn thẳng từ data warehouse.">
   <rect x="590" y="1066" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="1083" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_perdiem</text>
-  <text x="740" y="1097" text-anchor="middle" font-size="10" fill="#6741d9">Công tác phí · non_taxable + taxable</text>
+  <text x="740" y="1083" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll perdiem</text>
+  <text x="740" y="1097" text-anchor="middle" font-size="10" fill="#6741d9">Công tác phí · non taxable + taxable</text>
 </g>
 
 <!-- Divider -->
 <line x1="20" y1="1130" x2="900" y2="1130" stroke="#e5e7eb" stroke-width="0.5"/>
 
 <!-- ════════════════════════════════════
-     GROUP SC: base_schedule
+     GROUP SC: Schedule
 ════════════════════════════════════ -->
 <g class="mn" data-group="sc" data-id="sc-src" data-badge="NGUỒN" data-color="#c2410c"
-   data-title="base_schedule.overtime + base_schedule.request"
-   data-body="Bảng tăng ca. JOIN request (status=confirmed) để lấy OT đã được xác nhận. Tính tong_tien_tang_ca từ base_payroll, sau đó phân bổ theo paid_hours ratio của từng dòng OT trong tháng.">
+   data-title="Schedule.overtime + Schedule.request"
+   data-body="Bảng tăng ca. JOIN request (status=confirmed) để lấy OT đã được xác nhận. Tính tong tien tang ca từ Payroll, sau đó phân bổ theo paid hours ratio của từng dòng OT trong tháng.">
   <rect x="20" y="1150" width="200" height="52" rx="10" fill="#c2410c" stroke="#9a3412" stroke-width="0.5"/>
-  <text x="120" y="1172" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_schedule</text>
+  <text x="120" y="1172" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Schedule</text>
   <text x="120" y="1190" text-anchor="middle" font-size="10.5" fill="#fed7aa">.overtime · .request</text>
 </g>
 <g class="mn" data-group="sc" data-id="cond-ot" data-badge="FILTER" data-color="#e67700"
-   data-title="status = confirmed · paid_hours ratio"
-   data-body="JOIN base_schedule.request WHERE status='confirmed' → JOIN base_payroll (tong_tien_tang_ca) → ratio = paid_hours dòng OT / SUM(paid_hours) NV trong tháng → × tong_tien_tang_ca → phân bổ vào code/dpm tương ứng.">
+   data-title="status = confirmed · paid hours ratio"
+   data-body="JOIN Schedule.request WHERE status='confirmed' → JOIN Payroll (tong tien tang ca) → ratio = paid hours dòng OT / SUM(paid hours) NV trong tháng → × tong tien tang ca → phân bổ vào code/dpm tương ứng.">
   <rect x="285" y="1158" width="208" height="36" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
   <text x="389" y="1175" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">status = confirmed</text>
-  <text x="389" y="1187" text-anchor="middle" font-size="10" fill="#997a00">paid_hours ratio</text>
+  <text x="389" y="1187" text-anchor="middle" font-size="10" fill="#997a00">paid hours ratio</text>
 </g>
 <line class="mc" data-group="sc" x1="220" y1="1176" x2="285" y2="1176" stroke="#c2410c" stroke-width="1" opacity=".5"/>
 <line class="mc" data-group="sc" x1="493" y1="1176" x2="590" y2="1176" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
-<g class="mn" data-group="sc" data-id="Payroll_ot" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="Payroll_ot"
-   data-body="paid_hours ratio = paid_hours của dòng / SUM(paid_hours) NV tháng × tong_tien_tang_ca. Phân bổ vào đúng code/dpm. Output: user_id, code, value, report_month.">
+<g class="mn" data-group="sc" data-id="Payroll ot" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll ot"
+   data-body="paid hours ratio = paid hours của dòng / SUM(paid hours) NV tháng × tong tien tang ca. Phân bổ vào đúng code/dpm. Output: user id, code, value, report month.">
   <rect x="590" y="1158" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="1175" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_ot</text>
-  <text x="740" y="1189" text-anchor="middle" font-size="10" fill="#6741d9">Tăng ca · paid_hours ratio per code</text>
+  <text x="740" y="1175" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll ot</text>
+  <text x="740" y="1189" text-anchor="middle" font-size="10" fill="#6741d9">Tăng ca · paid hours ratio per code</text>
 </g>
 
 <!-- Divider -->
@@ -876,60 +876,60 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
 <text x="20" y="1258" font-size="9" font-weight="700" fill="#aaa" letter-spacing="1.5">DANH MỤC</text>
 
 <g class="mn" data-group="dm" data-id="dm-hrm" data-badge="NGUỒN" data-color="#2f9e44"
-   data-title="base_hrm.employee + base_account.group"
-   data-body="LEFT JOIN office, position, area, team, employee_type. COALESCE(g.username, regexp_replace(email)) để tạo username khi thiếu. Power Query: UNION User_past + replace username NKV/outsource (buithituyetsinhnkv→sinhbtt, nkvvip01→patersoni, nkvvip07→davidmj...).">
+   data-title="HRM.employee + base account.group"
+   data-body="LEFT JOIN office, position, area, team, employee type. COALESCE(g.username, regexp replace(email)) để tạo username khi thiếu. Power Query: UNION User past + replace username NKV/outsource (buithituyetsinhnkv→sinhbtt, nkvvip01→patersoni, nkvvip07→davidmj...).">
   <rect x="20" y="1268" width="200" height="52" rx="10" fill="#2f9e44" stroke="#237032" stroke-width="0.5"/>
-  <text x="120" y="1290" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_hrm</text>
-  <text x="120" y="1308" text-anchor="middle" font-size="10.5" fill="#b2f2bb">.employee + base_account</text>
+  <text x="120" y="1290" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">HRM</text>
+  <text x="120" y="1308" text-anchor="middle" font-size="10.5" fill="#b2f2bb">.employee + base account</text>
 </g>
 <line class="mc" data-group="dm" x1="220" y1="1294" x2="590" y2="1294" stroke="#2f9e44" stroke-width="1" marker-end="url(#arr-dm)"/>
-<g class="mn" data-group="dm" data-id="dim_user" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="dim_user"
-   data-body="DISTINCT → COALESCE(g.username, regexp email). Power Query: UNION User_past (NV off-board) + replace username NKV: buithituyetsinhnkv→sinhbtt, nkvvip01→patersoni, nkvvip07→davidmj, nguyenthithaonkv→thaont, dohoainamtohoku→namdh.">
+<g class="mn" data-group="dm" data-id="dim user" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="dim user"
+   data-body="DISTINCT → COALESCE(g.username, regexp email). Power Query: UNION User past (NV off-board) + replace username NKV: buithituyetsinhnkv→sinhbtt, nkvvip01→patersoni, nkvvip07→davidmj, nguyenthithaonkv→thaont, dohoainamtohoku→namdh.">
   <rect x="590" y="1277" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="1294" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim_user</text>
-  <text x="740" y="1308" text-anchor="middle" font-size="10" fill="#6741d9">NV · username · UNION User_past</text>
+  <text x="740" y="1294" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim user</text>
+  <text x="740" y="1308" text-anchor="middle" font-size="10" fill="#6741d9">NV · username · UNION User past</text>
 </g>
 
 <g class="mn" data-group="dm" data-id="dm-tbl82" data-badge="NGUỒN" data-color="#2f9e44"
-   data-title="base_table.data — table_id = 82"
-   data-body="SELECT id, vals, user_id, last_update WHERE table_id='82'. vals là JSONB chứa code_of_budget_plan và các thông tin ngân sách. Đây là bảng danh mục dùng chung, phân biệt loại bởi table_id.">
+   data-title="Table.data — table id = 82"
+   data-body="SELECT id, vals, user id, last update WHERE table id='82'. vals là JSONB chứa code of budget plan và các thông tin ngân sách. Đây là bảng danh mục dùng chung, phân biệt loại bởi table id.">
   <rect x="20" y="1340" width="200" height="52" rx="10" fill="#2f9e44" stroke="#237032" stroke-width="0.5"/>
-  <text x="120" y="1360" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_table.data</text>
-  <text x="120" y="1378" text-anchor="middle" font-size="10.5" fill="#b2f2bb">table_id = 82</text>
+  <text x="120" y="1360" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Table.data</text>
+  <text x="120" y="1378" text-anchor="middle" font-size="10.5" fill="#b2f2bb">table id = 82</text>
 </g>
 <line class="mc" data-group="dm" x1="220" y1="1366" x2="590" y2="1366" stroke="#2f9e44" stroke-width="1" marker-end="url(#arr-dm)"/>
-<g class="mn" data-group="dm" data-id="dim_table_code" data-badge="PQ TABLE" data-color="#6741d9"
-   data-title="dim_table_code"
-   data-body="base_table.data WHERE table_id='82' → id, vals, user_id, last_update. vals JSONB chứa code_of_budget_plan, tên code, thông tin nhóm ngân sách.">
+<g class="mn" data-group="dm" data-id="dim table code" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="dim table code"
+   data-body="Table.data WHERE table id='82' → id, vals, user id, last update. vals JSONB chứa code of budget plan, tên code, thông tin nhóm ngân sách.">
   <rect x="590" y="1349" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-  <text x="740" y="1366" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim_table_code</text>
+  <text x="740" y="1366" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim table code</text>
   <text x="740" y="1380" text-anchor="middle" font-size="10" fill="#6741d9">Code ngân sách · vals JSONB</text>
 </g>
 
 <g class="mn" data-group="dm" data-id="dm-tbl69" data-badge="NGUỒN" data-color="#2f9e44"
-   data-title="base_table.data — table_id = 69"
-   data-body="SELECT id, vals, user_id, last_update WHERE table_id='69'. Power Query: filter type &lt;&gt; '' để loại bỏ dòng trống, replace 'Business Development 1' → 'Business Development Department'.">
+   data-title="Table.data — table id = 69"
+   data-body="SELECT id, vals, user id, last update WHERE table id='69'. Power Query: filter type &lt;&gt; '' để loại bỏ dòng trống, replace 'Business Development 1' → 'Business Development Department'.">
   <rect x="20" y="1412" width="200" height="52" rx="10" fill="#2f9e44" stroke="#237032" stroke-width="0.5"/>
-  <text x="120" y="1432" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_table.data</text>
-  <text x="120" y="1450" text-anchor="middle" font-size="10.5" fill="#b2f2bb">table_id = 69</text>
+  <text x="120" y="1432" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Table.data</text>
+  <text x="120" y="1450" text-anchor="middle" font-size="10.5" fill="#b2f2bb">table id = 69</text>
 </g>
 <line class="mc" data-group="dm" x1="220" y1="1438" x2="590" y2="1438" stroke="#2f9e44" stroke-width="1" marker-end="url(#arr-dm)"/>
 <g class="mn" data-group="dm" data-id="department" data-badge="PQ TABLE" data-color="#6741d9"
    data-title="department"
-   data-body="base_table.data WHERE table_id='69'. Power Query: filter type &lt;&gt; '' (loại dòng trống), replace 'Business Development 1' → 'Business Development Department'.">
+   data-body="Table.data WHERE table id='69'. Power Query: filter type &lt;&gt; '' (loại dòng trống), replace 'Business Development 1' → 'Business Development Department'.">
   <rect x="590" y="1421" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
   <text x="740" y="1438" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">department</text>
-  <text x="740" y="1452" text-anchor="middle" font-size="10" fill="#6741d9">Phòng ban · table_id=69</text>
+  <text x="740" y="1452" text-anchor="middle" font-size="10" fill="#6741d9">Phòng ban · table id=69</text>
 </g>
 
 </svg>
 
 <!-- Legend -->
 <div class="mm-legend">
-  <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#3b5bdb"></div>base_payroll (nguồn lương)</div>
-  <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#0c8599"></div>base_service (ticket/form)</div>
-  <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#c2410c"></div>base_schedule (tăng ca)</div>
+  <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#3b5bdb"></div>Payroll (nguồn lương)</div>
+  <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#0c8599"></div>Service (ticket/form)</div>
+  <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#c2410c"></div>Schedule (tăng ca)</div>
   <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#2f9e44"></div>Danh mục (dim)</div>
   <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#f59f00;border-radius:2px"></div>Điều kiện lọc</div>
   <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#6741d9;border-radius:2px"></div>Bảng đầu ra (Power Query)</div>
@@ -1025,38 +1025,38 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
     <p class="ph-desc">Các điều kiện dữ liệu đầu vào phải đảm bảo để báo cáo ra đúng số</p>
   </div>
 
-  <div class="sub"><div class="sub-bar"></div>Payroll record (base_payroll.record)</div>
+  <div class="sub"><div class="sub-bar"></div>Payroll record (Payroll.record)</div>
   <div style="display:flex;flex-direction:column;gap:10px">
     <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — Tên payroll phải đúng quy ước</div>
-      <div class="adm-body">Nhiều bảng lọc theo <code>payroll_name</code>. Sai tên → mất dữ liệu hoàn toàn:<br>• Payroll VN → <code>LIKE '%Payroll VN%'</code><br>• Foreigners → <code>LIKE '%Payroll for Foreigners%'</code><br>• Late → <code>ILIKE 'Late_%'</code></div></div>
+      <div class="adm-body">Nhiều bảng lọc theo <code>payroll name</code>. Sai tên → mất dữ liệu hoàn toàn:<br>• Payroll VN → <code>LIKE '%Payroll VN%'</code><br>• Foreigners → <code>LIKE '%Payroll for Foreigners%'</code><br>• Late → <code>ILIKE 'Late %'</code></div></div>
     <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — Status phải là approved trước khi refresh</div>
-      <div class="adm-body">Hầu hết các bảng lọc <code>payroll_status = 'approved'</code>. Record chưa approve sẽ không xuất hiện dù đã nhập đủ dữ liệu.</div></div>
-    <div class="adm note"><div class="adm-title">ℹ Lưu ý — report_month và report_year phải điền đúng</div>
-      <div class="adm-body">Báo cáo dùng <code>make_date(report_year, report_month, 1)</code>. Để trống → dòng bị drop hoặc sai tháng.</div></div>
-    <div class="adm warning"><div class="adm-title">⚠ Foreigners — project_code bắt buộc có giá trị</div>
-      <div class="adm-body"><code>Payroll_salary</code> dùng <code>project_code / project_code_1 / project_code_2</code> để xác định <code>code/dpm</code>. Thiếu → không phân bổ được.<br>Hardcode override trong <code>manual_project_refs</code>: user_id <code>881111</code>, <code>734858</code>, <code>862716</code>.</div></div>
+      <div class="adm-body">Hầu hết các bảng lọc <code>payroll status = 'approved'</code>. Record chưa approve sẽ không xuất hiện dù đã nhập đủ dữ liệu.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ Lưu ý — report month và report year phải điền đúng</div>
+      <div class="adm-body">Báo cáo dùng <code>make date(report year, report month, 1)</code>. Để trống → dòng bị drop hoặc sai tháng.</div></div>
+    <div class="adm warning"><div class="adm-title">⚠ Foreigners — project code bắt buộc có giá trị</div>
+      <div class="adm-body"><code>Payroll salary</code> dùng <code>project code / project code 1 / project code 2</code> để xác định <code>code/dpm</code>. Thiếu → không phân bổ được.<br>Hardcode override trong <code>manual project refs</code>: user id <code>881111</code>, <code>734858</code>, <code>862716</code>.</div></div>
   </div>
 
-  <div class="sub"><div class="sub-bar"></div>Timesheet (base_service.ticket svc=11998)</div>
+  <div class="sub"><div class="sub-bar"></div>Timesheet (Service.ticket svc=11998)</div>
   <div style="display:flex;flex-direction:column;gap:10px">
     <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — "Month of timesheet" phải đúng định dạng DD/MM/YYYY</div>
-      <div class="adm-body">Parse bằng <code>to_date(month_display, 'DD/MM/YYYY')</code>. Sai hoặc trống → <code>date = NULL</code> → dòng bị loại.</div></div>
+      <div class="adm-body">Parse bằng <code>to date(month display, 'DD/MM/YYYY')</code>. Sai hoặc trống → <code>date = NULL</code> → dòng bị loại.</div></div>
     <div class="adm note"><div class="adm-title">ℹ Chỉ lấy dữ liệu sau 31/12/2025</div>
-      <div class="adm-body">3 bảng timesheet trên data_mart đều filter <code>date &gt; '2025-12-31'</code>.</div></div>
-    <div class="adm note"><div class="adm-title">ℹ block_id phải thuộc (12009, 16591)</div>
+      <div class="adm-body">3 bảng timesheet trên data mart đều filter <code>date &gt; '2025-12-31'</code>.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ block id phải thuộc (12009, 16591)</div>
       <div class="adm-body">Ticket submit vào block khác sẽ không được đọc. Kiểm tra cấu hình service nếu có ticket mới không lên báo cáo.</div></div>
-    <div class="adm tip"><div class="adm-title">✦ ngay_luong_co_so = 1 được replace thành 22</div>
-      <div class="adm-body">Power Query replace <code>1 → 22</code> trong <code>Payroll_ngay_luong</code>. Xử lý đặc biệt cho giá trị mặc định hệ thống.</div></div>
+    <div class="adm tip"><div class="adm-title">✦ ngay luong co so = 1 được replace thành 22</div>
+      <div class="adm-body">Power Query replace <code>1 → 22</code> trong <code>Payroll ngay luong</code>. Xử lý đặc biệt cho giá trị mặc định hệ thống.</div></div>
   </div>
 
-  <div class="sub"><div class="sub-bar"></div>dim_user / Nhân viên</div>
+  <div class="sub"><div class="sub-bar"></div>dim user / Nhân viên</div>
   <div style="display:flex;flex-direction:column;gap:10px">
     <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — Username phải unique và nhất quán</div>
-      <div class="adm-body">Nhiều bảng join qua <code>username</code>. Username trong timesheet khác <code>dim_user</code> → không match → dữ liệu null.<br>
+      <div class="adm-body">Nhiều bảng join qua <code>username</code>. Username trong timesheet khác <code>dim user</code> → không match → dữ liệu null.<br>
       Danh sách replace: <code>buithituyetsinhnkv→sinhbtt</code> · <code>nkvvip01→patersoni</code> · <code>nkvvip07→davidmj</code> · <code>nguyenthithaonkv→thaont</code> · <code>dohoainamtohoku→namdh</code><br>
       <strong>Cập nhật khi thêm NV NKV/outsource mới.</strong></div></div>
-    <div class="adm note"><div class="adm-title">ℹ NV nghỉ việc cần bổ sung vào User_past</div>
-      <div class="adm-body"><code>dim_user = man_month.dim_user UNION User_past</code>. NV off-board bị xóa khỏi HRM sẽ mất tên trừ khi thêm vào <code>User_past</code>.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ NV nghỉ việc cần bổ sung vào User past</div>
+      <div class="adm-body"><code>dim user = man month.dim user UNION User past</code>. NV off-board bị xóa khỏi HRM sẽ mất tên trừ khi thêm vào <code>User past</code>.</div></div>
   </div>
 </div>
 
@@ -1071,23 +1071,23 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
   <div class="sub"><div class="sub-bar"></div>Measure Payroll Value — logic 3 tầng</div>
   <div style="display:flex;flex-direction:column;gap:10px">
     <div class="adm note"><div class="adm-title">ℹ Cơ chế — ISINSCOPE xác định tầng hiển thị</div>
-      <div class="adm-body">Measure dùng <code>ISINSCOPE</code> để nhận biết tầng: <code>_isMonth</code> / <code>_isEmployee</code> / <code>_isCode</code>.<br>Row field trong matrix phải đúng thứ tự: <strong>Month-Year → Employee → code/dpm</strong>.</div></div>
-    <div class="adm warning"><div class="adm-title">⚠ Quan trọng — _isDeptRow phụ thuộc dim_code_dpm phải đầy đủ</div>
-      <div class="adm-body">Rounding diff chỉ gán vào dept code row (<code>_isDeptRow = TRUE</code>). Nếu dept code (vd <code>BD1</code>) thiếu trong <code>dim_code_dpm</code> → rounding diff không gán được → tổng NV lệch.<br><strong>Thêm phòng ban mới phải cập nhật dim_code_dpm ngay.</strong></div></div>
+      <div class="adm-body">Measure dùng <code>ISINSCOPE</code> để nhận biết tầng: <code> isMonth</code> / <code> isEmployee</code> / <code> isCode</code>.<br>Row field trong matrix phải đúng thứ tự: <strong>Month-Year → Employee → code/dpm</strong>.</div></div>
+    <div class="adm warning"><div class="adm-title">⚠ Quan trọng —  isDeptRow phụ thuộc dim code dpm phải đầy đủ</div>
+      <div class="adm-body">Rounding diff chỉ gán vào dept code row (<code> isDeptRow = TRUE</code>). Nếu dept code (vd <code>BD1</code>) thiếu trong <code>dim code dpm</code> → rounding diff không gán được → tổng NV lệch.<br><strong>Thêm phòng ban mới phải cập nhật dim code dpm ngay.</strong></div></div>
     <div class="adm note"><div class="adm-title">ℹ Basic day và Working day không áp dụng rounding diff</div>
       <div class="adm-body">Hai type này xử lý riêng — không cộng rounding diff dù là dept row. Đây là số ngày, không phải tiền.</div></div>
-    <div class="adm warning"><div class="adm-title">⚠ SELECTEDVALUE trên dim_user có thể trả BLANK</div>
-      <div class="adm-body">2 NV trùng <code>name</code> → <code>SELECTEDVALUE(dim_user[user_id])</code> = BLANK → số lương = 0.<br>Dùng <code>SELECTEDVALUE(Payroll[user_id])</code> từ fact table thay thế.</div></div>
+    <div class="adm warning"><div class="adm-title">⚠ SELECTEDVALUE trên dim user có thể trả BLANK</div>
+      <div class="adm-body">2 NV trùng <code>name</code> → <code>SELECTEDVALUE(dim user[user id])</code> = BLANK → số lương = 0.<br>Dùng <code>SELECTEDVALUE(Payroll[user id])</code> từ fact table thay thế.</div></div>
     <div class="adm note"><div class="adm-title">ℹ Toàn bộ kết quả ROUND về 0 chữ số thập phân</div>
-      <div class="adm-body">Measure wrap trong <code>ROUND(_result, 0)</code>. Lệch ±1 VND giữa dòng code/dpm và tổng NV là bình thường — rounding diff ở dept row bù lại.</div></div>
+      <div class="adm-body">Measure wrap trong <code>ROUND( result, 0)</code>. Lệch ±1 VND giữa dòng code/dpm và tổng NV là bình thường — rounding diff ở dept row bù lại.</div></div>
   </div>
 
   <div class="sub"><div class="sub-bar"></div>Phân bổ MM (Man-month)</div>
   <div style="display:flex;flex-direction:column;gap:10px">
     <div class="adm warning"><div class="adm-title">⚠ fCumsum nhóm theo kỳ lương — không phải từng tháng</div>
       <div class="adm-body">• <strong>7–12/2025</strong>: kỳ đặc biệt<br>• <strong>Q1 năm</strong>: tháng 1–3<br>• <strong>Q2–Q4 năm</strong>: tháng 4–12<br>Timesheet nhập sai tháng → bị phân vào kỳ sai → MM cumsum lệch.</div></div>
-    <div class="adm note"><div class="adm-title">ℹ Value / Value_ver1 / Value_late là 3 cột hoàn toàn khác nhau</div>
-      <div class="adm-body">• <code>Value</code>: timesheet version mới nhất<br>• <code>Value_ver1</code>: version N-1 để so sánh<br>• <code>Value_late</code>: từ fact_ticket_form_timesheet_1a (is_fixed=1)<br>Cột <code>Different = Value - Value_ver1</code> để trace chênh lệch.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ Value / Value ver1 / Value late là 3 cột hoàn toàn khác nhau</div>
+      <div class="adm-body">• <code>Value</code>: timesheet version mới nhất<br>• <code>Value ver1</code>: version N-1 để so sánh<br>• <code>Value late</code>: từ fact ticket form timesheet 1a (is fixed=1)<br>Cột <code>Different = Value - Value ver1</code> để trace chênh lệch.</div></div>
   </div>
 </div>
 
@@ -1103,11 +1103,11 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
   <ul class="checklist">
     <li><span class="ci ci-ok">✓</span><span><strong>Số tổng nhân viên (tầng Employee)</strong> là số đúng để đối chiếu phiếu lương. Tổng dòng code/dpm = tổng NV sau khi cộng rounding diff ở dept row.</span></li>
     <li><span class="ci ci-ok">✓</span><span><strong>Luôn filter theo tháng cụ thể</strong> khi kiểm tra số lương. Xem nhiều tháng cùng lúc sẽ cộng dồn — dễ nhầm với số quyết toán.</span></li>
-    <li><span class="ci ci-warn">!</span><span><strong>Payroll_t13 / Tet bonus / Paid leave:</strong> số tiền chỉ hiện ở <em>tháng chi trả</em>. Filter tháng khác → thấy = 0.</span></li>
+    <li><span class="ci ci-warn">!</span><span><strong>Payroll t13 / Tet bonus / Paid leave:</strong> số tiền chỉ hiện ở <em>tháng chi trả</em>. Filter tháng khác → thấy = 0.</span></li>
     <li><span class="ci ci-warn">!</span><span><strong>Performance bonus:</strong> luôn gán tháng <code>03/yyyy</code> bất kể thực tế chi trả khi nào. Chú ý khi xem Q1.</span></li>
     <li><span class="ci ci-warn">!</span><span><strong>Adjustment / Offboarding:</strong> tháng lấy từ <code>Payment in Payroll month</code> trong form. Để trống → fallback về <code>11/2025</code>.</span></li>
     <li><span class="ci ci-bad">✗</span><span><strong>Không filter theo department ở tầng code/dpm</strong> — Birthday, Car support, Severance gán vào dept code, filter sẽ cắt mất.</span></li>
-    <li><span class="ci ci-bad">✗</span><span><strong>Không so sánh Value_ver1 với Value tháng khác.</strong> Value_ver1 là version N-1 của cùng tháng đó. Dùng cột <code>Different</code> để trace.</span></li>
+    <li><span class="ci ci-bad">✗</span><span><strong>Không so sánh Value ver1 với Value tháng khác.</strong> Value ver1 là version N-1 của cùng tháng đó. Dùng cột <code>Different</code> để trace.</span></li>
   </ul>
 
   <div class="sub" style="margin-top:32px"><div class="sub-bar"></div>Checklist trước khi gửi báo cáo</div>
@@ -1115,11 +1115,11 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
     <table>
       <thead><tr><th>Kiểm tra</th><th>Cách verify</th><th>Thời điểm</th></tr></thead>
       <tbody>
-        <tr><td>Tất cả payroll record đã approved</td><td><code>base_payroll.payroll</code> — status = approved</td><td class="ok">Trước mỗi refresh</td></tr>
-        <tr><td>Timesheet tháng hiện tại đã submit</td><td>Ticket svc=11998 có block_id 12009/16591</td><td class="ok">Trước mỗi refresh</td></tr>
-        <tr><td>dim_code_dpm đủ dept code</td><td>So sánh <code>dim_user[department]</code> vs <code>dim_code_dpm</code></td><td class="warn">Khi thêm phòng ban mới</td></tr>
-        <tr><td>Username NV mới khớp HRM và timesheet</td><td>Lọc dòng <code>user_id = null</code> sau join</td><td class="warn">Khi onboard NV mới</td></tr>
-        <tr><td>Project code cho NV nước ngoài đã điền</td><td><code>Payroll_salary[code/dpm]</code> không null</td><td class="warn">Mỗi tháng</td></tr>
+        <tr><td>Tất cả payroll record đã approved</td><td><code>Payroll.payroll</code> — status = approved</td><td class="ok">Trước mỗi refresh</td></tr>
+        <tr><td>Timesheet tháng hiện tại đã submit</td><td>Ticket svc=11998 có block id 12009/16591</td><td class="ok">Trước mỗi refresh</td></tr>
+        <tr><td>dim code dpm đủ dept code</td><td>So sánh <code>dim user[department]</code> vs <code>dim code dpm</code></td><td class="warn">Khi thêm phòng ban mới</td></tr>
+        <tr><td>Username NV mới khớp HRM và timesheet</td><td>Lọc dòng <code>user id = null</code> sau join</td><td class="warn">Khi onboard NV mới</td></tr>
+        <tr><td>Project code cho NV nước ngoài đã điền</td><td><code>Payroll salary[code/dpm]</code> không null</td><td class="warn">Mỗi tháng</td></tr>
         <tr><td>Tổng theo NV khớp phiếu lương</td><td>Filter tầng Employee, đối chiếu từng người</td><td class="ok">Kiểm tra cuối cùng</td></tr>
       </tbody>
     </table>
@@ -1136,7 +1136,7 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
   <div class="ph">
     <div class="ph-eyebrow">01 / 04 · Man-month</div>
     <h1 class="ph-title">Luồng dữ liệu</h1>
-    <p class="ph-desc">Dữ liệu Man-month đi từ hệ thống nguồn → data_mart → Power Query → báo cáo phân bổ nhân công</p>
+    <p class="ph-desc">Dữ liệu Man-month đi từ hệ thống nguồn → data mart → Power Query → báo cáo phân bổ nhân công</p>
   </div>
 
   <div class="stats">
@@ -1169,44 +1169,44 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
       </div>
       <div class="flow-body">
         <div class="flow-lane lane1">
-          <div class="fnode n-src">base_service<div class="fnode-sub">.ticket (svc 11998)</div></div>
+          <div class="fnode n-src">Service<div class="fnode-sub">.ticket (svc 11998)</div></div>
           <div class="v-arrow">↓</div>
-          <div class="fnode n-src">base_payroll<div class="fnode-sub">.record</div></div>
+          <div class="fnode n-src">Payroll<div class="fnode-sub">.record</div></div>
           <div class="v-arrow">↓</div>
-          <div class="fnode n-src">base_table<div class="fnode-sub">.data (table_id 69/82)</div></div>
+          <div class="fnode n-src">Table<div class="fnode-sub">.data (table id 69/82)</div></div>
           <div class="v-arrow">↓</div>
-          <div class="fnode n-src">public<div class="fnode-sub">.fact_man_month</div></div>
+          <div class="fnode n-src">public<div class="fnode-sub">.fact man month</div></div>
         </div>
         <div class="flow-lane lane2">
           <div class="fgroup">
             <div class="fgroup-label">Timesheet & Dim</div>
-            <div class="fnode n-mart" style="margin-bottom:5px">fact_ticket_form_timesheet<div class="fnode-sub">UNION 4 nguồn · latest/1a</div></div>
-            <div class="fnode n-mart" style="margin-bottom:5px">dim_user<div class="fnode-sub">man_month · UNION User_past</div></div>
-            <div class="fnode n-mart" style="margin-bottom:5px">dim_table_code<div class="fnode-sub">man_month · table_id=82</div></div>
-            <div class="fnode n-mart" style="margin-bottom:5px">dim_ticket<div class="fnode-sub">man_month.dim_ticket</div></div>
-            <div class="fnode n-mart" style="margin-bottom:5px">dim_project_task<div class="fnode-sub">man_month · dedup task_id</div></div>
-            <div class="fnode n-mart" style="margin-bottom:5px">dim_project_tasklist<div class="fnode-sub">man_month</div></div>
-            <div class="fnode n-mart" style="margin-bottom:5px">fact_ticket_form<div class="fnode-sub">man_month</div></div>
-            <div class="fnode n-mart" style="margin-bottom:5px">fact_ticket_project_document<div class="fnode-sub">man_month · dedup by project_code</div></div>
-            <div class="fnode n-mart" style="margin-bottom:5px">fact_end_time_project<div class="fnode-sub">man_month · filter null project</div></div>
-            <div class="fnode n-mart">department<div class="fnode-sub">man_month · filter type≠''</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">fact ticket form timesheet<div class="fnode-sub">UNION 4 nguồn · latest/1a</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">dim user<div class="fnode-sub">man month · UNION User past</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">dim table code<div class="fnode-sub">man month · table id=82</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">dim ticket<div class="fnode-sub">man month.dim ticket</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">dim project task<div class="fnode-sub">man month · dedup task id</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">dim project tasklist<div class="fnode-sub">man month</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">fact ticket form<div class="fnode-sub">man month</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">fact ticket project document<div class="fnode-sub">man month · dedup by project code</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">fact end time project<div class="fnode-sub">man month · filter null project</div></div>
+            <div class="fnode n-mart">department<div class="fnode-sub">man month · filter type≠''</div></div>
           </div>
         </div>
         <div class="flow-lane lane3">
           <div class="fgroup">
             <div class="fgroup-label">Bảng chính</div>
-            <div class="fnode n-pq" style="margin-bottom:5px">fact_ticket_form_timesheet<div class="fnode-sub">MM = workday · UNION 4 nguồn</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">payroll<div class="fnode-sub">ngay_luong_co_so · base_payroll</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Sum_of_workday<div class="fnode-sub">service_sum_work_day · svc form</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">dim_user<div class="fnode-sub">NV · UNION User_past</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">Department_order<div class="fnode-sub">Sort BOD/Non-tech/Tech</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">fact ticket form timesheet<div class="fnode-sub">MM = workday · UNION 4 nguồn</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">payroll<div class="fnode-sub">ngay luong co so · Payroll</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Sum of workday<div class="fnode-sub">service sum work day · svc form</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">dim user<div class="fnode-sub">NV · UNION User past</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Department order<div class="fnode-sub">Sort BOD/Non-tech/Tech</div></div>
           </div>
           <div style="height:8px"></div>
           <div class="fgroup">
             <div class="fgroup-label">Bảng tĩnh</div>
-            <div class="fnode n-pq" style="margin-bottom:5px">User_past<div class="fnode-sub">NV nghỉ việc · base64 embed</div></div>
-            <div class="fnode n-pq" style="margin-bottom:5px">list_metric<div class="fnode-sub">Danh sách metric · base64</div></div>
-            <div class="fnode n-pq">payroll_support<div class="fnode-sub">Ngày công bổ sung · base64</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">User past<div class="fnode-sub">NV nghỉ việc · base64 embed</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">list metric<div class="fnode-sub">Danh sách metric · base64</div></div>
+            <div class="fnode n-pq">payroll support<div class="fnode-sub">Ngày công bổ sung · base64</div></div>
           </div>
         </div>
         <div class="flow-lane lane4">
@@ -1234,8 +1234,8 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
 
     <div class="mm-filters">
       <div class="mm-filter mm-filter-all active" data-group-mm="all"><span class="dot" style="background:var(--fg-muted,#888)"></span>Tất cả</div>
-      <div class="mm-filter mm-filter-bs" data-group-mm="bs"><span class="dot" style="background:#0c8599"></span>base_service</div>
-      <div class="mm-filter mm-filter-bp" data-group-mm="bp"><span class="dot" style="background:#3b5bdb"></span>base_payroll</div>
+      <div class="mm-filter mm-filter-bs" data-group-mm="bs"><span class="dot" style="background:#0c8599"></span>Service</div>
+      <div class="mm-filter mm-filter-bp" data-group-mm="bp"><span class="dot" style="background:#3b5bdb"></span>Payroll</div>
       <div class="mm-filter mm-filter-dm" data-group-mm="dm"><span class="dot" style="background:#2f9e44"></span>Data Mart</div>
       <div class="mm-filter" style="border-color:#7c3aed;color:#7c3aed" data-group-mm="st"><span class="dot" style="background:#7c3aed"></span>Bảng tĩnh</div>
     </div>
@@ -1262,150 +1262,150 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
     <text x="290" y="30" font-size="9" font-weight="700" fill="#aaa" letter-spacing="1.5">ĐIỀU KIỆN / XỬ LÝ</text>
     <text x="590" y="30" font-size="9" font-weight="700" fill="#aaa" letter-spacing="1.5">BẢNG ĐẦU RA</text>
 
-    <!-- base_service.ticket svc 11998 → fact_ticket_form_timesheet -->
-    <g class="mn" data-group-mm="bs" data-id-mm="mm-bs-src" data-badge-mm="NGUỒN" data-color-mm="#0c8599" data-title-mm="base_service.ticket (svc=11998)" data-body-mm="Bảng ticket timesheet. DISTINCT ON (root_id) ORDER BY last_update DESC. UNION 4 nguồn: latest version, fact_man_month (công nhập tay), 1a (is_fixed=1), new. Dedup theo username × tháng.">
+    <!-- Service.ticket svc 11998 → fact ticket form timesheet -->
+    <g class="mn" data-group-mm="bs" data-id-mm="mm-bs-src" data-badge-mm="NGUỒN" data-color-mm="#0c8599" data-title-mm="Service.ticket (svc=11998)" data-body-mm="Bảng ticket timesheet. DISTINCT ON (root id) ORDER BY last update DESC. UNION 4 nguồn: latest version, fact man month (công nhập tay), 1a (is fixed=1), new. Dedup theo username × tháng.">
       <rect x="20" y="45" width="200" height="52" rx="10" fill="#0c8599" stroke="#0a6c7d" stroke-width="0.5"/>
-      <text x="120" y="67" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_service.ticket</text>
+      <text x="120" y="67" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Service.ticket</text>
       <text x="120" y="85" text-anchor="middle" font-size="10.5" fill="#a5f3fc">svc=11998 · block 12009/16591</text>
     </g>
     <line class="mc" data-group-mm="bs" x1="120" y1="97" x2="120" y2="260" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".25"/>
     <line class="mc" data-group-mm="bs" x1="120" y1="115" x2="285" y2="115" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
-    <g class="mn" data-group-mm="bs" data-id-mm="mm-ts-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="UNION 4 nguồn · dedup latest" data-body-mm="UNION: (1) man_month.fact_ticket_form_timesheet (latest, is_fixed=0), (2) public.fact_man_month (ticket_id=0, luôn lấy), (3) fact_ticket_form_timesheet_1a (is_fixed=1), (4) fact_ticket_form_timesheet_new. ticket_rank dedup: ROW_NUMBER() OVER (PARTITION BY username, month ORDER BY last_update DESC). Chỉ lấy rn=1 cho nguồn thường; 1a và ticket_id=0 luôn lấy toàn bộ.">
+    <g class="mn" data-group-mm="bs" data-id-mm="mm-ts-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="UNION 4 nguồn · dedup latest" data-body-mm="UNION: (1) man month.fact ticket form timesheet (latest, is fixed=0), (2) public.fact man month (ticket id=0, luôn lấy), (3) fact ticket form timesheet 1a (is fixed=1), (4) fact ticket form timesheet new. ticket rank dedup: ROW NUMBER() OVER (PARTITION BY username, month ORDER BY last update DESC). Chỉ lấy rn=1 cho nguồn thường; 1a và ticket id=0 luôn lấy toàn bộ.">
       <rect x="285" y="99" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
       <text x="389" y="116" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">UNION 4 nguồn</text>
       <text x="389" y="128" text-anchor="middle" font-size="10" fill="#997a00">dedup latest version per username/tháng</text>
     </g>
     <line class="mc" data-group-mm="bs" x1="493" y1="116" x2="590" y2="116" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
-    <g class="mn" data-group-mm="bs" data-id-mm="fact_ticket_form_timesheet_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="fact_ticket_form_timesheet" data-body-mm="Output: ticket_id, service_id, user_id, username, last_update, row_no, department, date, shift, workday, timeoff, code_of_budget, non_contracted, specific_on_site_allowance, eligible_for_pit_exemption, work_description, is_fixed, rn. Power Query: TransformColumnTypes workday=number, date=date.">
+    <g class="mn" data-group-mm="bs" data-id-mm="fact ticket form timesheet mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="fact ticket form timesheet" data-body-mm="Output: ticket id, service id, user id, username, last update, row no, department, date, shift, workday, timeoff, code of budget, non contracted, specific on site allowance, eligible for pit exemption, work description, is fixed, rn. Power Query: TransformColumnTypes workday=number, date=date.">
       <rect x="590" y="99" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-      <text x="740" y="116" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact_ticket_form_timesheet</text>
-      <text x="740" y="130" text-anchor="middle" font-size="10" fill="#6741d9">UNION 4 nguồn · workday · code_of_budget</text>
+      <text x="740" y="116" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact ticket form timesheet</text>
+      <text x="740" y="130" text-anchor="middle" font-size="10" fill="#6741d9">UNION 4 nguồn · workday · code of budget</text>
     </g>
 
-    <!-- base_service → Sum_of_workday -->
+    <!-- Service → Sum of workday -->
     <line class="mc" data-group-mm="bs" x1="120" y1="165" x2="285" y2="165" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
-    <g class="mn" data-group-mm="bs" data-id-mm="mm-sow-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="elem→&gt;&gt;'id' = 'service_sum_work_day'" data-body-mm="DISTINCT ON (id) ORDER BY last_update DESC → jsonb_array_elements(form::jsonb) → WHERE elem→&gt;&gt;'id' = 'service_sum_work_day'. Lấy tổng ngày công từ form của ticket service.">
+    <g class="mn" data-group-mm="bs" data-id-mm="mm-sow-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="elem→&gt;&gt;'id' = 'service sum work day'" data-body-mm="DISTINCT ON (id) ORDER BY last update DESC → jsonb array elements(form::jsonb) → WHERE elem→&gt;&gt;'id' = 'service sum work day'. Lấy tổng ngày công từ form của ticket service.">
       <rect x="285" y="149" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
       <text x="389" y="166" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">DISTINCT ON id</text>
-      <text x="389" y="178" text-anchor="middle" font-size="10" fill="#997a00">elem id = 'service_sum_work_day'</text>
+      <text x="389" y="178" text-anchor="middle" font-size="10" fill="#997a00">elem id = 'service sum work day'</text>
     </g>
     <line class="mc" data-group-mm="bs" x1="493" y1="166" x2="590" y2="166" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
-    <g class="mn" data-group-mm="bs" data-id-mm="Sum_of_workday_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="Sum_of_workday" data-body-mm="base_service.ticket → DISTINCT ON id → jsonb_array_elements(form) → filter elem id='service_sum_work_day' → lấy value AS service_sum_work_day. Output: id, last_update, last_update_time, service_sum_work_day (number).">
+    <g class="mn" data-group-mm="bs" data-id-mm="Sum of workday mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="Sum of workday" data-body-mm="Service.ticket → DISTINCT ON id → jsonb array elements(form) → filter elem id='service sum work day' → lấy value AS service sum work day. Output: id, last update, last update time, service sum work day (number).">
       <rect x="590" y="149" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-      <text x="740" y="166" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Sum_of_workday</text>
+      <text x="740" y="166" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Sum of workday</text>
       <text x="740" y="180" text-anchor="middle" font-size="10" fill="#6741d9">Tổng ngày công từ form service</text>
     </g>
 
-    <!-- base_service → fact_ticket_form -->
+    <!-- Service → fact ticket form -->
     <line class="mc" data-group-mm="bs" x1="120" y1="215" x2="285" y2="215" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
-    <g class="mn" data-group-mm="bs" data-id-mm="mm-ftf-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="man_month.fact_ticket_form" data-body-mm="SELECT * FROM man_month.fact_ticket_form. Bảng đã được xử lý sẵn trên data_mart. Chứa thông tin form của các ticket.">
+    <g class="mn" data-group-mm="bs" data-id-mm="mm-ftf-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="man month.fact ticket form" data-body-mm="SELECT * FROM man month.fact ticket form. Bảng đã được xử lý sẵn trên data mart. Chứa thông tin form của các ticket.">
       <rect x="285" y="199" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
-      <text x="389" y="216" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">man_month.fact_ticket_form</text>
+      <text x="389" y="216" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">man month.fact ticket form</text>
       <text x="389" y="228" text-anchor="middle" font-size="10" fill="#997a00">SELECT *</text>
     </g>
     <line class="mc" data-group-mm="bs" x1="493" y1="216" x2="590" y2="216" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
-    <g class="mn" data-group-mm="bs" data-id-mm="fact_ticket_form_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="fact_ticket_form" data-body-mm="man_month.fact_ticket_form → SELECT *. Power Query lấy thẳng không transform thêm.">
+    <g class="mn" data-group-mm="bs" data-id-mm="fact ticket form mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="fact ticket form" data-body-mm="man month.fact ticket form → SELECT *. Power Query lấy thẳng không transform thêm.">
       <rect x="590" y="199" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-      <text x="740" y="216" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact_ticket_form</text>
+      <text x="740" y="216" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact ticket form</text>
       <text x="740" y="230" text-anchor="middle" font-size="10" fill="#6741d9">Form data từ ticket service</text>
     </g>
 
     <!-- Divider -->
     <line x1="20" y1="285" x2="900" y2="285" stroke="#e5e7eb" stroke-width="0.5"/>
 
-    <!-- base_payroll → payroll -->
-    <g class="mn" data-group-mm="bp" data-id-mm="mm-bp-src" data-badge-mm="NGUỒN" data-color-mm="#3b5bdb" data-title-mm="base_payroll.record" data-body-mm="ROW_NUMBER() OVER (PARTITION BY id ORDER BY _airbyte_extracted_at DESC) = 1 → LATERAL jsonb_each_text(columns) → filter columns_key IN (ngay_luong_co_so, ngay_co_so) → JOIN dim_user → UNION payroll_support → filter columns_value ≠ '0'.">
+    <!-- Payroll → payroll -->
+    <g class="mn" data-group-mm="bp" data-id-mm="mm-bp-src" data-badge-mm="NGUỒN" data-color-mm="#3b5bdb" data-title-mm="Payroll.record" data-body-mm="ROW NUMBER() OVER (PARTITION BY id ORDER BY  airbyte extracted at DESC) = 1 → LATERAL jsonb each text(columns) → filter columns key IN (ngay luong co so, ngay co so) → JOIN dim user → UNION payroll support → filter columns value ≠ '0'.">
       <rect x="20" y="300" width="200" height="52" rx="10" fill="#3b5bdb" stroke="#2f4ec4" stroke-width="0.5"/>
-      <text x="120" y="322" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_payroll.record</text>
-      <text x="120" y="340" text-anchor="middle" font-size="10.5" fill="#a5b4fc">ngay_luong_co_so</text>
+      <text x="120" y="322" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Payroll.record</text>
+      <text x="120" y="340" text-anchor="middle" font-size="10.5" fill="#a5b4fc">ngay luong co so</text>
     </g>
-    <g class="mn" data-group-mm="bp" data-id-mm="mm-bp-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="columns_key IN (ngay_luong_co_so, ngay_co_so)" data-body-mm="ROW_NUMBER dedup → LATERAL jsonb_each_text → filter columns_key IN ('ngay_luong_co_so','ngay_co_so') → JOIN dim_user (user_id) → UNION payroll_support → filter columns_value ≠ '0'.">
+    <g class="mn" data-group-mm="bp" data-id-mm="mm-bp-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="columns key IN (ngay luong co so, ngay co so)" data-body-mm="ROW NUMBER dedup → LATERAL jsonb each text → filter columns key IN ('ngay luong co so','ngay co so') → JOIN dim user (user id) → UNION payroll support → filter columns value ≠ '0'.">
       <rect x="285" y="308" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
-      <text x="389" y="325" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">columns_key IN</text>
-      <text x="389" y="337" text-anchor="middle" font-size="10" fill="#997a00">ngay_luong_co_so · ngay_co_so</text>
+      <text x="389" y="325" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">columns key IN</text>
+      <text x="389" y="337" text-anchor="middle" font-size="10" fill="#997a00">ngay luong co so · ngay co so</text>
     </g>
     <line class="mc" data-group-mm="bp" x1="220" y1="326" x2="285" y2="326" stroke="#3b5bdb" stroke-width="1" opacity=".5"/>
     <line class="mc" data-group-mm="bp" x1="493" y1="326" x2="590" y2="326" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
-    <g class="mn" data-group-mm="bp" data-id-mm="payroll_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="payroll" data-body-mm="base_payroll.record → ROW_NUMBER dedup → LATERAL jsonb_each_text → filter ngay_luong_co_so/ngay_co_so → JOIN dim_user → UNION payroll_support → filter ≠ '0'. Output: payroll_name, payroll_id, cycle_range, user_id, report_month, columns_key, columns_value, columns_name_vi, username.">
+    <g class="mn" data-group-mm="bp" data-id-mm="payroll mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="payroll" data-body-mm="Payroll.record → ROW NUMBER dedup → LATERAL jsonb each text → filter ngay luong co so/ngay co so → JOIN dim user → UNION payroll support → filter ≠ '0'. Output: payroll name, payroll id, cycle range, user id, report month, columns key, columns value, columns name vi, username.">
       <rect x="590" y="308" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
       <text x="740" y="325" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">payroll</text>
-      <text x="740" y="339" text-anchor="middle" font-size="10" fill="#6741d9">Ngày lương cơ sở · UNION payroll_support</text>
+      <text x="740" y="339" text-anchor="middle" font-size="10" fill="#6741d9">Ngày lương cơ sở · UNION payroll support</text>
     </g>
 
     <!-- Divider -->
     <line x1="20" y1="375" x2="900" y2="375" stroke="#e5e7eb" stroke-width="0.5"/>
 
     <!-- Data mart dims -->
-    <g class="mn" data-group-mm="dm" data-id-mm="mm-dm-src" data-badge-mm="NGUỒN" data-color-mm="#2f9e44" data-title-mm="data_mart — man_month schema" data-body-mm="Các bảng dim trên data_mart.man_month: dim_user, dim_table_code, dim_ticket, dim_project_task, dim_project_tasklist, fact_ticket_project_document, fact_end_time_project, department.">
+    <g class="mn" data-group-mm="dm" data-id-mm="mm-dm-src" data-badge-mm="NGUỒN" data-color-mm="#2f9e44" data-title-mm="data mart — man month schema" data-body-mm="Các bảng dim trên data mart.man month: dim user, dim table code, dim ticket, dim project task, dim project tasklist, fact ticket project document, fact end time project, department.">
       <rect x="20" y="390" width="200" height="52" rx="10" fill="#2f9e44" stroke="#237032" stroke-width="0.5"/>
-      <text x="120" y="412" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">data_mart</text>
-      <text x="120" y="430" text-anchor="middle" font-size="10.5" fill="#b2f2bb">man_month schema</text>
+      <text x="120" y="412" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">data mart</text>
+      <text x="120" y="430" text-anchor="middle" font-size="10.5" fill="#b2f2bb">man month schema</text>
     </g>
     <line class="mc" data-group-mm="dm" x1="120" y1="442" x2="120" y2="700" stroke="#2f9e44" stroke-width="1" stroke-dasharray="4 3" opacity=".25"/>
 
-    <!-- dim_user -->
+    <!-- dim user -->
     <line class="mc" data-group-mm="dm" x1="120" y1="410" x2="285" y2="410" stroke="#2f9e44" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
-    <g class="mn" data-group-mm="dm" data-id-mm="mm-du-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="man_month.dim_user · UNION User_past" data-body-mm="SELECT * FROM man_month.dim_user → UNION User_past (bảng tĩnh NV nghỉ việc) → TransformColumnTypes user_id=text → Replace username: buithituyetsinhnkv→sinhbtt, nkvvip01→patersoni.">
+    <g class="mn" data-group-mm="dm" data-id-mm="mm-du-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="man month.dim user · UNION User past" data-body-mm="SELECT * FROM man month.dim user → UNION User past (bảng tĩnh NV nghỉ việc) → TransformColumnTypes user id=text → Replace username: buithituyetsinhnkv→sinhbtt, nkvvip01→patersoni.">
       <rect x="285" y="394" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
-      <text x="389" y="411" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">man_month.dim_user</text>
-      <text x="389" y="423" text-anchor="middle" font-size="10" fill="#997a00">UNION User_past · replace username</text>
+      <text x="389" y="411" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">man month.dim user</text>
+      <text x="389" y="423" text-anchor="middle" font-size="10" fill="#997a00">UNION User past · replace username</text>
     </g>
     <line class="mc" data-group-mm="dm" x1="493" y1="411" x2="590" y2="411" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
-    <g class="mn" data-group-mm="dm" data-id-mm="dim_user_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="dim_user" data-body-mm="man_month.dim_user UNION User_past → TransformColumnTypes user_id=text → Replace: buithituyetsinhnkv→sinhbtt, nkvvip01→patersoni.">
+    <g class="mn" data-group-mm="dm" data-id-mm="dim user mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="dim user" data-body-mm="man month.dim user UNION User past → TransformColumnTypes user id=text → Replace: buithituyetsinhnkv→sinhbtt, nkvvip01→patersoni.">
       <rect x="590" y="394" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-      <text x="740" y="411" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim_user</text>
-      <text x="740" y="425" text-anchor="middle" font-size="10" fill="#6741d9">NV · UNION User_past · replace username</text>
+      <text x="740" y="411" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim user</text>
+      <text x="740" y="425" text-anchor="middle" font-size="10" fill="#6741d9">NV · UNION User past · replace username</text>
     </g>
 
-    <!-- dim_table_code -->
+    <!-- dim table code -->
     <line class="mc" data-group-mm="dm" x1="120" y1="460" x2="285" y2="460" stroke="#2f9e44" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
-    <g class="mn" data-group-mm="dm" data-id-mm="mm-dtc-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="man_month.dim_table_code · filter + sort" data-body-mm="SELECT * FROM man_month.dim_table_code → filter code_of_budget_plan ≠ '' → sort ASC → filter row_id ≠ 16907 (xóa dòng lỗi).">
+    <g class="mn" data-group-mm="dm" data-id-mm="mm-dtc-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="man month.dim table code · filter + sort" data-body-mm="SELECT * FROM man month.dim table code → filter code of budget plan ≠ '' → sort ASC → filter row id ≠ 16907 (xóa dòng lỗi).">
       <rect x="285" y="444" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
-      <text x="389" y="461" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">man_month.dim_table_code</text>
+      <text x="389" y="461" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">man month.dim table code</text>
       <text x="389" y="473" text-anchor="middle" font-size="10" fill="#997a00">filter code≠'' · sort · filter row≠16907</text>
     </g>
     <line class="mc" data-group-mm="dm" x1="493" y1="461" x2="590" y2="461" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
-    <g class="mn" data-group-mm="dm" data-id-mm="dim_table_code_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="dim_table_code" data-body-mm="man_month.dim_table_code → filter code_of_budget_plan ≠ '' → sort by code ASC → filter row_id ≠ 16907.">
+    <g class="mn" data-group-mm="dm" data-id-mm="dim table code mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="dim table code" data-body-mm="man month.dim table code → filter code of budget plan ≠ '' → sort by code ASC → filter row id ≠ 16907.">
       <rect x="590" y="444" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-      <text x="740" y="461" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim_table_code</text>
+      <text x="740" y="461" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim table code</text>
       <text x="740" y="475" text-anchor="middle" font-size="10" fill="#6741d9">Code ngân sách · filter + sort</text>
     </g>
 
-    <!-- fact_ticket_project_document -->
+    <!-- fact ticket project document -->
     <line class="mc" data-group-mm="dm" x1="120" y1="510" x2="285" y2="510" stroke="#2f9e44" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
-    <g class="mn" data-group-mm="dm" data-id-mm="mm-ftpd-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="fact_ticket_project_document · dedup by project_code" data-body-mm="SELECT * FROM man_month.fact_ticket_project_document → filter user_base_id ≠ null → Group By project_code → giữ dòng có last_update MAX mỗi project → TransformColumnTypes total_mm/non_contracted_mm/contracted_mm=number.">
+    <g class="mn" data-group-mm="dm" data-id-mm="mm-ftpd-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="fact ticket project document · dedup by project code" data-body-mm="SELECT * FROM man month.fact ticket project document → filter user base id ≠ null → Group By project code → giữ dòng có last update MAX mỗi project → TransformColumnTypes total mm/non contracted mm/contracted mm=number.">
       <rect x="285" y="494" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
-      <text x="389" y="511" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">fact_ticket_project_document</text>
-      <text x="389" y="523" text-anchor="middle" font-size="10" fill="#997a00">dedup: MAX last_update per project_code</text>
+      <text x="389" y="511" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">fact ticket project document</text>
+      <text x="389" y="523" text-anchor="middle" font-size="10" fill="#997a00">dedup: MAX last update per project code</text>
     </g>
     <line class="mc" data-group-mm="dm" x1="493" y1="511" x2="590" y2="511" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
-    <g class="mn" data-group-mm="dm" data-id-mm="fact_ticket_project_document_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="fact_ticket_project_document" data-body-mm="Bảng tài liệu project → filter user_base_id ≠ null → Group By project_code giữ MAX last_update → total_mm, non_contracted_mm, contracted_mm dạng number.">
+    <g class="mn" data-group-mm="dm" data-id-mm="fact ticket project document mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="fact ticket project document" data-body-mm="Bảng tài liệu project → filter user base id ≠ null → Group By project code giữ MAX last update → total mm, non contracted mm, contracted mm dạng number.">
       <rect x="590" y="494" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-      <text x="740" y="511" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact_ticket_project_document</text>
-      <text x="740" y="525" text-anchor="middle" font-size="10" fill="#6741d9">Tài liệu project · dedup per project_code</text>
+      <text x="740" y="511" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact ticket project document</text>
+      <text x="740" y="525" text-anchor="middle" font-size="10" fill="#6741d9">Tài liệu project · dedup per project code</text>
     </g>
 
     <!-- Các dim đơn giản -->
     <line class="mc" data-group-mm="dm" x1="120" y1="560" x2="285" y2="560" stroke="#2f9e44" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
-    <g class="mn" data-group-mm="dm" data-id-mm="mm-simple-dims" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="Các bảng dim đơn giản" data-body-mm="SELECT * từ các bảng: dim_ticket, dim_project_task (dedup task_id), dim_project_tasklist, department (filter type≠''), fact_end_time_project (filter project_code≠null), Department_order (tính thứ tự BOD→Non-tech→Tech).">
+    <g class="mn" data-group-mm="dm" data-id-mm="mm-simple-dims" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="Các bảng dim đơn giản" data-body-mm="SELECT * từ các bảng: dim ticket, dim project task (dedup task id), dim project tasklist, department (filter type≠''), fact end time project (filter project code≠null), Department order (tính thứ tự BOD→Non-tech→Tech).">
       <rect x="285" y="544" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
       <text x="389" y="561" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">SELECT * / filter / dedup</text>
-      <text x="389" y="573" text-anchor="middle" font-size="10" fill="#997a00">dim_ticket · dim_project_task/list · dept</text>
+      <text x="389" y="573" text-anchor="middle" font-size="10" fill="#997a00">dim ticket · dim project task/list · dept</text>
     </g>
     <line class="mc" data-group-mm="dm" x1="493" y1="561" x2="560" y2="561" stroke="#6741d9" stroke-width="1" opacity=".5"/>
     <line class="mc" data-group-mm="dm" x1="560" y1="551" x2="560" y2="651" stroke="#6741d9" stroke-width="0.5" opacity=".3"/>
 
     <line class="mc" data-group-mm="dm" x1="560" y1="561" x2="590" y2="561" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
-    <g class="mn" data-group-mm="dm" data-id-mm="dim_ticket_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="dim_ticket" data-body-mm="man_month.dim_ticket → SELECT *. Danh sách ticket master.">
+    <g class="mn" data-group-mm="dm" data-id-mm="dim ticket mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="dim ticket" data-body-mm="man month.dim ticket → SELECT *. Danh sách ticket master.">
       <rect x="590" y="544" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-      <text x="740" y="561" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim_ticket + dim_project_task/list</text>
+      <text x="740" y="561" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim ticket + dim project task/list</text>
       <text x="740" y="575" text-anchor="middle" font-size="10" fill="#6741d9">Danh mục ticket · project task/list</text>
     </g>
 
     <line class="mc" data-group-mm="dm" x1="560" y1="611" x2="590" y2="611" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
-    <g class="mn" data-group-mm="dm" data-id-mm="department_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="department + fact_end_time_project + Department_order" data-body-mm="department: filter type≠''. fact_end_time_project: filter project_code≠null. Department_order: Distinct dept → add group_order (BOD=0, Non-tech=1, Tech=2) → sort → AddIndex (thứ tự 1,2,3...).">
+    <g class="mn" data-group-mm="dm" data-id-mm="department mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="department + fact end time project + Department order" data-body-mm="department: filter type≠''. fact end time project: filter project code≠null. Department order: Distinct dept → add group order (BOD=0, Non-tech=1, Tech=2) → sort → AddIndex (thứ tự 1,2,3...).">
       <rect x="590" y="594" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
-      <text x="740" y="611" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">department · fact_end_time · Dept_order</text>
+      <text x="740" y="611" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">department · fact end time · Dept order</text>
       <text x="740" y="625" text-anchor="middle" font-size="10" fill="#6741d9">Phòng ban · end date project · thứ tự</text>
     </g>
 
@@ -1413,7 +1413,7 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
     <line x1="20" y1="670" x2="900" y2="670" stroke="#e5e7eb" stroke-width="0.5"/>
 
     <!-- Static tables -->
-    <g class="mn" data-group-mm="st" data-id-mm="mm-st-src" data-badge-mm="TĨNH" data-color-mm="#7c3aed" data-title-mm="Bảng tĩnh (base64 embedded)" data-body-mm="3 bảng nhúng dữ liệu tĩnh trong Power Query: User_past (NV nghỉ việc), list_metric (danh sách metric), payroll_support (ngày công bổ sung). Tất cả dùng Table.FromRows + Binary.Decompress base64.">
+    <g class="mn" data-group-mm="st" data-id-mm="mm-st-src" data-badge-mm="TĨNH" data-color-mm="#7c3aed" data-title-mm="Bảng tĩnh (base64 embedded)" data-body-mm="3 bảng nhúng dữ liệu tĩnh trong Power Query: User past (NV nghỉ việc), list metric (danh sách metric), payroll support (ngày công bổ sung). Tất cả dùng Table.FromRows + Binary.Decompress base64.">
       <rect x="20" y="685" width="200" height="52" rx="10" fill="#7c3aed" stroke="#6b21a8" stroke-width="0.5"/>
       <text x="120" y="707" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Bảng tĩnh</text>
       <text x="120" y="725" text-anchor="middle" font-size="10.5" fill="#ddd6fe">base64 embedded</text>
@@ -1421,25 +1421,25 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
     <line class="mc" data-group-mm="st" x1="120" y1="737" x2="120" y2="920" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4 3" opacity=".25"/>
 
     <line class="mc" data-group-mm="st" x1="120" y1="753" x2="285" y2="753" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
-    <g class="mn" data-group-mm="st" data-id-mm="User_past_mm" data-badge-mm="PQ TABLE" data-color-mm="#7c3aed" data-title-mm="User_past" data-body-mm="Table.FromRows + Binary.Decompress base64. Chứa thông tin NV đã nghỉ việc (employee_id, user_id, code, name, email, username...). filter username≠''. Dùng để UNION vào dim_user.">
+    <g class="mn" data-group-mm="st" data-id-mm="User past mm" data-badge-mm="PQ TABLE" data-color-mm="#7c3aed" data-title-mm="User past" data-body-mm="Table.FromRows + Binary.Decompress base64. Chứa thông tin NV đã nghỉ việc (employee id, user id, code, name, email, username...). filter username≠''. Dùng để UNION vào dim user.">
       <rect x="590" y="737" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#7c3aed" stroke-width="1"/>
-      <text x="740" y="754" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">User_past</text>
+      <text x="740" y="754" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">User past</text>
       <text x="740" y="768" text-anchor="middle" font-size="10" fill="#7c3aed">NV nghỉ việc · base64 · filter username≠''</text>
     </g>
     <line class="mc" data-group-mm="st" x1="285" y1="756" x2="590" y2="756" stroke="#7c3aed" stroke-width="1" marker-end="url(#arr-mm-out)" opacity=".6"/>
 
     <line class="mc" data-group-mm="st" x1="120" y1="815" x2="285" y2="815" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
-    <g class="mn" data-group-mm="st" data-id-mm="list_metric_mm" data-badge-mm="PQ TABLE" data-color-mm="#7c3aed" data-title-mm="list_metric" data-body-mm="Table.FromRows + Binary.Decompress base64. Cột: No., Metrics, Significant, Data source. Danh sách các metric được định nghĩa cho báo cáo Man-month.">
+    <g class="mn" data-group-mm="st" data-id-mm="list metric mm" data-badge-mm="PQ TABLE" data-color-mm="#7c3aed" data-title-mm="list metric" data-body-mm="Table.FromRows + Binary.Decompress base64. Cột: No., Metrics, Significant, Data source. Danh sách các metric được định nghĩa cho báo cáo Man-month.">
       <rect x="590" y="799" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#7c3aed" stroke-width="1"/>
-      <text x="740" y="816" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">list_metric</text>
+      <text x="740" y="816" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">list metric</text>
       <text x="740" y="830" text-anchor="middle" font-size="10" fill="#7c3aed">Danh sách metric · base64</text>
     </g>
     <line class="mc" data-group-mm="st" x1="285" y1="818" x2="590" y2="818" stroke="#7c3aed" stroke-width="1" marker-end="url(#arr-mm-out)" opacity=".6"/>
 
     <line class="mc" data-group-mm="st" x1="120" y1="878" x2="285" y2="878" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
-    <g class="mn" data-group-mm="st" data-id-mm="payroll_support_mm" data-badge-mm="PQ TABLE" data-color-mm="#7c3aed" data-title-mm="payroll_support" data-body-mm="Table.FromRows + Binary.Decompress base64. Cột: payroll_name, payroll_id, cycle_range, user_id, report_month, columns_key, columns_value, columns_name_vi, username. Dữ liệu bổ sung ngày công cho những tháng thiếu.">
+    <g class="mn" data-group-mm="st" data-id-mm="payroll support mm" data-badge-mm="PQ TABLE" data-color-mm="#7c3aed" data-title-mm="payroll support" data-body-mm="Table.FromRows + Binary.Decompress base64. Cột: payroll name, payroll id, cycle range, user id, report month, columns key, columns value, columns name vi, username. Dữ liệu bổ sung ngày công cho những tháng thiếu.">
       <rect x="590" y="862" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#7c3aed" stroke-width="1"/>
-      <text x="740" y="879" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">payroll_support</text>
+      <text x="740" y="879" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">payroll support</text>
       <text x="740" y="893" text-anchor="middle" font-size="10" fill="#7c3aed">Ngày công bổ sung · base64</text>
     </g>
     <line class="mc" data-group-mm="st" x1="285" y1="881" x2="590" y2="881" stroke="#7c3aed" stroke-width="1" marker-end="url(#arr-mm-out)" opacity=".6"/>
@@ -1447,8 +1447,8 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
     </svg>
 
     <div class="mm-legend">
-      <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#0c8599"></div>base_service (ticket/timesheet)</div>
-      <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#3b5bdb"></div>base_payroll (ngày lương)</div>
+      <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#0c8599"></div>Service (ticket/timesheet)</div>
+      <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#3b5bdb"></div>Payroll (ngày lương)</div>
       <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#2f9e44"></div>Data Mart dim/fact</div>
       <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#7c3aed;border-radius:2px"></div>Bảng tĩnh (base64)</div>
       <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#f59f00;border-radius:2px"></div>Điều kiện lọc</div>
@@ -1472,31 +1472,31 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
     <h1 class="ph-title">Lưu ý input dữ liệu</h1>
     <p class="ph-desc">Điều kiện dữ liệu đầu vào để báo cáo Man-month ra đúng số</p>
   </div>
-  <div class="sub"><div class="sub-bar"></div>Timesheet (base_service.ticket svc=11998)</div>
+  <div class="sub"><div class="sub-bar"></div>Timesheet (Service.ticket svc=11998)</div>
   <div style="display:flex;flex-direction:column;gap:10px">
     <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — "Month of timesheet" phải đúng định dạng DD/MM/YYYY</div>
-      <div class="adm-body">Data mart parse bằng <code>to_date(month_display, 'DD/MM/YYYY')</code>. Sai định dạng → <code>date = NULL</code> → dòng bị loại.</div></div>
-    <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — block_id phải thuộc (12009, 16591)</div>
-      <div class="adm-body">Query timesheet filter <code>block_id IN (12009, 16591)</code>. Ticket submit vào block khác sẽ không được đọc.</div></div>
+      <div class="adm-body">Data mart parse bằng <code>to date(month display, 'DD/MM/YYYY')</code>. Sai định dạng → <code>date = NULL</code> → dòng bị loại.</div></div>
+    <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — block id phải thuộc (12009, 16591)</div>
+      <div class="adm-body">Query timesheet filter <code>block id IN (12009, 16591)</code>. Ticket submit vào block khác sẽ không được đọc.</div></div>
     <div class="adm note"><div class="adm-title">ℹ Dedup theo username × tháng</div>
-      <div class="adm-body">ticket_rank: <code>ROW_NUMBER() OVER (PARTITION BY username, date_trunc('month', date) ORDER BY MAX(last_update) DESC)</code>. Chỉ lấy version mới nhất (rn=1) cho nguồn thường. Nguồn 1a (is_fixed=1) và fact_man_month (ticket_id=0) luôn lấy toàn bộ.</div></div>
-    <div class="adm note"><div class="adm-title">ℹ fact_man_month — dữ liệu nhập tay</div>
-      <div class="adm-body"><code>public.fact_man_month</code> là nguồn dữ liệu MM nhập tay (ticket_id=0). JOIN <code>man_month.employee_hrm</code> qua ssn để lấy employee_code. Luôn được include, không bị dedup bởi ticket_rank.</div></div>
+      <div class="adm-body">ticket rank: <code>ROW NUMBER() OVER (PARTITION BY username, date trunc('month', date) ORDER BY MAX(last update) DESC)</code>. Chỉ lấy version mới nhất (rn=1) cho nguồn thường. Nguồn 1a (is fixed=1) và fact man month (ticket id=0) luôn lấy toàn bộ.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ fact man month — dữ liệu nhập tay</div>
+      <div class="adm-body"><code>public.fact man month</code> là nguồn dữ liệu MM nhập tay (ticket id=0). JOIN <code>man month.employee hrm</code> qua ssn để lấy employee code. Luôn được include, không bị dedup bởi ticket rank.</div></div>
   </div>
   <div class="sub"><div class="sub-bar"></div>Ngày lương cơ sở (payroll)</div>
   <div style="display:flex;flex-direction:column;gap:10px">
-    <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — Phải có record ngay_luong_co_so trong base_payroll</div>
-      <div class="adm-body">Bảng <code>payroll</code> trong Man-month lấy columns_key IN (ngay_luong_co_so, ngay_co_so). Nếu không có record này, MM = workday / null → kết quả sai hoặc blank.</div></div>
-    <div class="adm note"><div class="adm-title">ℹ payroll_support — bổ sung tháng thiếu</div>
-      <div class="adm-body">Bảng tĩnh <code>payroll_support</code> (base64 embed) UNION vào bảng payroll để bổ sung các tháng thiếu dữ liệu ngày lương cơ sở. Khi có tháng mới thiếu, cần cập nhật bảng này.</div></div>
-    <div class="adm note"><div class="adm-title">ℹ columns_value = '0' bị loại</div>
-      <div class="adm-body">Bảng payroll filter <code>columns_value ≠ '0'</code> để loại bỏ các dòng có giá trị ngày lương = 0 (giá trị mặc định rỗng từ hệ thống).</div></div>
+    <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — Phải có record ngay luong co so trong Payroll</div>
+      <div class="adm-body">Bảng <code>payroll</code> trong Man-month lấy columns key IN (ngay luong co so, ngay co so). Nếu không có record này, MM = workday / null → kết quả sai hoặc blank.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ payroll support — bổ sung tháng thiếu</div>
+      <div class="adm-body">Bảng tĩnh <code>payroll support</code> (base64 embed) UNION vào bảng payroll để bổ sung các tháng thiếu dữ liệu ngày lương cơ sở. Khi có tháng mới thiếu, cần cập nhật bảng này.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ columns value = '0' bị loại</div>
+      <div class="adm-body">Bảng payroll filter <code>columns value ≠ '0'</code> để loại bỏ các dòng có giá trị ngày lương = 0 (giá trị mặc định rỗng từ hệ thống).</div></div>
   </div>
   <div class="sub"><div class="sub-bar"></div>Nhân viên & Phòng ban</div>
   <div style="display:flex;flex-direction:column;gap:10px">
     <div class="adm warning"><div class="adm-title">⚠ Username phải nhất quán</div>
-      <div class="adm-body">dim_user join với timesheet qua username. Replace username NKV: <code>buithituyetsinhnkv→sinhbtt</code>, <code>nkvvip01→patersoni</code>. NV nghỉ việc cần thêm vào <code>User_past</code>.</div></div>
-    <div class="adm note"><div class="adm-title">ℹ Department_order — thứ tự hiển thị</div>
+      <div class="adm-body">dim user join với timesheet qua username. Replace username NKV: <code>buithituyetsinhnkv→sinhbtt</code>, <code>nkvvip01→patersoni</code>. NV nghỉ việc cần thêm vào <code>User past</code>.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ Department order — thứ tự hiển thị</div>
       <div class="adm-body">Tính tự động từ bảng department: BOD=0, Non-technical=1, Technical=2 → sort → đánh số 1,2,3... Nếu thêm phòng ban mới, thứ tự tự cập nhật khi refresh.</div></div>
   </div>
 </div>
@@ -1517,17 +1517,17 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
       • <strong>Accountant</strong> — phân bổ theo kế toán<br>
       • <strong>User</strong> — phân bổ theo nhân viên<br>
       Mỗi group là một Calculation Group table, không phải bảng dữ liệu thường.</div></div>
-    <div class="adm warning"><div class="adm-title">⚠ Quan trọng — dim_metric và list_metric là 2 bảng khác nhau</div>
-      <div class="adm-body"><code>dim_metric</code> là Calculated table (DAX). <code>list_metric</code> là bảng M (base64 tĩnh). Không nhầm lẫn khi debug — nếu metric không hiển thị, kiểm tra cả 2 bảng này.</div></div>
-    <div class="adm note"><div class="adm-title">ℹ MM = workday / ngay_luong_co_so</div>
-      <div class="adm-body">Công thức MM cơ bản: <code>workday / ngay_luong_co_so</code> trong tháng. Dùng timesheet làm tử số, payroll làm mẫu số. Nếu payroll thiếu tháng → MM = blank (không chia được 0).</div></div>
+    <div class="adm warning"><div class="adm-title">⚠ Quan trọng — dim metric và list metric là 2 bảng khác nhau</div>
+      <div class="adm-body"><code>dim metric</code> là Calculated table (DAX). <code>list metric</code> là bảng M (base64 tĩnh). Không nhầm lẫn khi debug — nếu metric không hiển thị, kiểm tra cả 2 bảng này.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ MM = workday / ngay luong co so</div>
+      <div class="adm-body">Công thức MM cơ bản: <code>workday / ngay luong co so</code> trong tháng. Dùng timesheet làm tử số, payroll làm mẫu số. Nếu payroll thiếu tháng → MM = blank (không chia được 0).</div></div>
   </div>
   <div class="sub"><div class="sub-bar"></div>Lưu ý measure</div>
   <div style="display:flex;flex-direction:column;gap:10px">
-    <div class="adm note"><div class="adm-title">ℹ fact_ticket_form_timesheet là bảng fact chính</div>
-      <div class="adm-body">Toàn bộ measure MM đều tính trên bảng này. Cột <code>workday</code> (number), <code>code_of_budget</code>, <code>username</code>, <code>date</code>, <code>is_fixed</code>, <code>rn</code> là các cột quan trọng nhất.</div></div>
-    <div class="adm warning"><div class="adm-title">⚠ rn=1 chỉ áp dụng cho nguồn thường (is_fixed=0)</div>
-      <div class="adm-body">Trong bảng timesheet: <code>rn</code> = NULL cho is_fixed=1 và ticket_id=0 (vì không tham gia ticket_rank). Khi viết measure cần filter đúng điều kiện, không dùng <code>rn = 1</code> một mình mà không kết hợp với is_fixed.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ fact ticket form timesheet là bảng fact chính</div>
+      <div class="adm-body">Toàn bộ measure MM đều tính trên bảng này. Cột <code>workday</code> (number), <code>code of budget</code>, <code>username</code>, <code>date</code>, <code>is fixed</code>, <code>rn</code> là các cột quan trọng nhất.</div></div>
+    <div class="adm warning"><div class="adm-title">⚠ rn=1 chỉ áp dụng cho nguồn thường (is fixed=0)</div>
+      <div class="adm-body">Trong bảng timesheet: <code>rn</code> = NULL cho is fixed=1 và ticket id=0 (vì không tham gia ticket rank). Khi viết measure cần filter đúng điều kiện, không dùng <code>rn = 1</code> một mình mà không kết hợp với is fixed.</div></div>
   </div>
 </div>
 
@@ -1540,22 +1540,22 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
   </div>
   <div class="sub"><div class="sub-bar"></div>Nguyên tắc đọc số</div>
   <ul class="checklist">
-    <li><span class="ci ci-ok">✓</span><span><strong>MM = workday / ngay_luong_co_so</strong>. Số MM hợp lệ nằm trong khoảng 0–1 mỗi tháng. Tổng MM theo project của 1 NV trong tháng = tổng các dòng code_of_budget.</span></li>
+    <li><span class="ci ci-ok">✓</span><span><strong>MM = workday / ngay luong co so</strong>. Số MM hợp lệ nằm trong khoảng 0–1 mỗi tháng. Tổng MM theo project của 1 NV trong tháng = tổng các dòng code of budget.</span></li>
     <li><span class="ci ci-ok">✓</span><span><strong>Chọn đúng Calculation Group</strong> khi xem báo cáo: DPM / pic / Accountant / User. Mỗi group cho kết quả theo chiều khác nhau.</span></li>
-    <li><span class="ci ci-warn">!</span><span><strong>fact_man_month (ticket_id=0)</strong> là dữ liệu nhập tay — không có ticket_id, luôn được include. Nếu thấy dữ liệu bất thường kiểm tra nguồn này trước.</span></li>
-    <li><span class="ci ci-warn">!</span><span><strong>is_fixed=1</strong> (nguồn 1a): luôn lấy toàn bộ không dedup. Dùng cho các trường hợp cần giữ cả 2 version (late fix).</span></li>
-    <li><span class="ci ci-warn">!</span><span><strong>Sum_of_workday</strong>: tổng ngày công từ form service — khác với workday trong timesheet. Dùng để check consistency, không phải số chính trong báo cáo MM.</span></li>
-    <li><span class="ci ci-bad">✗</span><span><strong>Không filter code_of_budget = null</strong> vì fact_man_month có thể dùng code khác. Kiểm tra cả cột code_to_be_charged nếu join với fact_man_month.</span></li>
+    <li><span class="ci ci-warn">!</span><span><strong>fact man month (ticket id=0)</strong> là dữ liệu nhập tay — không có ticket id, luôn được include. Nếu thấy dữ liệu bất thường kiểm tra nguồn này trước.</span></li>
+    <li><span class="ci ci-warn">!</span><span><strong>is fixed=1</strong> (nguồn 1a): luôn lấy toàn bộ không dedup. Dùng cho các trường hợp cần giữ cả 2 version (late fix).</span></li>
+    <li><span class="ci ci-warn">!</span><span><strong>Sum of workday</strong>: tổng ngày công từ form service — khác với workday trong timesheet. Dùng để check consistency, không phải số chính trong báo cáo MM.</span></li>
+    <li><span class="ci ci-bad">✗</span><span><strong>Không filter code of budget = null</strong> vì fact man month có thể dùng code khác. Kiểm tra cả cột code to be charged nếu join với fact man month.</span></li>
   </ul>
   <div class="sub" style="margin-top:32px"><div class="sub-bar"></div>Checklist trước khi gửi báo cáo</div>
   <div class="tbl-wrap">
     <table>
       <thead><tr><th>Kiểm tra</th><th>Cách verify</th><th>Thời điểm</th></tr></thead>
       <tbody>
-        <tr><td>Timesheet tháng hiện tại đã submit</td><td>Ticket svc=11998 có block_id 12009/16591, date &gt; 31/12/2025</td><td class="ok">Trước mỗi refresh</td></tr>
+        <tr><td>Timesheet tháng hiện tại đã submit</td><td>Ticket svc=11998 có block id 12009/16591, date &gt; 31/12/2025</td><td class="ok">Trước mỗi refresh</td></tr>
         <tr><td>Ngày lương cơ sở tháng có dữ liệu</td><td>Kiểm tra bảng payroll có record tháng đó</td><td class="ok">Trước mỗi refresh</td></tr>
         <tr><td>Username NV mới khớp giữa HRM và timesheet</td><td>Lọc dòng MM = null sau join</td><td class="warn">Khi onboard NV mới</td></tr>
-        <tr><td>payroll_support cập nhật đủ tháng</td><td>Kiểm tra tháng thiếu trong bảng payroll</td><td class="warn">Khi có tháng không có payroll</td></tr>
+        <tr><td>payroll support cập nhật đủ tháng</td><td>Kiểm tra tháng thiếu trong bảng payroll</td><td class="warn">Khi có tháng không có payroll</td></tr>
         <tr><td>Tổng MM hợp lý (0–1 per NV per tháng)</td><td>Tổng MM theo NV trong tháng ≤ 1</td><td class="ok">Kiểm tra cuối cùng</td></tr>
       </tbody>
     </table>
@@ -1872,79 +1872,79 @@ const RPT = {
   luong:{
     label:'Báo cáo Lương', sub:'Power BI · Tháng → NV → code/dpm × Type', bg:'#4051b5',
     sources:[
-      {id:'bp',  label:'base_payroll',  sub:'.record · .payroll',
+      {id:'bp',  label:'Payroll',  sub:'.record · .payroll',
        ids:[
-         {id:'bp-rec', dn:'Payroll record',  df:'payroll_name\npayroll_status\nreport_month\nreport_year\nuser_id\ncolumns (JSONB)'},
-         {id:'bp-mst', dn:'Payroll master',  df:'payroll_id\npayroll_name\npayroll_status'},
+         {id:'bp-rec', dn:'Payroll record',  df:'payroll name\npayroll status\nreport month\nreport year\nuser id\ncolumns (JSONB)'},
+         {id:'bp-mst', dn:'Payroll master',  df:'payroll id\npayroll name\npayroll status'},
        ],
-       metrics:['Payroll_code','Payroll_tet','Payroll_t13','Payroll_paid_leave','Payroll_dpm','Payroll_salary','Payroll_PIT_paid','Payroll_Other_bonus','Payroll_Income_for_pit'],
+       metrics:['Payroll code','Payroll tet','Payroll t13','Payroll paid leave','Payroll dpm','Payroll salary','Payroll PIT paid','Payroll Other bonus','Payroll Income for pit'],
       },
-      {id:'bs',  label:'base_service',  sub:'.ticket',
+      {id:'bs',  label:'Service',  sub:'.ticket',
        ids:[
-         {id:'bs-11998',  dn:'Timesheet',       df:'username\ndepartment\ndate\nworkday\ncode_of_budget'},
-         {id:'bs-12071',  dn:'Bonus/Adj/Off',   df:'form[Bonus Table]\nform[Adjustment Table]\nform[Offboarding Table]'},
-         {id:'bs-12480',  dn:'Welfare',         df:'form[Expense breakdown]\nuser_id\nvalue'},
-         {id:'bs-perdiem',dn:'Perdiem',         df:'employee_code\nusername\nnon_taxable\ntaxable'},
+         {id:'bs-11998',  dn:'[33906] 1a. Late Timesheet Submission',       df:'username\ndepartment\ndate\nworkday\ncode of budget'},
+         {id:'bs-12071',  dn:'[12090] 3. Approval of Project Documents',   df:'form[Bonus Table]\nform[Adjustment Table]\nform[Offboarding Table]'},
+         {id:'bs-12480',  dn:'[12480] 9 Payment Remuneration – Employee Welfare',         df:'form[Expense breakdown]\nuser id\nvalue'},
+         {id:'bs-perdiem',dn:'[12071] 2. Request for Benefits',         df:'employee code\nusername\nnon taxable\ntaxable'},
        ],
-       metrics:['Payroll_perform','Payroll_welfare','Payroll_adjustment','Payroll_Offboarding','Payroll_perdiem','fact_ticket_form_timesheet'],
+       metrics:['Payroll perform','Payroll welfare','Payroll adjustment','Payroll Offboarding','Payroll perdiem','fact ticket form timesheet'],
       },
-      {id:'sc',  label:'base_schedule', sub:'.overtime · .request',
-       ids:[{id:'sc-ot',dn:'Overtime confirmed',df:'paid_hours\ntong_tien_tang_ca\nuser_id\ndate'}],
-       metrics:['Payroll_ot'],
+      {id:'sc',  label:'Schedule', sub:'.overtime · .request',
+       ids:[{id:'sc-ot',dn:'Overtime confirmed',df:'paid hours\ntong tien tang ca\nuser id\ndate'}],
+       metrics:['Payroll ot'],
       },
-      {id:'hrm', label:'base_hrm',      sub:'.employee + base_account',
-       ids:[{id:'hrm-emp',dn:'Employee master',df:'user_id\ncode\nname\nusername\noffice_name\nposition_name\nteam_name'}],
-       metrics:['dim_user'],
+      {id:'hrm', label:'HRM',      sub:'.employee + base account',
+       ids:[{id:'hrm-emp',dn:'Employee master',df:'user id\ncode\nname\nusername\noffice name\nposition name\nteam name'}],
+       metrics:['dim user'],
       },
-      {id:'tbl', label:'base_table',    sub:'.data',
+      {id:'tbl', label:'Table',    sub:'.data',
        ids:[
-         {id:'tbl-82',dn:'Code ngân sách (id=82)',df:'id\nvals\ncode_of_budget_plan'},
-         {id:'tbl-69',dn:'Phòng ban (id=69)',      df:'id\nvals\ndepartment_name'},
+         {id:'tbl-82',dn:'Table of Code (id=82)',df:'id\nvals\ncode of budget plan'},
+         {id:'tbl-69',dn:'Phòng ban (id=69)',      df:'id\nvals\ndepartment name'},
        ],
-       metrics:['dim_table_code','department'],
+       metrics:['dim table code','department'],
       },
     ],
   },
   mm:{
     label:'Man-month Report', sub:'Power BI · Project → NV → Tháng × Metric', bg:'#0c8599',
     sources:[
-      {id:'mm-bs',label:'base_service',  sub:'.ticket (svc=11998)',
+      {id:'mm-bs',label:'Service',  sub:'.ticket (svc=11998)',
        ids:[
-         {id:'mm-ts', dn:'Timesheet',      df:'username\ndepartment\ndate\nworkday\ncode_of_budget\nis_fixed'},
-         {id:'mm-sow',dn:'Sum of workday', df:'id\nservice_sum_work_day'},
-         {id:'mm-ftf',dn:'Ticket form',    df:'ticket_id\nform_data\nservice_id'},
+         {id:'mm-ts', dn:'Timesheet',      df:'username\ndepartment\ndate\nworkday\ncode of budget\nis fixed'},
+         {id:'mm-sow',dn:'Sum of workday', df:'id\nservice sum work day'},
+         {id:'mm-ftf',dn:'Ticket form',    df:'ticket id\nform data\nservice id'},
        ],
-       metrics:['fact_ticket_form_timesheet','Sum_of_workday','fact_ticket_form'],
+       metrics:['fact ticket form timesheet','Sum of workday','fact ticket form'],
       },
-      {id:'mm-bp',label:'base_payroll',  sub:'.record',
-       ids:[{id:'mm-bp-rec',dn:'Ngày lương cơ sở',df:'user_id\nreport_month\nngay_luong_co_so\nngay_co_so'}],
+      {id:'mm-bp',label:'Payroll',  sub:'.record',
+       ids:[{id:'mm-bp-rec',dn:'Ngày lương cơ sở',df:'user id\nreport month\nngay luong co so\nngay co so'}],
        metrics:['payroll'],
       },
-      {id:'mm-dm',label:'data_mart',     sub:'man_month schema',
+      {id:'mm-dm',label:'data mart',     sub:'man month schema',
        ids:[
-         {id:'mm-dm-u',   dn:'dim_user',            df:'user_id\nusername\ncode\nname\nteam_name'},
-         {id:'mm-dm-c',   dn:'dim_table_code',      df:'code_of_budget_plan\nrow_id\nvals'},
-         {id:'mm-dm-t',   dn:'dim_ticket',          df:'ticket_id\nservice_id\nroot_id'},
-         {id:'mm-dm-p',   dn:'dim_project_task/list',df:'task_id\ntask_name\nproject_code'},
-         {id:'mm-dm-ftpd',dn:'fact_ticket_project_document',df:'project_code\ntotal_mm\nnon_contracted_mm'},
-         {id:'mm-dm-d',   dn:'department',          df:'deparment_code\ntype\nname'},
+         {id:'mm-dm-u',   dn:'dim user',            df:'user id\nusername\ncode\nname\nteam name'},
+         {id:'mm-dm-c',   dn:'dim table code',      df:'code of budget plan\nrow id\nvals'},
+         {id:'mm-dm-t',   dn:'dim ticket',          df:'ticket id\nservice id\nroot id'},
+         {id:'mm-dm-p',   dn:'dim project task/list',df:'task id\ntask name\nproject code'},
+         {id:'mm-dm-ftpd',dn:'fact ticket project document',df:'project code\ntotal mm\nnon contracted mm'},
+         {id:'mm-dm-d',   dn:'department',          df:'deparment code\ntype\nname'},
        ],
-       metrics:['dim_user','dim_table_code','dim_ticket','dim_project_task','fact_ticket_project_document','department','Department_order'],
+       metrics:['dim user','dim table code','dim ticket','dim project task','fact ticket project document','department','Department order'],
       },
       {id:'mm-st',label:'Static (base64)',sub:'Nhúng trong Power Query',
        ids:[
-         {id:'mm-st-up',dn:'User_past',       df:'user_id\nusername\ncode\nname\nemail'},
-         {id:'mm-st-lm',dn:'list_metric',     df:'No.\nMetrics\nSignificant\nData source'},
-         {id:'mm-st-ps',dn:'payroll_support', df:'user_id\nreport_month\ncolumns_value\nusername'},
+         {id:'mm-st-up',dn:'User past',       df:'user id\nusername\ncode\nname\nemail'},
+         {id:'mm-st-lm',dn:'list metric',     df:'No.\nMetrics\nSignificant\nData source'},
+         {id:'mm-st-ps',dn:'payroll support', df:'user id\nreport month\ncolumns value\nusername'},
        ],
-       metrics:['User_past','list_metric','payroll_support'],
+       metrics:['User past','list metric','payroll support'],
       },
     ],
   },
 };
 
 /* ═══ STORAGE ═══ */
-function sk(id){ return 'dg3_'+id; }
+function sk(id){ return 'dg3 '+id; }
 function gd(id){ try{ return JSON.parse(localStorage.getItem(sk(id))||'null'); }catch(e){ return null; } }
 function sd(id,v){ try{ localStorage.setItem(sk(id),JSON.stringify(v)); }catch(e){} }
 function seed(){
@@ -2086,11 +2086,11 @@ function render(rptId, cid){
 }
 
 /* ═══ POPUP ═══ */
-let _id=null,_rpt=null,_cid=null;
+let  id=null, rpt=null, cid=null;
 function findItem(rptId,id){ for(const s of RPT[rptId].sources){ const i=s.ids.find(x=>x.id===id); if(i) return{item:i,src:s}; } return{}; }
 
 function openPop(id,rptId,cid){
-  _id=id;_rpt=rptId;_cid=cid;
+   id=id; rpt=rptId; cid=cid;
   const{item,src}=findItem(rptId,id);
   const d=gd(id);
   document.getElementById('dg-pop-id').textContent=id+(src?'  ·  '+src.label:'');
@@ -2099,14 +2099,14 @@ function openPop(id,rptId,cid){
   document.getElementById('dg-ov').classList.add('open');
   setTimeout(()=>document.getElementById('dg-pop-name').focus(),60);
 }
-function closePop(){ document.getElementById('dg-ov').classList.remove('open'); _id=null; }
+function closePop(){ document.getElementById('dg-ov').classList.remove('open');  id=null; }
 document.getElementById('dg-pop-cancel').addEventListener('click',closePop);
 document.getElementById('dg-ov').addEventListener('click',function(e){ if(e.target===this) closePop(); });
 document.getElementById('dg-pop-save').addEventListener('click',function(){
-  if(!_id) return;
-  sd(_id,{name:document.getElementById('dg-pop-name').value.trim(),fields:document.getElementById('dg-pop-fields').value.trim()});
+  if(! id) return;
+  sd( id,{name:document.getElementById('dg-pop-name').value.trim(),fields:document.getElementById('dg-pop-fields').value.trim()});
   closePop();
-  render(_rpt,_cid);
+  render( rpt, cid);
 });
 document.getElementById('dg-pop-name').addEventListener('keydown',e=>{ if(e.key==='Escape') closePop(); });
 

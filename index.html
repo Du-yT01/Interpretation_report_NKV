@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Báo cáo Lương — Tài liệu kỹ thuật</title>
+<style>
+:root {
+  --primary: #4051b5;
+  --primary-light: rgba(64,81,181,.1);
+  --accent: #526cfe;
+  --bg: #fff;
+  --page-bg: #f5f6fa;
+  --sidebar-w: 220px;
+  --header-h: 50px;
+  --fg: rgba(0,0,0,.87);
+  --fg-muted: rgba(0,0,0,.54);
+  --fg-hint: rgba(0,0,0,.36);
+  --border: rgba(0,0,0,.10);
+  --border-light: rgba(0,0,0,.06);
+  --code-bg: rgba(0,0,0,.05);
+  --mono: ui-monospace,'Cascadia Code','Roboto Mono',monospace;
+  --sans: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --c-note:    #448aff;
+  --c-tip:     #00bfa5;
+  --c-warning: #ff9100;
+  --c-danger:  #ff1744;
+  --c-success: #00c853;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);font-size:14px;color:var(--fg);background:var(--page-bg);line-height:1.7}
+
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--primary);z-index:300;display:flex;align-items:center;padding:0 20px;gap:12px}
+.hdr-logo{width:28px;height:28px;border-radius:4px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0}
+.hdr-title{font-size:13.5px;font-weight:700;color:#fff}
+.hdr-sub{font-size:11px;color:rgba(255,255,255,.55);font-family:var(--mono);margin-left:2px}
+.hdr-badge{margin-left:auto;font-size:10px;font-weight:700;font-family:var(--mono);color:rgba(255,255,255,.85);background:rgba(255,255,255,.15);padding:2px 9px;border-radius:20px;border:1px solid rgba(255,255,255,.18)}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:var(--header-h);left:0;bottom:0;width:var(--sidebar-w);background:#fff;border-right:1px solid var(--border);padding:16px 0 24px;z-index:200;overflow-y:auto;display:flex;flex-direction:column}
+.nav-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-hint);padding:10px 16px 4px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 16px;cursor:pointer;font-size:13px;color:var(--fg-muted);border-left:3px solid transparent;transition:background .1s,color .1s;user-select:none}
+.nav-item:hover{background:var(--primary-light);color:var(--fg)}
+.nav-item.active{color:var(--primary);font-weight:700;background:var(--primary-light);border-left-color:var(--primary)}
+.nav-num{width:20px;height:20px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:var(--mono);background:var(--code-bg);color:var(--fg-muted)}
+.nav-item.active .nav-num{background:var(--primary);color:#fff}
+.nav-footer{margin-top:auto;padding:14px 16px;border-top:1px solid var(--border-light);font-size:11px;color:var(--fg-hint);font-family:var(--mono);line-height:1.6}
+
+/* MAIN */
+.main{margin-left:var(--sidebar-w);padding-top:var(--header-h);min-height:100vh;width:calc(100% - var(--sidebar-w));box-sizing:border-box}
+.page{display:none;padding:32px 40px 72px;width:100%;box-sizing:border-box}
+.page.active{display:block}
+
+/* PAGE HEADER */
+.ph{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.ph-eyebrow{display:inline-block;font-size:11px;font-weight:700;font-family:var(--mono);color:var(--primary);background:var(--primary-light);padding:3px 12px;border-radius:20px;margin-bottom:10px}
+.ph-title{font-size:1.5rem;font-weight:300;color:var(--fg);line-height:1.3}
+.ph-desc{font-size:13px;color:var(--fg-muted);margin-top:6px}
+
+/* SUB HEADING */
+.sub{font-size:.95rem;font-weight:700;color:var(--fg);margin:28px 0 14px;padding-bottom:6px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:8px}
+.sub-bar{width:3px;height:15px;background:var(--primary);border-radius:2px;flex-shrink:0}
+
+/* ADMONITION */
+.adm{border-left:4px solid var(--c);border-radius:0 4px 4px 0;background:color-mix(in srgb,var(--c) 8%,white);margin:8px 0;overflow:hidden}
+.adm.note{--c:var(--c-note)}.adm.warning{--c:var(--c-warning)}.adm.danger{--c:var(--c-danger)}.adm.success{--c:var(--c-success)}.adm.tip{--c:var(--c-tip)}
+.adm-title{background:color-mix(in srgb,var(--c) 14%,white);padding:7px 14px;font-weight:700;font-size:12px;color:color-mix(in srgb,var(--c) 80%,#000);display:flex;align-items:center;gap:6px}
+.adm-body{padding:10px 14px;color:rgba(0,0,0,.76);line-height:1.65;font-size:13.5px}
+.adm-body code{font-family:var(--mono);font-size:11px;background:rgba(0,0,0,.07);padding:1px 5px;border-radius:3px}
+.adm-body strong{color:var(--fg)}
+
+/* TABLE */
+.tbl-wrap{border-radius:4px;border:1px solid var(--border);overflow:hidden;margin:4px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+thead th{background:rgba(0,0,0,.87);color:#fff;padding:10px 16px;text-align:left;font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase}
+tbody td{padding:10px 16px;border-bottom:1px solid var(--border-light);color:var(--fg-muted);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--primary-light)}
+td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding:1px 5px;border-radius:3px;color:var(--primary)}
+.ok{color:#2e7d32;font-weight:600}.warn{color:#e65100;font-weight:600}.bad{color:#c62828;font-weight:600}
+
+/* CHECKLIST */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:8px}
+.checklist li{display:flex;align-items:flex-start;gap:12px;background:#fff;border:1px solid var(--border);border-radius:4px;padding:11px 15px;font-size:13.5px;color:var(--fg-muted)}
+.checklist li:hover{box-shadow:0 1px 5px rgba(0,0,0,.07)}
+.ci{flex-shrink:0;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;margin-top:2px}
+.ci-ok{background:#e8f5e9;color:#2e7d32}.ci-warn{background:#fff3e0;color:#e65100}.ci-bad{background:#ffebee;color:#c62828}
+.checklist strong{color:var(--fg)}
+.checklist code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding:1px 5px;border-radius:3px;color:var(--primary)}
+
+/* ══════════════════════════════════════
+   FLOW DIAGRAM — swimlane style
+══════════════════════════════════════ */
+.flow-diagram{background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:28px}
+
+/* column headers */
+.flow-cols{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border-bottom:2px solid var(--border)}
+.flow-col-hdr{padding:10px 14px;text-align:center;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:7px}
+.col-num{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0}
+.ch1{background:#e3f2fd;color:#1565c0}.ch1 .col-num{background:#1565c0}
+.ch2{background:#e8f5e9;color:#2e7d32}.ch2 .col-num{background:#2e7d32}
+.ch3{background:#f3e5f5;color:#6a1b9a}.ch3 .col-num{background:#6a1b9a}
+.ch4{background:#fff3e0;color:#e65100}.ch4 .col-num{background:#e65100}
+
+/* swimlane body */
+.flow-body{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;min-height:480px;position:relative}
+
+/* column lanes */
+.flow-lane{padding:16px 12px;border-right:1px solid var(--border-light);display:flex;flex-direction:column;align-items:center;gap:8px;position:relative}
+.flow-lane:last-child{border-right:none}
+.lane1{background:#f0f7ff}
+.lane2{background:#f1fbf4}
+.lane3{background:#faf4ff}
+.lane4{background:#fffbf4}
+
+/* nodes */
+.fnode{
+  width:100%;border-radius:6px;padding:8px 10px;
+  font-size:11.5px;font-weight:600;text-align:center;
+  position:relative;cursor:default;
+  transition:transform .15s,box-shadow .15s;
+}
+.fnode:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.fnode-sub{font-size:10px;font-weight:400;margin-top:3px;opacity:.8;line-height:1.4}
+
+/* node colors by layer */
+.n-src{background:#1565c0;color:#fff}.n-src .fnode-sub{color:#90caf9}
+.n-mart{background:#2e7d32;color:#fff}.n-mart .fnode-sub{color:#a5d6a7}
+.n-pq{background:#6a1b9a;color:#fff}.n-pq .fnode-sub{color:#ce93d8}
+.n-final{background:#e65100;color:#fff;font-size:12.5px}.n-final .fnode-sub{color:#ffcc80}
+
+/* group inside lane */
+.fgroup{width:100%;border-radius:6px;border:1px dashed rgba(0,0,0,.15);padding:8px 8px 6px;margin:4px 0}
+.fgroup-label{font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--fg-hint);margin-bottom:6px;text-align:center}
+
+/* arrow between lanes — decorative */
+.flow-arrows{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  pointer-events:none;z-index:10;
+}
+
+/* vertical arrow inside lane */
+.v-arrow{
+  font-size:16px;color:rgba(0,0,0,.2);margin:0 auto;
+  display:flex;align-items:center;justify-content:center;
+  width:100%;
+}
+
+/* cross-lane arrow label */
+.cross-arrow{
+  display:flex;align-items:center;justify-content:center;
+  padding:4px 0;font-size:10px;color:var(--fg-hint);gap:4px;
+  width:100%;
+}
+
+/* outcome box */
+.outcome-row{
+  background:linear-gradient(135deg,#e65100,#bf360c);
+  color:#fff;padding:14px 20px;margin-top:0;
+  display:flex;align-items:center;gap:16px;
+  border-top:2px solid rgba(0,0,0,.1);
+}
+.outcome-icon{font-size:28px;flex-shrink:0}
+.outcome-title{font-size:14px;font-weight:700;margin-bottom:2px}
+.outcome-desc{font-size:12px;opacity:.85}
+
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--fg-muted)}
+.legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:6px;padding:12px 16px}
+.stat-num{font-size:24px;font-weight:300;color:var(--primary);font-family:var(--mono)}
+.stat-label{font-size:11px;color:var(--fg-muted);margin-top:2px}
+
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:2px solid var(--border);background:#fff;border-radius:6px 6px 0 0;overflow:hidden}
+.tab-btn{padding:10px 20px;font-size:13px;font-weight:600;color:var(--fg-muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s;user-select:none;background:#fff}
+.tab-btn:hover{color:var(--fg);background:#f5f6fa}
+.tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);background:#fff}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* ── DETAIL FLOW CARDS ── */
+.detail-group{margin-bottom:28px}
+.detail-group-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:10px 14px;background:#fff;border:1px solid var(--border);border-radius:6px;border-left:4px solid var(--primary)}
+.dg-icon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;font-family:var(--mono)}
+.dg-title{font-size:13.5px;font-weight:700;color:var(--fg)}
+.dg-sub{font-size:12px;color:var(--fg-muted);margin-top:2px}
+
+.flow-card{background:#fff;border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:10px;overflow:hidden}
+.fc-out{font-size:12px;font-weight:700;color:var(--primary);margin-bottom:10px;font-family:var(--mono);display:flex;align-items:center;gap:6px}
+.fc-out::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--primary);flex-shrink:0}
+.fc-chain{display:flex;align-items:flex-start;flex-wrap:wrap;gap:6px;overflow-x:auto;padding-bottom:4px}
+.fc-node{border-radius:5px;padding:6px 10px;font-size:11px;line-height:1.4;flex-shrink:0;max-width:200px}
+.fc-src{background:#1565c0;color:#fff;font-weight:600;font-family:var(--mono)}
+.fc-filter{background:#fff8e1;border:1px solid #ffe082;color:#5d4037;font-family:var(--mono);font-size:10.5px}
+.fc-process{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20;font-size:10.5px}
+.fc-out-node{background:#6a1b9a;color:#fff;font-weight:700;font-family:var(--mono)}
+.fc-filter-label{display:block;font-family:var(--sans);font-size:10px;opacity:.7;margin-top:2px;font-style:italic}
+.fc-arrow{color:var(--fg-hint);font-size:18px;display:flex;align-items:center;flex-shrink:0;margin-top:4px}
+.fc-note{margin-top:10px;font-size:11.5px;color:var(--fg-muted);border-top:1px solid var(--border-light);padding-top:8px;line-height:1.5}
+
+/* ── SIDEBAR ACCORDION ── */
+.rpt-header{display:flex;align-items:center;gap:9px;padding:10px 16px;cursor:pointer;user-select:none;font-size:12px;font-weight:700;color:var(--fg-muted);border-left:3px solid transparent;transition:background .12s,color .12s;margin-top:4px}
+.rpt-header:hover{background:var(--primary-light);color:var(--fg)}
+.rpt-header.active{color:var(--primary);border-left-color:var(--primary);background:var(--primary-light)}
+.rpt-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.rpt-name{flex:1}
+.rpt-chevron{font-size:11px;transition:transform .2s;color:var(--fg-hint)}
+.rpt-header:not(.active) .rpt-chevron{transform:rotate(-90deg)}
+.rpt-pages{overflow:hidden;max-height:0;transition:max-height .25s ease}
+.rpt-pages.active{max-height:300px}
+.rpt-pages .nav-item{padding-left:28px}
+
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-logo">B</div>
+  <div class="hdr-title" id="hdr-title">Báo cáo Lương</div>
+  <div class="hdr-sub">— Tài liệu kỹ thuật</div>
+  <span class="hdr-badge">v2026.06</span>
+</header>
+
+<nav class="sidebar">
+
+  <!-- Report 1: Báo cáo Lương -->
+  <div class="rpt-header active" data-rpt="luong">
+    <div class="rpt-dot" style="background:#4051b5"></div>
+    <div class="rpt-name">Báo cáo Lương</div>
+    <div class="rpt-chevron">▾</div>
+  </div>
+  <div class="rpt-pages active" id="rpt-luong">
+    <div class="nav-item active" data-page="p1" data-rpt="luong"><span class="nav-num">01</span>Luồng dữ liệu</div>
+    <div class="nav-item" data-page="p2" data-rpt="luong"><span class="nav-num">02</span>Input dữ liệu</div>
+    <div class="nav-item" data-page="p3" data-rpt="luong"><span class="nav-num">03</span>Công thức DAX</div>
+    <div class="nav-item" data-page="p4" data-rpt="luong"><span class="nav-num">04</span>Filter / Xem</div>
+  </div>
+
+  <!-- Report 2: Man-month -->
+  <div class="rpt-header" data-rpt="mm">
+    <div class="rpt-dot" style="background:#0c8599"></div>
+    <div class="rpt-name">Man-month</div>
+    <div class="rpt-chevron">▾</div>
+  </div>
+  <div class="rpt-pages" id="rpt-mm">
+    <div class="nav-item" data-page="m1" data-rpt="mm"><span class="nav-num">01</span>Luồng dữ liệu</div>
+    <div class="nav-item" data-page="m2" data-rpt="mm"><span class="nav-num">02</span>Input dữ liệu</div>
+    <div class="nav-item" data-page="m3" data-rpt="mm"><span class="nav-num">03</span>Công thức DAX</div>
+    <div class="nav-item" data-page="m4" data-rpt="mm"><span class="nav-num">04</span>Filter / Xem</div>
+  </div>
+
+  <div class="nav-footer">data_warehouse · data_mart<br>Power BI Desktop<br>Base Enterprise JSC</div>
+</nav>
+
+<main class="main">
+
+<!-- ═══ PAGE 1: LUỒNG DỮ LIỆU ═══ -->
+<div class="page active" id="p1">
+  <div class="ph">
+    <div class="ph-eyebrow">01 / 04</div>
+    <h1 class="ph-title">Luồng dữ liệu</h1>
+    <p class="ph-desc">Toàn bộ dữ liệu lương đi qua 4 tầng xử lý — từ hệ thống gốc đến báo cáo cuối cùng</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">Hệ thống nguồn</div></div>
+    <div class="stat-card"><div class="stat-num">7</div><div class="stat-label">Bảng Data Mart</div></div>
+    <div class="stat-card"><div class="stat-num">19</div><div class="stat-label">Bảng Power Query</div></div>
+    <div class="stat-card"><div class="stat-num">17</div><div class="stat-label">Bảng gộp vào Payroll</div></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab-btn active" data-tab="t1">Tổng quan</div>
+    <div class="tab-btn" data-tab="t2">Lưu đồ chi tiết nguồn</div>
+  </div>
+
+  <!-- TAB 1: TỔNG QUAN -->
+  <div class="tab-content active" id="t1">
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#1565c0"></div>Hệ thống nguồn</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#2e7d32"></div>Data Mart (trung gian)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#6a1b9a"></div>Power Query (xử lý)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#e65100"></div>Báo cáo cuối</div>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-cols">
+        <div class="flow-col-hdr ch1"><span class="col-num">1</span>Hệ thống nguồn</div>
+        <div class="flow-col-hdr ch2"><span class="col-num">2</span>Data Mart</div>
+        <div class="flow-col-hdr ch3"><span class="col-num">3</span>Power Query</div>
+        <div class="flow-col-hdr ch4"><span class="col-num">4</span>Kết quả báo cáo</div>
+      </div>
+      <div class="flow-body">
+        <div class="flow-lane lane1">
+          <div class="fnode n-src">base_payroll<div class="fnode-sub">.record · .payroll</div></div>
+          <div class="v-arrow">↓</div>
+          <div class="fnode n-src">base_service<div class="fnode-sub">.ticket (svc 11998, 12071, 12480)</div></div>
+          <div class="v-arrow">↓</div>
+          <div class="fnode n-src">base_schedule<div class="fnode-sub">.overtime · .request</div></div>
+          <div class="v-arrow">↓</div>
+          <div class="fnode n-src">base_hrm<div class="fnode-sub">.employee · .office · .position…</div></div>
+          <div class="v-arrow">↓</div>
+          <div class="fnode n-src">base_account<div class="fnode-sub">.group (username)</div></div>
+          <div class="v-arrow">↓</div>
+          <div class="fnode n-src">base_table<div class="fnode-sub">.data (table_id 69 / 82)</div></div>
+        </div>
+        <div class="flow-lane lane2">
+          <div class="fgroup">
+            <div class="fgroup-label">Timesheet (3 phiên bản)</div>
+            <div class="fnode n-mart" style="margin-bottom:6px">fact_ticket_form_timesheet<div class="fnode-sub">Latest version</div></div>
+            <div class="fnode n-mart" style="margin-bottom:6px">fact_ticket_form_timesheet_1a<div class="fnode-sub">is_fixed = 1</div></div>
+            <div class="fnode n-mart">fact_ticket_form_timesheet_new<div class="fnode-sub">Nguồn mới nhất</div></div>
+          </div>
+          <div style="height:8px"></div>
+          <div class="fgroup">
+            <div class="fgroup-label">Danh mục</div>
+            <div class="fnode n-mart" style="margin-bottom:6px">dim_user<div class="fnode-sub">man_month · UNION User_past</div></div>
+            <div class="fnode n-mart" style="margin-bottom:6px">dim_table_code<div class="fnode-sub">luong · table_id = 82</div></div>
+            <div class="fnode n-mart" style="margin-bottom:6px">department<div class="fnode-sub">man_month · table_id = 69</div></div>
+            <div class="fnode n-mart">Perdiem<div class="fnode-sub">luong · base_service.ticket</div></div>
+          </div>
+        </div>
+        <div class="flow-lane lane3">
+          <div class="fgroup">
+            <div class="fgroup-label">Lương Việt Nam</div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_ngay_luong<div class="fnode-sub">Ngày công cơ sở</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_code<div class="fnode-sub">Lương & phụ cấp · BHXH</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_tet<div class="fnode-sub">Thưởng Tết · MM cumsum</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_t13<div class="fnode-sub">Lương tháng 13 · fCumsum</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_paid_leave<div class="fnode-sub">Phép còn lại · MM cumsum</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_ot<div class="fnode-sub">Tăng ca · paid_hours ratio</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_dpm<div class="fnode-sub">Sinh nhật · Xe · Thôi việc</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_perform<div class="fnode-sub">Thưởng KPI · form base64</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_welfare<div class="fnode-sub">Phúc lợi nhân viên</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_perdiem<div class="fnode-sub">Công tác phí theo code</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_adjustment<div class="fnode-sub">Điều chỉnh lương</div></div>
+            <div class="fnode n-pq">Payroll_Offboarding<div class="fnode-sub">Quyết toán nghỉ việc</div></div>
+          </div>
+          <div style="height:8px"></div>
+          <div class="fgroup">
+            <div class="fgroup-label">Người nước ngoài</div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_salary<div class="fnode-sub">Lương theo project code</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_salary_late<div class="fnode-sub">Lương muộn · Value_late</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_code_foreigners<div class="fnode-sub">BHXH công ty · workday ratio</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_Other_bonus_foreigners<div class="fnode-sub">Thu nhập khác</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_PIT_refund_foreigners<div class="fnode-sub">Hoàn thuế TNCN</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Payroll_PIT_paid_foreigners<div class="fnode-sub">Thuế TNCN · TNCT ratio</div></div>
+            <div class="fnode n-pq">Payroll_Income_for_pit<div class="fnode-sub">Thu nhập ODA</div></div>
+          </div>
+        </div>
+        <div class="flow-lane lane4">
+          <div class="fnode" style="background:#4a148c;color:#fff;margin-bottom:10px">Table.Combine<div class="fnode-sub" style="color:#ce93d8">Gộp 17 bảng thành 1 fact table</div></div>
+          <div class="v-arrow">↓</div>
+          <div class="fnode" style="background:#4a148c;color:#fff;margin-bottom:10px">Payroll (Fact Table)<div class="fnode-sub" style="color:#ce93d8">Value · Value_ver1 · Value_late · Different</div></div>
+          <div class="v-arrow">↓</div>
+          <div class="fnode" style="background:#bf360c;color:#fff;margin-bottom:10px">Measure: Payroll Value<div class="fnode-sub" style="color:#ffccbc">ISINSCOPE 3 tầng · ROUND(,0)</div></div>
+          <div class="v-arrow">↓</div>
+          <div class="fnode n-final">Matrix Report<div class="fnode-sub">Tháng → NV → code/dpm × Type</div></div>
+          <div style="height:16px"></div>
+          <div style="background:#fff3e0;border:1px solid #ffcc80;border-radius:6px;padding:10px 12px;font-size:11.5px;color:#e65100;line-height:1.6">
+            <div style="font-weight:700;margin-bottom:4px">Cột hiển thị:</div>
+            <div>• <strong>Value</strong> — version mới nhất</div>
+            <div>• <strong>Value_ver1</strong> — version N-1</div>
+            <div>• <strong>Value_late</strong> — is_fixed=1</div>
+            <div>• <strong>Different</strong> = Value − ver1</div>
+          </div>
+          <div style="height:12px"></div>
+          <div style="background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;padding:10px 12px;font-size:11.5px;color:#2e7d32;line-height:1.6">
+            <div style="font-weight:700;margin-bottom:4px">3 tầng drill-down:</div>
+            <div>① Tháng/Năm</div><div>② Nhân viên</div><div>③ code/dpm × Type</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB 2: LƯU ĐỒ CHI TIẾT NGUỒN -->
+<div class="tab-content" id="t2">
+
+<style>
+/* ── MINDMAP STYLES ── */
+.mm-wrap { position:relative; }
+
+.mm-filters {
+  display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;
+}
+.mm-filter {
+  display:flex; align-items:center; gap:6px;
+  padding:5px 14px; border-radius:20px; border:1.5px solid;
+  font-size:12px; font-weight:600; cursor:pointer;
+  transition:all .2s; user-select:none;
+}
+.mm-filter .dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.mm-filter-bp { border-color:#3b5bdb; color:#3b5bdb; }
+.mm-filter-bp.active, .mm-filter-bp:hover { background:#3b5bdb; color:#fff; }
+.mm-filter-bs { border-color:#0c8599; color:#0c8599; }
+.mm-filter-bs.active, .mm-filter-bs:hover { background:#0c8599; color:#fff; }
+.mm-filter-sc { border-color:#c2410c; color:#c2410c; }
+.mm-filter-sc.active, .mm-filter-sc:hover { background:#c2410c; color:#fff; }
+.mm-filter-dm { border-color:#2f9e44; color:#2f9e44; }
+.mm-filter-dm.active, .mm-filter-dm:hover { background:#2f9e44; color:#fff; }
+.mm-filter-all { border-color:var(--fg-muted,#666); color:var(--fg-muted,#666); }
+.mm-filter-all.active, .mm-filter-all:hover { background:var(--fg-muted,#555); color:#fff; }
+
+/* Detail panel */
+.mm-detail {
+  background:#fff; border:1px solid var(--border,rgba(0,0,0,.1));
+  border-radius:8px; padding:0; overflow:hidden;
+  margin-bottom:16px;
+  max-height:0; opacity:0;
+  transition:max-height .3s ease, opacity .3s ease, padding .3s;
+}
+.mm-detail.open { max-height:200px; opacity:1; }
+.mm-detail-head {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px; border-bottom:1px solid var(--border,rgba(0,0,0,.08));
+}
+.mm-detail-badge {
+  font-size:10px; font-weight:700; padding:2px 8px;
+  border-radius:4px; font-family:var(--mono,monospace);
+  text-transform:uppercase; letter-spacing:.05em; flex-shrink:0;
+}
+.mm-detail-title { font-size:13px; font-weight:600; color:var(--fg,#111); }
+.mm-detail-body { padding:10px 14px; font-size:12.5px; color:var(--fg-muted,#555); line-height:1.65; }
+.mm-detail-close {
+  margin-left:auto; width:20px; height:20px; border-radius:50%;
+  background:var(--code-bg,rgba(0,0,0,.06)); border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0;
+  color:var(--fg-muted,#666);
+}
+
+/* Canvas */
+.mm-canvas {
+  position:relative; background:#fff;
+  border:1px solid var(--border,rgba(0,0,0,.1)); border-radius:10px;
+  overflow:hidden;
+}
+.mm-canvas svg { display:block; width:100%; }
+
+/* Node groups */
+.mn { cursor:pointer; }
+.mn rect, .mn circle {
+  transition:filter .18s, opacity .18s;
+}
+.mn:hover rect, .mn:hover circle { filter:brightness(1.08); }
+.mn.dimmed { opacity:.13; pointer-events:none; }
+.mn.highlighted rect { filter:brightness(1.1) drop-shadow(0 2px 6px rgba(0,0,0,.18)); }
+
+/* Connectors */
+.mc { transition:opacity .18s; }
+.mc.dimmed { opacity:.06; }
+
+/* Legend */
+.mm-legend {
+  display:flex; flex-wrap:wrap; gap:12px;
+  padding:10px 14px; border-top:1px solid var(--border-light,rgba(0,0,0,.06));
+  background:var(--page-bg,#f5f6fa);
+}
+.mm-legend-item { display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--fg-muted,#666); }
+.mm-legend-dot { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
+</style>
+
+<p style="font-size:13px;color:var(--fg-muted);margin-bottom:16px">
+  Click vào bất kỳ node nào để xem chi tiết điều kiện lọc. Dùng nút lọc để tập trung theo nhóm nguồn.
+</p>
+
+<!-- Filter buttons -->
+<div class="mm-filters">
+  <div class="mm-filter mm-filter-all active" data-group="all">
+    <span class="dot" style="background:var(--fg-muted,#888)"></span>Tất cả
+  </div>
+  <div class="mm-filter mm-filter-bp" data-group="bp">
+    <span class="dot" style="background:#3b5bdb"></span>base_payroll
+  </div>
+  <div class="mm-filter mm-filter-bs" data-group="bs">
+    <span class="dot" style="background:#0c8599"></span>base_service
+  </div>
+  <div class="mm-filter mm-filter-sc" data-group="sc">
+    <span class="dot" style="background:#c2410c"></span>base_schedule
+  </div>
+  <div class="mm-filter mm-filter-dm" data-group="dm">
+    <span class="dot" style="background:#2f9e44"></span>Danh mục
+  </div>
+</div>
+
+<!-- Detail panel -->
+<div class="mm-detail" id="mm-detail">
+  <div class="mm-detail-head">
+    <span class="mm-detail-badge" id="mm-detail-badge">TABLE</span>
+    <span class="mm-detail-title" id="mm-detail-title">—</span>
+    <button class="mm-detail-close" id="mm-detail-close">✕</button>
+  </div>
+  <div class="mm-detail-body" id="mm-detail-body">—</div>
+</div>
+
+<!-- Mindmap SVG canvas -->
+<div class="mm-canvas">
+<svg viewBox="0 0 920 1520" xmlns="http://www.w3.org/2000/svg"
+  font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<defs>
+  <!-- Arrow markers per color -->
+  <marker id="arr-bp" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+    <path d="M1 1L7 4L1 7" fill="none" stroke="#3b5bdb" stroke-width="1.5" stroke-linecap="round"/>
+  </marker>
+  <marker id="arr-bs" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+    <path d="M1 1L7 4L1 7" fill="none" stroke="#0c8599" stroke-width="1.5" stroke-linecap="round"/>
+  </marker>
+  <marker id="arr-sc" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+    <path d="M1 1L7 4L1 7" fill="none" stroke="#c2410c" stroke-width="1.5" stroke-linecap="round"/>
+  </marker>
+  <marker id="arr-dm" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+    <path d="M1 1L7 4L1 7" fill="none" stroke="#2f9e44" stroke-width="1.5" stroke-linecap="round"/>
+  </marker>
+  <marker id="arr-cond" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+    <path d="M1 1L7 4L1 7" fill="none" stroke="#e67700" stroke-width="1.5" stroke-linecap="round"/>
+  </marker>
+  <marker id="arr-out" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+    <path d="M1 1L7 4L1 7" fill="none" stroke="#6741d9" stroke-width="1.5" stroke-linecap="round"/>
+  </marker>
+</defs>
+
+<!-- ════ SECTION LABELS ════ -->
+<text x="20" y="30" font-size="9" font-weight="700" fill="#aaa" letter-spacing="1.5" text-anchor="start">NGUỒN</text>
+<text x="290" y="30" font-size="9" font-weight="700" fill="#aaa" letter-spacing="1.5" text-anchor="start">ĐIỀU KIỆN LỌC</text>
+<text x="590" y="30" font-size="9" font-weight="700" fill="#aaa" letter-spacing="1.5" text-anchor="start">BẢNG ĐẦU RA</text>
+
+<!-- ════════════════════════════════════
+     GROUP BP: base_payroll
+════════════════════════════════════ -->
+
+<!-- Source node BP -->
+<g class="mn" data-group="bp" data-id="bp-src" data-badge="NGUỒN" data-color="#3b5bdb"
+   data-title="base_payroll.record + base_payroll.payroll"
+   data-body="Bảng gốc lưu toàn bộ dữ liệu lương. Mỗi bản ghi có payroll_id, payroll_name (tên kỳ lương), payroll_status (approved/draft), report_month, report_year, và cột lương dạng JSONB chứa tất cả các khoản.">
+  <rect x="20" y="45" width="200" height="52" rx="10" fill="#3b5bdb" stroke="#2f4ec4" stroke-width="0.5"/>
+  <text x="120" y="67" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_payroll</text>
+  <text x="120" y="85" text-anchor="middle" font-size="10.5" fill="#a5b4fc">.record · .payroll</text>
+</g>
+
+<!-- BP trunk line -->
+<line class="mc" data-group="bp" x1="120" y1="97" x2="120" y2="680" stroke="#3b5bdb" stroke-width="1" stroke-dasharray="4 3" opacity=".25"/>
+
+<!-- ── COND: approved + VN ── -->
+<line class="mc" data-group="bp" x1="120" y1="115" x2="285" y2="115" stroke="#3b5bdb" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+<g class="mn" data-group="bp" data-id="cond-vn" data-badge="FILTER" data-color="#e67700"
+   data-title="payroll_status = approved · Payroll VN"
+   data-body="Lọc: payroll_status = 'approved' AND payroll_name LIKE '%Payroll VN%'. Đây là điều kiện bắt buộc cho tất cả bảng lương Việt Nam — record chưa approved sẽ không xuất hiện.">
+  <rect x="285" y="99" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+  <text x="389" y="116" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">approved · Payroll VN</text>
+  <text x="389" y="128" text-anchor="middle" font-size="10" fill="#997a00">payroll_status = 'approved'</text>
+</g>
+<!-- cond → outputs tree vertical line -->
+<line class="mc" data-group="bp" x1="493" y1="116" x2="560" y2="116" stroke="#e67700" stroke-width="1" opacity=".5"/>
+<line class="mc" data-group="bp" x1="560" y1="90" x2="560" y2="316" stroke="#6741d9" stroke-width="0.5" opacity=".3"/>
+
+<!-- Payroll_ngay_luong -->
+<line class="mc" data-group="bp" x1="560" y1="100" x2="590" y2="100" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bp" data-id="Payroll_ngay_luong" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_ngay_luong"
+   data-body="ROW_NUMBER() OVER (PARTITION BY payroll_id ORDER BY last_update DESC) = 1 → dedup bản ghi mới nhất → LATERAL jsonb_each_text(columns) → filter columns_key IN ('ngay_luong_co_so', 'ngay_co_so'). Power Query: replace value = 1 → 22.">
+  <rect x="590" y="82" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="99" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_ngay_luong</text>
+  <text x="740" y="113" text-anchor="middle" font-size="10" fill="#6741d9">Ngày công cơ sở · replace 1→22</text>
+</g>
+
+<!-- Payroll_code -->
+<line class="mc" data-group="bp" x1="560" y1="140" x2="590" y2="140" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bp" data-id="Payroll_code" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_code"
+   data-body="jsonb unpivot → columns_key IN (tong_phu_cap, on_site, severance, bhxh, bhyt, bhtn, kpcd, actual_salary...) → JOIN base_salary (ngay_luong_co_so) → JOIN dpm (base_hrm + base_account) để lấy department.">
+  <rect x="590" y="124" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="141" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_code</text>
+  <text x="740" y="155" text-anchor="middle" font-size="10" fill="#6741d9">Lương & phụ cấp · BHXH · department</text>
+</g>
+
+<!-- Payroll_tet -->
+<line class="mc" data-group="bp" x1="560" y1="182" x2="590" y2="182" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bp" data-id="Payroll_tet" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_tet"
+   data-body="columns_key = 'thuong_tet' → JOIN fact_ticket_form_timesheet → tính MM = workday / ngay_luong_co_so từng tháng → cumsum theo kỳ quyết toán.">
+  <rect x="590" y="165" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="182" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_tet</text>
+  <text x="740" y="196" text-anchor="middle" font-size="10" fill="#6741d9">Thưởng Tết · MM cumsum kỳ</text>
+</g>
+
+<!-- Payroll_t13 -->
+<line class="mc" data-group="bp" x1="560" y1="224" x2="590" y2="224" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bp" data-id="Payroll_t13" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_t13"
+   data-body="columns_key = 'tien_luong_thang_13' → fCumsum theo kỳ: 7–12/2025 (kỳ đặc biệt), Q1 (tháng 1–3), Q2–Q4 (tháng 4–12). Merge key = Month_group, không phải tháng đơn lẻ.">
+  <rect x="590" y="207" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="224" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_t13</text>
+  <text x="740" y="238" text-anchor="middle" font-size="10" fill="#6741d9">Lương tháng 13 · fCumsum kỳ Q</text>
+</g>
+
+<!-- Payroll_paid_leave -->
+<line class="mc" data-group="bp" x1="560" y1="266" x2="590" y2="266" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bp" data-id="Payroll_paid_leave" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_paid_leave"
+   data-body="columns_key = 'tien_tra_cho_cac_ngay_phep_con_lai' → JOIN timesheet → MM cumsum theo PayrollPeriods.">
+  <rect x="590" y="249" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="266" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_paid_leave</text>
+  <text x="740" y="280" text-anchor="middle" font-size="10" fill="#6741d9">Phép còn lại · MM cumsum</text>
+</g>
+
+<!-- Payroll_dpm -->
+<line class="mc" data-group="bp" x1="560" y1="308" x2="590" y2="308" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bp" data-id="Payroll_dpm" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_dpm"
+   data-body="columns_key IN (phuc_loi_ho_tro_rua_xe, tien_phu_cap_sinh_nhat, tien_tro_cap_thoi_viec) → JOIN timesheet lấy department → gán vào dept code, không phải budget code. Sinh nhật · Hỗ trợ xe · Thôi việc.">
+  <rect x="590" y="291" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="308" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_dpm</text>
+  <text x="740" y="322" text-anchor="middle" font-size="10" fill="#6741d9">Sinh nhật · Xe · Thôi việc → dept code</text>
+</g>
+
+<!-- ── COND: Foreigners ── -->
+<line class="mc" data-group="bp" x1="120" y1="370" x2="285" y2="370" stroke="#3b5bdb" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+<g class="mn" data-group="bp" data-id="cond-fg" data-badge="FILTER" data-color="#e67700"
+   data-title="approved · Payroll for Foreigners / Late_*"
+   data-body="payroll_name LIKE '%Payroll for Foreigners%' hoặc ILIKE 'Late_%' → áp dụng manual_project_refs override (user_id 881111, 734858, 862716) → UNNEST project codes → CalcValue split/dup handling.">
+  <rect x="285" y="354" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+  <text x="389" y="371" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">approved · Foreigners</text>
+  <text x="389" y="383" text-anchor="middle" font-size="10" fill="#997a00">+ Late_* · project_refs</text>
+</g>
+<line class="mc" data-group="bp" x1="493" y1="371" x2="560" y2="371" stroke="#e67700" stroke-width="1" opacity=".5"/>
+<line class="mc" data-group="bp" x1="560" y1="356" x2="560" y2="576" stroke="#6741d9" stroke-width="0.5" opacity=".3"/>
+
+<!-- Payroll_salary -->
+<line class="mc" data-group="bp" x1="560" y1="366" x2="590" y2="366" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bp" data-id="Payroll_salary" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_salary"
+   data-body="manual_project_refs COALESCE hardcode → project_refs pivot (project_code/1/2) → LATERAL UNNEST project codes → CalcValue split/dup (16 cases). Output: value · project · ngay_luong_co_so · late = 'On-time'.">
+  <rect x="590" y="349" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="366" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_salary</text>
+  <text x="740" y="380" text-anchor="middle" font-size="10" fill="#6741d9">Lương Foreigners · CalcValue · project</text>
+</g>
+
+<!-- Payroll_salary_late -->
+<line class="mc" data-group="bp" x1="560" y1="408" x2="590" y2="408" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bp" data-id="Payroll_salary_late" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_salary_late"
+   data-body="payroll_name ILIKE 'Late_%' · Foreigners → logic giống Payroll_salary nhưng chỉ trả về Value_late. Dùng cho timesheet is_fixed=1 (fact_ticket_form_timesheet_1a).">
+  <rect x="590" y="391" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="408" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_salary_late</text>
+  <text x="740" y="422" text-anchor="middle" font-size="10" fill="#6741d9">Lương muộn Late_* · Value_late</text>
+</g>
+
+<!-- Payroll_Other_bonus -->
+<line class="mc" data-group="bp" x1="560" y1="450" x2="590" y2="450" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bp" data-id="Payroll_Other_bonus_foreigners" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_Other_bonus_foreigners"
+   data-body="columns_key = 'thu_nhap_khac_tuong_duong_vnd' → approved → Anchor+Window cumsum MM logic.">
+  <rect x="590" y="433" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="450" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_Other_bonus_foreigners</text>
+  <text x="740" y="464" text-anchor="middle" font-size="10" fill="#6741d9">Thu nhập khác · Anchor+Window MM</text>
+</g>
+
+<!-- Payroll_PIT_refund -->
+<line class="mc" data-group="bp" x1="560" y1="492" x2="590" y2="492" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bp" data-id="Payroll_PIT_refund_foreigners" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_PIT_refund_foreigners"
+   data-body="columns_key = 'pit_refund_vnd' → approved → Anchor+Window cumsum × (−1). Kết quả âm vì là hoàn thuế.">
+  <rect x="590" y="475" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="492" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_PIT_refund_foreigners</text>
+  <text x="740" y="506" text-anchor="middle" font-size="10" fill="#6741d9">Hoàn thuế TNCN · ×(−1)</text>
+</g>
+
+<!-- Payroll_PIT_paid -->
+<line class="mc" data-group="bp" x1="560" y1="534" x2="590" y2="534" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bp" data-id="Payroll_PIT_paid_foreigners" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_PIT_paid_foreigners"
+   data-body="columns_key = 'thue_tncn' → JOIN Salary+Perdiem+Other_bonus+Adjustment+Income_pit → unpivot theo code/dpm → PIT ratio = TNCT code / tổng TNCT NV tháng → × thue_tncn.">
+  <rect x="590" y="517" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="534" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_PIT_paid_foreigners</text>
+  <text x="740" y="548" text-anchor="middle" font-size="10" fill="#6741d9">Thuế TNCN · TNCT ratio per code</text>
+</g>
+
+<!-- ── COND: bhxh + ODA ── -->
+<line class="mc" data-group="bp" x1="120" y1="610" x2="285" y2="610" stroke="#3b5bdb" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+<g class="mn" data-group="bp" data-id="cond-bhxh" data-badge="FILTER" data-color="#e67700"
+   data-title="bhxh_chi_phi_cong_ty / thu_nhap_mien_thue_oda"
+   data-body="Hai columns_key đặc biệt → approved → JOIN timesheet → phân bổ theo workday ratio = workday dòng / SUM(workday) NV tháng.">
+  <rect x="285" y="594" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+  <text x="389" y="611" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">bhxh_chi_phi_cong_ty</text>
+  <text x="389" y="623" text-anchor="middle" font-size="10" fill="#997a00">thu_nhap_mien_thue_oda</text>
+</g>
+<line class="mc" data-group="bp" x1="493" y1="611" x2="560" y2="611" stroke="#e67700" stroke-width="1" opacity=".5"/>
+<line class="mc" data-group="bp" x1="560" y1="601" x2="560" y2="651" stroke="#6741d9" stroke-width="0.5" opacity=".3"/>
+
+<!-- Payroll_code_foreigners -->
+<line class="mc" data-group="bp" x1="560" y1="611" x2="590" y2="611" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bp" data-id="Payroll_code_foreigners" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_code_foreigners"
+   data-body="columns_key = 'bhxh_chi_phi_cong_ty' → JOIN timesheet → workday ratio = workday / SUM(workday) NV tháng → × giá trị bhxh.">
+  <rect x="590" y="594" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="611" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_code_foreigners</text>
+  <text x="740" y="625" text-anchor="middle" font-size="10" fill="#6741d9">BHXH công ty · workday ratio</text>
+</g>
+
+<!-- Payroll_Income_for_pit -->
+<line class="mc" data-group="bp" x1="560" y1="651" x2="590" y2="651" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bp" data-id="Payroll_Income_for_pit" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_Income_for_pit"
+   data-body="columns_key = 'thu_nhap_mien_thue_oda' → approved → phân bổ workday ratio như Payroll_code_foreigners.">
+  <rect x="590" y="634" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="651" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_Income_for_pit</text>
+  <text x="740" y="665" text-anchor="middle" font-size="10" fill="#6741d9">Thu nhập ODA · workday ratio</text>
+</g>
+
+<!-- Divider -->
+<line x1="20" y1="700" x2="900" y2="700" stroke="#e5e7eb" stroke-width="0.5"/>
+
+<!-- ════════════════════════════════════
+     GROUP BS: base_service.ticket
+════════════════════════════════════ -->
+<g class="mn" data-group="bs" data-id="bs-src" data-badge="NGUỒN" data-color="#0c8599"
+   data-title="base_service.ticket"
+   data-body="Bảng lưu tất cả ticket từ các service. Phân biệt qua service_id và block_id. Form data encode base64 trong cột form / ticket_root / root_export. Pattern: DISTINCT ON (root_id) ORDER BY last_update DESC để lấy version mới nhất.">
+  <rect x="20" y="720" width="200" height="52" rx="10" fill="#0c8599" stroke="#0a6c7d" stroke-width="0.5"/>
+  <text x="120" y="742" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_service</text>
+  <text x="120" y="760" text-anchor="middle" font-size="10.5" fill="#a5f3fc">.ticket</text>
+</g>
+
+<!-- BS trunk -->
+<line class="mc" data-group="bs" x1="120" y1="772" x2="120" y2="1040" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".25"/>
+
+<!-- ── COND svc 12071 ── -->
+<line class="mc" data-group="bs" x1="120" y1="790" x2="285" y2="790" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+<g class="mn" data-group="bs" data-id="cond-svc12071" data-badge="FILTER" data-color="#e67700"
+   data-title="svc=12071 · block=12086 · DISTINCT ON root_id"
+   data-body="service_id=12071, block_id=12086 → DISTINCT ON (root_id) ORDER BY last_update DESC → form_effective = COALESCE(ticket_root→form, root_export→form, form) → base64 decode từng trường.">
+  <rect x="285" y="774" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+  <text x="389" y="791" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">svc=12071 · blk=12086</text>
+  <text x="389" y="803" text-anchor="middle" font-size="10" fill="#997a00">DISTINCT ON root_id</text>
+</g>
+<line class="mc" data-group="bs" x1="493" y1="791" x2="560" y2="791" stroke="#e67700" stroke-width="1" opacity=".5"/>
+<line class="mc" data-group="bs" x1="560" y1="776" x2="560" y2="876" stroke="#6741d9" stroke-width="0.5" opacity=".3"/>
+
+<!-- Payroll_perform -->
+<line class="mc" data-group="bs" x1="560" y1="786" x2="590" y2="786" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bs" data-id="Payroll_perform" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_perform"
+   data-body="form['Bonus Table'] base64 decode → JSON → JOIN timesheet → MM cumsum. Lưu ý: tháng luôn gán = 03/yyyy (tháng 3 năm quyết toán), bất kể chi trả thực tế khi nào.">
+  <rect x="590" y="769" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="786" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_perform</text>
+  <text x="740" y="800" text-anchor="middle" font-size="10" fill="#6741d9">Thưởng KPI · form base64 → tháng 03</text>
+</g>
+
+<!-- Payroll_adjustment -->
+<line class="mc" data-group="bs" x1="560" y1="828" x2="590" y2="828" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bs" data-id="Payroll_adjustment" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_adjustment"
+   data-body="form['Adjustment Table'] base64 → payment_month từ form['Payment in Payroll month']. Fallback: 11/2025 nếu để trống. Kiểm tra trường này trước khi submit ticket.">
+  <rect x="590" y="811" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="828" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_adjustment</text>
+  <text x="740" y="842" text-anchor="middle" font-size="10" fill="#6741d9">Điều chỉnh · payment_month</text>
+</g>
+
+<!-- Payroll_Offboarding -->
+<line class="mc" data-group="bs" x1="560" y1="870" x2="590" y2="870" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bs" data-id="Payroll_Offboarding" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_Offboarding"
+   data-body="form['Offboarding Settlement Table'] base64 → payment_month từ form['Payment in Payroll month']. Fallback: 11/2025 nếu để trống.">
+  <rect x="590" y="853" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="870" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_Offboarding</text>
+  <text x="740" y="884" text-anchor="middle" font-size="10" fill="#6741d9">Quyết toán nghỉ việc · payment_month</text>
+</g>
+
+<!-- ── COND svc 12480 ── -->
+<line class="mc" data-group="bs" x1="120" y1="920" x2="285" y2="920" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+<g class="mn" data-group="bs" data-id="cond-svc12480" data-badge="FILTER" data-color="#e67700"
+   data-title="svc=12480 · block=12502 · Expense breakdown"
+   data-body="service_id=12480, block_id=12502 → DISTINCT ON root_id → form['Expense breakdown'] base64 decode → JOIN dim_user theo username.">
+  <rect x="285" y="904" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+  <text x="389" y="921" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">svc=12480 · blk=12502</text>
+  <text x="389" y="933" text-anchor="middle" font-size="10" fill="#997a00">form[Expense breakdown]</text>
+</g>
+<line class="mc" data-group="bs" x1="493" y1="921" x2="590" y2="921" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bs" data-id="Payroll_welfare" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_welfare"
+   data-body="svc=12480 block=12502 → DISTINCT ON root_id → form['Expense breakdown'] base64 → JSON → JOIN dim_user theo username. Output: user_id, expense_type, value, report_month.">
+  <rect x="590" y="904" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="921" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_welfare</text>
+  <text x="740" y="935" text-anchor="middle" font-size="10" fill="#6741d9">Phúc lợi NV · Expense breakdown</text>
+</g>
+
+<!-- ── COND svc 11998 timesheet ── -->
+<line class="mc" data-group="bs" x1="120" y1="1000" x2="285" y2="1000" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+<g class="mn" data-group="bs" data-id="cond-ts" data-badge="FILTER" data-color="#e67700"
+   data-title="svc=11998 · block IN (12009,16591) · date > 31/12/2025"
+   data-body="service_id=11998, block_id IN (12009, 16591), root_id &lt;&gt; 0 → DISTINCT ON root_id → form['Timesheet table'] base64 → explode rows → to_date(month_display, 'DD/MM/YYYY') → filter date > '2025-12-31'. Khác nhau giữa 3 bảng chỉ ở dedup logic trong Power Query.">
+  <rect x="285" y="984" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+  <text x="389" y="1001" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">svc=11998 · blk 12009/16591</text>
+  <text x="389" y="1013" text-anchor="middle" font-size="10" fill="#997a00">date &gt; 31/12/2025</text>
+</g>
+<line class="mc" data-group="bs" x1="493" y1="1001" x2="560" y2="1001" stroke="#e67700" stroke-width="1" opacity=".5"/>
+<line class="mc" data-group="bs" x1="560" y1="991" x2="560" y2="1083" stroke="#6741d9" stroke-width="0.5" opacity=".3"/>
+
+<!-- fact_timesheet latest -->
+<line class="mc" data-group="bs" x1="560" y1="1001" x2="590" y2="1001" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bs" data-id="fact_ticket_form_timesheet" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="fact_ticket_form_timesheet (version mới nhất)"
+   data-body="Dedup: lấy version mới nhất (rn_desc=1). Cột output: ticket_id, username, department, date, shift, workday, timeoff, code_of_budget (base64), pic (base64). Dùng cho Value trong hầu hết các bảng Payroll_*.">
+  <rect x="590" y="984" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="1001" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact_ticket_form_timesheet</text>
+  <text x="740" y="1015" text-anchor="middle" font-size="10" fill="#6741d9">Version mới nhất · workday · code_budget</text>
+</g>
+
+<!-- fact_timesheet_1a -->
+<line class="mc" data-group="bs" x1="560" y1="1041" x2="590" y2="1041" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bs" data-id="fact_ticket_form_timesheet_1a" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="fact_ticket_form_timesheet_1a (is_fixed=1)"
+   data-body="is_fixed=1 — luôn lấy toàn bộ không dedup theo version. Dùng riêng cho Payroll_salary_late (Value_late). Cùng SQL nguồn với timesheet_latest, khác biệt nằm ở Power Query dedup logic.">
+  <rect x="590" y="1025" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="1042" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact_ticket_form_timesheet_1a</text>
+  <text x="740" y="1056" text-anchor="middle" font-size="10" fill="#6741d9">is_fixed = 1 · Value_late</text>
+</g>
+
+<!-- Payroll_perdiem -->
+<line class="mc" data-group="bs" x1="560" y1="1083" x2="590" y2="1083" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="bs" data-id="Payroll_perdiem" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_perdiem"
+   data-body="luong.Perdiem từ base_service.ticket → JOIN dim_user theo employee_code(=code) + username. Value = non_taxable + taxable. Đây là bảng trung gian trên data_mart, không truy vấn thẳng từ data_warehouse.">
+  <rect x="590" y="1066" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="1083" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_perdiem</text>
+  <text x="740" y="1097" text-anchor="middle" font-size="10" fill="#6741d9">Công tác phí · non_taxable + taxable</text>
+</g>
+
+<!-- Divider -->
+<line x1="20" y1="1130" x2="900" y2="1130" stroke="#e5e7eb" stroke-width="0.5"/>
+
+<!-- ════════════════════════════════════
+     GROUP SC: base_schedule
+════════════════════════════════════ -->
+<g class="mn" data-group="sc" data-id="sc-src" data-badge="NGUỒN" data-color="#c2410c"
+   data-title="base_schedule.overtime + base_schedule.request"
+   data-body="Bảng tăng ca. JOIN request (status=confirmed) để lấy OT đã được xác nhận. Tính tong_tien_tang_ca từ base_payroll, sau đó phân bổ theo paid_hours ratio của từng dòng OT trong tháng.">
+  <rect x="20" y="1150" width="200" height="52" rx="10" fill="#c2410c" stroke="#9a3412" stroke-width="0.5"/>
+  <text x="120" y="1172" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_schedule</text>
+  <text x="120" y="1190" text-anchor="middle" font-size="10.5" fill="#fed7aa">.overtime · .request</text>
+</g>
+<g class="mn" data-group="sc" data-id="cond-ot" data-badge="FILTER" data-color="#e67700"
+   data-title="status = confirmed · paid_hours ratio"
+   data-body="JOIN base_schedule.request WHERE status='confirmed' → JOIN base_payroll (tong_tien_tang_ca) → ratio = paid_hours dòng OT / SUM(paid_hours) NV trong tháng → × tong_tien_tang_ca → phân bổ vào code/dpm tương ứng.">
+  <rect x="285" y="1158" width="208" height="36" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+  <text x="389" y="1175" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">status = confirmed</text>
+  <text x="389" y="1187" text-anchor="middle" font-size="10" fill="#997a00">paid_hours ratio</text>
+</g>
+<line class="mc" data-group="sc" x1="220" y1="1176" x2="285" y2="1176" stroke="#c2410c" stroke-width="1" opacity=".5"/>
+<line class="mc" data-group="sc" x1="493" y1="1176" x2="590" y2="1176" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-out)"/>
+<g class="mn" data-group="sc" data-id="Payroll_ot" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="Payroll_ot"
+   data-body="paid_hours ratio = paid_hours của dòng / SUM(paid_hours) NV tháng × tong_tien_tang_ca. Phân bổ vào đúng code/dpm. Output: user_id, code, value, report_month.">
+  <rect x="590" y="1158" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="1175" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Payroll_ot</text>
+  <text x="740" y="1189" text-anchor="middle" font-size="10" fill="#6741d9">Tăng ca · paid_hours ratio per code</text>
+</g>
+
+<!-- Divider -->
+<line x1="20" y1="1230" x2="900" y2="1230" stroke="#e5e7eb" stroke-width="0.5"/>
+
+<!-- ════════════════════════════════════
+     GROUP DM: Danh mục
+════════════════════════════════════ -->
+<text x="20" y="1258" font-size="9" font-weight="700" fill="#aaa" letter-spacing="1.5">DANH MỤC</text>
+
+<g class="mn" data-group="dm" data-id="dm-hrm" data-badge="NGUỒN" data-color="#2f9e44"
+   data-title="base_hrm.employee + base_account.group"
+   data-body="LEFT JOIN office, position, area, team, employee_type. COALESCE(g.username, regexp_replace(email)) để tạo username khi thiếu. Power Query: UNION User_past + replace username NKV/outsource (buithituyetsinhnkv→sinhbtt, nkvvip01→patersoni, nkvvip07→davidmj...).">
+  <rect x="20" y="1268" width="200" height="52" rx="10" fill="#2f9e44" stroke="#237032" stroke-width="0.5"/>
+  <text x="120" y="1290" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_hrm</text>
+  <text x="120" y="1308" text-anchor="middle" font-size="10.5" fill="#b2f2bb">.employee + base_account</text>
+</g>
+<line class="mc" data-group="dm" x1="220" y1="1294" x2="590" y2="1294" stroke="#2f9e44" stroke-width="1" marker-end="url(#arr-dm)"/>
+<g class="mn" data-group="dm" data-id="dim_user" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="dim_user"
+   data-body="DISTINCT → COALESCE(g.username, regexp email). Power Query: UNION User_past (NV off-board) + replace username NKV: buithituyetsinhnkv→sinhbtt, nkvvip01→patersoni, nkvvip07→davidmj, nguyenthithaonkv→thaont, dohoainamtohoku→namdh.">
+  <rect x="590" y="1277" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="1294" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim_user</text>
+  <text x="740" y="1308" text-anchor="middle" font-size="10" fill="#6741d9">NV · username · UNION User_past</text>
+</g>
+
+<g class="mn" data-group="dm" data-id="dm-tbl82" data-badge="NGUỒN" data-color="#2f9e44"
+   data-title="base_table.data — table_id = 82"
+   data-body="SELECT id, vals, user_id, last_update WHERE table_id='82'. vals là JSONB chứa code_of_budget_plan và các thông tin ngân sách. Đây là bảng danh mục dùng chung, phân biệt loại bởi table_id.">
+  <rect x="20" y="1340" width="200" height="52" rx="10" fill="#2f9e44" stroke="#237032" stroke-width="0.5"/>
+  <text x="120" y="1360" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_table.data</text>
+  <text x="120" y="1378" text-anchor="middle" font-size="10.5" fill="#b2f2bb">table_id = 82</text>
+</g>
+<line class="mc" data-group="dm" x1="220" y1="1366" x2="590" y2="1366" stroke="#2f9e44" stroke-width="1" marker-end="url(#arr-dm)"/>
+<g class="mn" data-group="dm" data-id="dim_table_code" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="dim_table_code"
+   data-body="base_table.data WHERE table_id='82' → id, vals, user_id, last_update. vals JSONB chứa code_of_budget_plan, tên code, thông tin nhóm ngân sách.">
+  <rect x="590" y="1349" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="1366" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim_table_code</text>
+  <text x="740" y="1380" text-anchor="middle" font-size="10" fill="#6741d9">Code ngân sách · vals JSONB</text>
+</g>
+
+<g class="mn" data-group="dm" data-id="dm-tbl69" data-badge="NGUỒN" data-color="#2f9e44"
+   data-title="base_table.data — table_id = 69"
+   data-body="SELECT id, vals, user_id, last_update WHERE table_id='69'. Power Query: filter type &lt;&gt; '' để loại bỏ dòng trống, replace 'Business Development 1' → 'Business Development Department'.">
+  <rect x="20" y="1412" width="200" height="52" rx="10" fill="#2f9e44" stroke="#237032" stroke-width="0.5"/>
+  <text x="120" y="1432" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_table.data</text>
+  <text x="120" y="1450" text-anchor="middle" font-size="10.5" fill="#b2f2bb">table_id = 69</text>
+</g>
+<line class="mc" data-group="dm" x1="220" y1="1438" x2="590" y2="1438" stroke="#2f9e44" stroke-width="1" marker-end="url(#arr-dm)"/>
+<g class="mn" data-group="dm" data-id="department" data-badge="PQ TABLE" data-color="#6741d9"
+   data-title="department"
+   data-body="base_table.data WHERE table_id='69'. Power Query: filter type &lt;&gt; '' (loại dòng trống), replace 'Business Development 1' → 'Business Development Department'.">
+  <rect x="590" y="1421" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+  <text x="740" y="1438" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">department</text>
+  <text x="740" y="1452" text-anchor="middle" font-size="10" fill="#6741d9">Phòng ban · table_id=69</text>
+</g>
+
+</svg>
+
+<!-- Legend -->
+<div class="mm-legend">
+  <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#3b5bdb"></div>base_payroll (nguồn lương)</div>
+  <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#0c8599"></div>base_service (ticket/form)</div>
+  <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#c2410c"></div>base_schedule (tăng ca)</div>
+  <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#2f9e44"></div>Danh mục (dim)</div>
+  <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#f59f00;border-radius:2px"></div>Điều kiện lọc</div>
+  <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#6741d9;border-radius:2px"></div>Bảng đầu ra (Power Query)</div>
+</div>
+</div><!-- /mm-canvas -->
+
+<script>
+(function() {
+  const detailEl = document.getElementById('mm-detail');
+  const badgeEl  = document.getElementById('mm-detail-badge');
+  const titleEl  = document.getElementById('mm-detail-title');
+  const bodyEl   = document.getElementById('mm-detail-body');
+  const closeBtn = document.getElementById('mm-detail-close');
+
+  const colorMap = {
+    'NGUỒN':    { bg:'#e8f4fd', color:'#0c6598' },
+    'FILTER':   { bg:'#fff3cd', color:'#856404' },
+    'PQ TABLE': { bg:'#ede9fe', color:'#4c1d95' },
+  };
+
+  // Node click
+  document.querySelectorAll('.mn').forEach(node => {
+    node.addEventListener('click', function() {
+      const badge = this.getAttribute('data-badge') || 'INFO';
+      const title = this.getAttribute('data-title') || '';
+      const body  = this.getAttribute('data-body')  || '';
+      const col   = colorMap[badge] || { bg:'#f1f3f5', color:'#333' };
+
+      badgeEl.textContent = badge;
+      badgeEl.style.background = col.bg;
+      badgeEl.style.color = col.color;
+      titleEl.textContent = title;
+      bodyEl.innerHTML = body;
+
+      detailEl.classList.add('open');
+
+      // Highlight clicked group
+      document.querySelectorAll('.mn').forEach(n => n.classList.remove('highlighted'));
+      this.classList.add('highlighted');
+    });
+  });
+
+  closeBtn.addEventListener('click', function() {
+    detailEl.classList.remove('open');
+    document.querySelectorAll('.mn').forEach(n => n.classList.remove('highlighted'));
+  });
+
+  // Group filters
+  document.querySelectorAll('.mm-filter').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const g = this.getAttribute('data-group');
+      document.querySelectorAll('.mm-filter').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+
+      const nodes = document.querySelectorAll('.mn');
+      const conns = document.querySelectorAll('.mc');
+
+      if (g === 'all') {
+        nodes.forEach(n => n.classList.remove('dimmed'));
+        conns.forEach(c => c.classList.remove('dimmed'));
+      } else {
+        nodes.forEach(n => {
+          const ng = n.getAttribute('data-group');
+          n.classList.toggle('dimmed', ng !== g);
+        });
+        conns.forEach(c => {
+          const cg = c.getAttribute('data-group');
+          c.classList.toggle('dimmed', cg !== g);
+        });
+      }
+
+      detailEl.classList.remove('open');
+    });
+  });
+})();
+</script>
+
+</div><!-- /tab-content t2 -->
+
+
+</div><!-- /page p1 -->
+
+
+<!-- ═══ PAGE 2: INPUT ═══ -->
+<div class="page" id="p2">
+  <div class="ph">
+    <div class="ph-eyebrow">02 / 04</div>
+    <h1 class="ph-title">Lưu ý input dữ liệu</h1>
+    <p class="ph-desc">Các điều kiện dữ liệu đầu vào phải đảm bảo để báo cáo ra đúng số</p>
+  </div>
+
+  <div class="sub"><div class="sub-bar"></div>Payroll record (base_payroll.record)</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — Tên payroll phải đúng quy ước</div>
+      <div class="adm-body">Nhiều bảng lọc theo <code>payroll_name</code>. Sai tên → mất dữ liệu hoàn toàn:<br>• Payroll VN → <code>LIKE '%Payroll VN%'</code><br>• Foreigners → <code>LIKE '%Payroll for Foreigners%'</code><br>• Late → <code>ILIKE 'Late_%'</code></div></div>
+    <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — Status phải là approved trước khi refresh</div>
+      <div class="adm-body">Hầu hết các bảng lọc <code>payroll_status = 'approved'</code>. Record chưa approve sẽ không xuất hiện dù đã nhập đủ dữ liệu.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ Lưu ý — report_month và report_year phải điền đúng</div>
+      <div class="adm-body">Báo cáo dùng <code>make_date(report_year, report_month, 1)</code>. Để trống → dòng bị drop hoặc sai tháng.</div></div>
+    <div class="adm warning"><div class="adm-title">⚠ Foreigners — project_code bắt buộc có giá trị</div>
+      <div class="adm-body"><code>Payroll_salary</code> dùng <code>project_code / project_code_1 / project_code_2</code> để xác định <code>code/dpm</code>. Thiếu → không phân bổ được.<br>Hardcode override trong <code>manual_project_refs</code>: user_id <code>881111</code>, <code>734858</code>, <code>862716</code>.</div></div>
+  </div>
+
+  <div class="sub"><div class="sub-bar"></div>Timesheet (base_service.ticket svc=11998)</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — "Month of timesheet" phải đúng định dạng DD/MM/YYYY</div>
+      <div class="adm-body">Parse bằng <code>to_date(month_display, 'DD/MM/YYYY')</code>. Sai hoặc trống → <code>date = NULL</code> → dòng bị loại.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ Chỉ lấy dữ liệu sau 31/12/2025</div>
+      <div class="adm-body">3 bảng timesheet trên data_mart đều filter <code>date &gt; '2025-12-31'</code>.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ block_id phải thuộc (12009, 16591)</div>
+      <div class="adm-body">Ticket submit vào block khác sẽ không được đọc. Kiểm tra cấu hình service nếu có ticket mới không lên báo cáo.</div></div>
+    <div class="adm tip"><div class="adm-title">✦ ngay_luong_co_so = 1 được replace thành 22</div>
+      <div class="adm-body">Power Query replace <code>1 → 22</code> trong <code>Payroll_ngay_luong</code>. Xử lý đặc biệt cho giá trị mặc định hệ thống.</div></div>
+  </div>
+
+  <div class="sub"><div class="sub-bar"></div>dim_user / Nhân viên</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — Username phải unique và nhất quán</div>
+      <div class="adm-body">Nhiều bảng join qua <code>username</code>. Username trong timesheet khác <code>dim_user</code> → không match → dữ liệu null.<br>
+      Danh sách replace: <code>buithituyetsinhnkv→sinhbtt</code> · <code>nkvvip01→patersoni</code> · <code>nkvvip07→davidmj</code> · <code>nguyenthithaonkv→thaont</code> · <code>dohoainamtohoku→namdh</code><br>
+      <strong>Cập nhật khi thêm NV NKV/outsource mới.</strong></div></div>
+    <div class="adm note"><div class="adm-title">ℹ NV nghỉ việc cần bổ sung vào User_past</div>
+      <div class="adm-body"><code>dim_user = man_month.dim_user UNION User_past</code>. NV off-board bị xóa khỏi HRM sẽ mất tên trừ khi thêm vào <code>User_past</code>.</div></div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 3: DAX ═══ -->
+<div class="page" id="p3">
+  <div class="ph">
+    <div class="ph-eyebrow">03 / 04</div>
+    <h1 class="ph-title">Lưu ý công thức DAX</h1>
+    <p class="ph-desc">Các điểm cần hiểu để measure Payroll Value và phân bổ MM hoạt động đúng</p>
+  </div>
+
+  <div class="sub"><div class="sub-bar"></div>Measure Payroll Value — logic 3 tầng</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="adm note"><div class="adm-title">ℹ Cơ chế — ISINSCOPE xác định tầng hiển thị</div>
+      <div class="adm-body">Measure dùng <code>ISINSCOPE</code> để nhận biết tầng: <code>_isMonth</code> / <code>_isEmployee</code> / <code>_isCode</code>.<br>Row field trong matrix phải đúng thứ tự: <strong>Month-Year → Employee → code/dpm</strong>.</div></div>
+    <div class="adm warning"><div class="adm-title">⚠ Quan trọng — _isDeptRow phụ thuộc dim_code_dpm phải đầy đủ</div>
+      <div class="adm-body">Rounding diff chỉ gán vào dept code row (<code>_isDeptRow = TRUE</code>). Nếu dept code (vd <code>BD1</code>) thiếu trong <code>dim_code_dpm</code> → rounding diff không gán được → tổng NV lệch.<br><strong>Thêm phòng ban mới phải cập nhật dim_code_dpm ngay.</strong></div></div>
+    <div class="adm note"><div class="adm-title">ℹ Basic day và Working day không áp dụng rounding diff</div>
+      <div class="adm-body">Hai type này xử lý riêng — không cộng rounding diff dù là dept row. Đây là số ngày, không phải tiền.</div></div>
+    <div class="adm warning"><div class="adm-title">⚠ SELECTEDVALUE trên dim_user có thể trả BLANK</div>
+      <div class="adm-body">2 NV trùng <code>name</code> → <code>SELECTEDVALUE(dim_user[user_id])</code> = BLANK → số lương = 0.<br>Dùng <code>SELECTEDVALUE(Payroll[user_id])</code> từ fact table thay thế.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ Toàn bộ kết quả ROUND về 0 chữ số thập phân</div>
+      <div class="adm-body">Measure wrap trong <code>ROUND(_result, 0)</code>. Lệch ±1 VND giữa dòng code/dpm và tổng NV là bình thường — rounding diff ở dept row bù lại.</div></div>
+  </div>
+
+  <div class="sub"><div class="sub-bar"></div>Phân bổ MM (Man-month)</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="adm warning"><div class="adm-title">⚠ fCumsum nhóm theo kỳ lương — không phải từng tháng</div>
+      <div class="adm-body">• <strong>7–12/2025</strong>: kỳ đặc biệt<br>• <strong>Q1 năm</strong>: tháng 1–3<br>• <strong>Q2–Q4 năm</strong>: tháng 4–12<br>Timesheet nhập sai tháng → bị phân vào kỳ sai → MM cumsum lệch.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ Value / Value_ver1 / Value_late là 3 cột hoàn toàn khác nhau</div>
+      <div class="adm-body">• <code>Value</code>: timesheet version mới nhất<br>• <code>Value_ver1</code>: version N-1 để so sánh<br>• <code>Value_late</code>: từ fact_ticket_form_timesheet_1a (is_fixed=1)<br>Cột <code>Different = Value - Value_ver1</code> để trace chênh lệch.</div></div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 4: FILTER ═══ -->
+<div class="page" id="p4">
+  <div class="ph">
+    <div class="ph-eyebrow">04 / 04</div>
+    <h1 class="ph-title">Lưu ý khi filter / xem báo cáo</h1>
+    <p class="ph-desc">Cách đọc số đúng và checklist trước khi gửi báo cáo</p>
+  </div>
+
+  <div class="sub"><div class="sub-bar"></div>Nguyên tắc đọc số</div>
+  <ul class="checklist">
+    <li><span class="ci ci-ok">✓</span><span><strong>Số tổng nhân viên (tầng Employee)</strong> là số đúng để đối chiếu phiếu lương. Tổng dòng code/dpm = tổng NV sau khi cộng rounding diff ở dept row.</span></li>
+    <li><span class="ci ci-ok">✓</span><span><strong>Luôn filter theo tháng cụ thể</strong> khi kiểm tra số lương. Xem nhiều tháng cùng lúc sẽ cộng dồn — dễ nhầm với số quyết toán.</span></li>
+    <li><span class="ci ci-warn">!</span><span><strong>Payroll_t13 / Tet bonus / Paid leave:</strong> số tiền chỉ hiện ở <em>tháng chi trả</em>. Filter tháng khác → thấy = 0.</span></li>
+    <li><span class="ci ci-warn">!</span><span><strong>Performance bonus:</strong> luôn gán tháng <code>03/yyyy</code> bất kể thực tế chi trả khi nào. Chú ý khi xem Q1.</span></li>
+    <li><span class="ci ci-warn">!</span><span><strong>Adjustment / Offboarding:</strong> tháng lấy từ <code>Payment in Payroll month</code> trong form. Để trống → fallback về <code>11/2025</code>.</span></li>
+    <li><span class="ci ci-bad">✗</span><span><strong>Không filter theo department ở tầng code/dpm</strong> — Birthday, Car support, Severance gán vào dept code, filter sẽ cắt mất.</span></li>
+    <li><span class="ci ci-bad">✗</span><span><strong>Không so sánh Value_ver1 với Value tháng khác.</strong> Value_ver1 là version N-1 của cùng tháng đó. Dùng cột <code>Different</code> để trace.</span></li>
+  </ul>
+
+  <div class="sub" style="margin-top:32px"><div class="sub-bar"></div>Checklist trước khi gửi báo cáo</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Kiểm tra</th><th>Cách verify</th><th>Thời điểm</th></tr></thead>
+      <tbody>
+        <tr><td>Tất cả payroll record đã approved</td><td><code>base_payroll.payroll</code> — status = approved</td><td class="ok">Trước mỗi refresh</td></tr>
+        <tr><td>Timesheet tháng hiện tại đã submit</td><td>Ticket svc=11998 có block_id 12009/16591</td><td class="ok">Trước mỗi refresh</td></tr>
+        <tr><td>dim_code_dpm đủ dept code</td><td>So sánh <code>dim_user[department]</code> vs <code>dim_code_dpm</code></td><td class="warn">Khi thêm phòng ban mới</td></tr>
+        <tr><td>Username NV mới khớp HRM và timesheet</td><td>Lọc dòng <code>user_id = null</code> sau join</td><td class="warn">Khi onboard NV mới</td></tr>
+        <tr><td>Project code cho NV nước ngoài đã điền</td><td><code>Payroll_salary[code/dpm]</code> không null</td><td class="warn">Mỗi tháng</td></tr>
+        <tr><td>Tổng theo NV khớp phiếu lương</td><td>Filter tầng Employee, đối chiếu từng người</td><td class="ok">Kiểm tra cuối cùng</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     MAN-MONTH PAGES
+════════════════════════════════════ -->
+
+<!-- ═══ MM PAGE 1: LUỒNG DỮ LIỆU ═══ -->
+<div class="page" id="m1">
+  <div class="ph">
+    <div class="ph-eyebrow">01 / 04 · Man-month</div>
+    <h1 class="ph-title">Luồng dữ liệu</h1>
+    <p class="ph-desc">Dữ liệu Man-month đi từ hệ thống nguồn → data_mart → Power Query → báo cáo phân bổ nhân công</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Hệ thống nguồn</div></div>
+    <div class="stat-card"><div class="stat-num">10</div><div class="stat-label">Bảng Power Query (M)</div></div>
+    <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Bảng tĩnh (base64)</div></div>
+    <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Calculation Groups</div></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab-btn active" data-tab="mt1">Tổng quan</div>
+    <div class="tab-btn" data-tab="mt2">Lưu đồ chi tiết nguồn</div>
+  </div>
+
+  <!-- TAB 1: TỔNG QUAN -->
+  <div class="tab-content active" id="mt1">
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#1565c0"></div>Hệ thống nguồn</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#2e7d32"></div>Data Mart</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#6a1b9a"></div>Power Query</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#e65100"></div>Báo cáo cuối</div>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-cols">
+        <div class="flow-col-hdr ch1"><span class="col-num">1</span>Hệ thống nguồn</div>
+        <div class="flow-col-hdr ch2"><span class="col-num">2</span>Data Mart</div>
+        <div class="flow-col-hdr ch3"><span class="col-num">3</span>Power Query</div>
+        <div class="flow-col-hdr ch4"><span class="col-num">4</span>Kết quả báo cáo</div>
+      </div>
+      <div class="flow-body">
+        <div class="flow-lane lane1">
+          <div class="fnode n-src">base_service<div class="fnode-sub">.ticket (svc 11998)</div></div>
+          <div class="v-arrow">↓</div>
+          <div class="fnode n-src">base_payroll<div class="fnode-sub">.record</div></div>
+          <div class="v-arrow">↓</div>
+          <div class="fnode n-src">base_table<div class="fnode-sub">.data (table_id 69/82)</div></div>
+          <div class="v-arrow">↓</div>
+          <div class="fnode n-src">public<div class="fnode-sub">.fact_man_month</div></div>
+        </div>
+        <div class="flow-lane lane2">
+          <div class="fgroup">
+            <div class="fgroup-label">Timesheet & Dim</div>
+            <div class="fnode n-mart" style="margin-bottom:5px">fact_ticket_form_timesheet<div class="fnode-sub">UNION 4 nguồn · latest/1a</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">dim_user<div class="fnode-sub">man_month · UNION User_past</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">dim_table_code<div class="fnode-sub">man_month · table_id=82</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">dim_ticket<div class="fnode-sub">man_month.dim_ticket</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">dim_project_task<div class="fnode-sub">man_month · dedup task_id</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">dim_project_tasklist<div class="fnode-sub">man_month</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">fact_ticket_form<div class="fnode-sub">man_month</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">fact_ticket_project_document<div class="fnode-sub">man_month · dedup by project_code</div></div>
+            <div class="fnode n-mart" style="margin-bottom:5px">fact_end_time_project<div class="fnode-sub">man_month · filter null project</div></div>
+            <div class="fnode n-mart">department<div class="fnode-sub">man_month · filter type≠''</div></div>
+          </div>
+        </div>
+        <div class="flow-lane lane3">
+          <div class="fgroup">
+            <div class="fgroup-label">Bảng chính</div>
+            <div class="fnode n-pq" style="margin-bottom:5px">fact_ticket_form_timesheet<div class="fnode-sub">MM = workday · UNION 4 nguồn</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">payroll<div class="fnode-sub">ngay_luong_co_so · base_payroll</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Sum_of_workday<div class="fnode-sub">service_sum_work_day · svc form</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">dim_user<div class="fnode-sub">NV · UNION User_past</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">Department_order<div class="fnode-sub">Sort BOD/Non-tech/Tech</div></div>
+          </div>
+          <div style="height:8px"></div>
+          <div class="fgroup">
+            <div class="fgroup-label">Bảng tĩnh</div>
+            <div class="fnode n-pq" style="margin-bottom:5px">User_past<div class="fnode-sub">NV nghỉ việc · base64 embed</div></div>
+            <div class="fnode n-pq" style="margin-bottom:5px">list_metric<div class="fnode-sub">Danh sách metric · base64</div></div>
+            <div class="fnode n-pq">payroll_support<div class="fnode-sub">Ngày công bổ sung · base64</div></div>
+          </div>
+        </div>
+        <div class="flow-lane lane4">
+          <div class="fnode" style="background:#4a148c;color:#fff;margin-bottom:10px">Calculation Groups<div class="fnode-sub" style="color:#ce93d8">DPM · pic · Accountant · User</div></div>
+          <div class="v-arrow">↓</div>
+          <div class="fnode" style="background:#bf360c;color:#fff;margin-bottom:10px">Measures<div class="fnode-sub" style="color:#ffccbc">MM · Non-contracted · Contracted</div></div>
+          <div class="v-arrow">↓</div>
+          <div class="fnode n-final">Matrix Report<div class="fnode-sub">Project → NV → Tháng × Metric</div></div>
+          <div style="height:16px"></div>
+          <div style="background:#fff3e0;border:1px solid #ffcc80;border-radius:6px;padding:10px 12px;font-size:11.5px;color:#e65100;line-height:1.6">
+            <div style="font-weight:700;margin-bottom:4px">4 Calculation Groups:</div>
+            <div>• <strong>DPM</strong> — theo dept/PM</div>
+            <div>• <strong>pic</strong> — theo PIC</div>
+            <div>• <strong>Accountant</strong> — theo kế toán</div>
+            <div>• <strong>User</strong> — theo nhân viên</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: LƯU ĐỒ CHI TIẾT NGUỒN -->
+  <div class="tab-content" id="mt2">
+    <p style="font-size:13px;color:var(--fg-muted);margin-bottom:16px">Click vào node để xem chi tiết điều kiện và xử lý.</p>
+
+    <div class="mm-filters">
+      <div class="mm-filter mm-filter-all active" data-group-mm="all"><span class="dot" style="background:var(--fg-muted,#888)"></span>Tất cả</div>
+      <div class="mm-filter mm-filter-bs" data-group-mm="bs"><span class="dot" style="background:#0c8599"></span>base_service</div>
+      <div class="mm-filter mm-filter-bp" data-group-mm="bp"><span class="dot" style="background:#3b5bdb"></span>base_payroll</div>
+      <div class="mm-filter mm-filter-dm" data-group-mm="dm"><span class="dot" style="background:#2f9e44"></span>Data Mart</div>
+      <div class="mm-filter" style="border-color:#7c3aed;color:#7c3aed" data-group-mm="st"><span class="dot" style="background:#7c3aed"></span>Bảng tĩnh</div>
+    </div>
+
+    <div class="mm-detail" id="mm-detail-mm">
+      <div class="mm-detail-head">
+        <span class="mm-detail-badge" id="mm-detail-badge-mm">TABLE</span>
+        <span class="mm-detail-title" id="mm-detail-title-mm">—</span>
+        <button class="mm-detail-close" id="mm-detail-close-mm">✕</button>
+      </div>
+      <div class="mm-detail-body" id="mm-detail-body-mm">—</div>
+    </div>
+
+    <div class="mm-canvas">
+    <svg viewBox="0 0 920 1000" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+    <defs>
+      <marker id="arr-mm-bs" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="#0c8599" stroke-width="1.5" stroke-linecap="round"/></marker>
+      <marker id="arr-mm-bp" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="#3b5bdb" stroke-width="1.5" stroke-linecap="round"/></marker>
+      <marker id="arr-mm-dm" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="#2f9e44" stroke-width="1.5" stroke-linecap="round"/></marker>
+      <marker id="arr-mm-out" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="#6741d9" stroke-width="1.5" stroke-linecap="round"/></marker>
+    </defs>
+
+    <text x="20" y="30" font-size="9" font-weight="700" fill="#aaa" letter-spacing="1.5">NGUỒN</text>
+    <text x="290" y="30" font-size="9" font-weight="700" fill="#aaa" letter-spacing="1.5">ĐIỀU KIỆN / XỬ LÝ</text>
+    <text x="590" y="30" font-size="9" font-weight="700" fill="#aaa" letter-spacing="1.5">BẢNG ĐẦU RA</text>
+
+    <!-- base_service.ticket svc 11998 → fact_ticket_form_timesheet -->
+    <g class="mn" data-group-mm="bs" data-id-mm="mm-bs-src" data-badge-mm="NGUỒN" data-color-mm="#0c8599" data-title-mm="base_service.ticket (svc=11998)" data-body-mm="Bảng ticket timesheet. DISTINCT ON (root_id) ORDER BY last_update DESC. UNION 4 nguồn: latest version, fact_man_month (công nhập tay), 1a (is_fixed=1), new. Dedup theo username × tháng.">
+      <rect x="20" y="45" width="200" height="52" rx="10" fill="#0c8599" stroke="#0a6c7d" stroke-width="0.5"/>
+      <text x="120" y="67" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_service.ticket</text>
+      <text x="120" y="85" text-anchor="middle" font-size="10.5" fill="#a5f3fc">svc=11998 · block 12009/16591</text>
+    </g>
+    <line class="mc" data-group-mm="bs" x1="120" y1="97" x2="120" y2="260" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".25"/>
+    <line class="mc" data-group-mm="bs" x1="120" y1="115" x2="285" y2="115" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+    <g class="mn" data-group-mm="bs" data-id-mm="mm-ts-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="UNION 4 nguồn · dedup latest" data-body-mm="UNION: (1) man_month.fact_ticket_form_timesheet (latest, is_fixed=0), (2) public.fact_man_month (ticket_id=0, luôn lấy), (3) fact_ticket_form_timesheet_1a (is_fixed=1), (4) fact_ticket_form_timesheet_new. ticket_rank dedup: ROW_NUMBER() OVER (PARTITION BY username, month ORDER BY last_update DESC). Chỉ lấy rn=1 cho nguồn thường; 1a và ticket_id=0 luôn lấy toàn bộ.">
+      <rect x="285" y="99" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+      <text x="389" y="116" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">UNION 4 nguồn</text>
+      <text x="389" y="128" text-anchor="middle" font-size="10" fill="#997a00">dedup latest version per username/tháng</text>
+    </g>
+    <line class="mc" data-group-mm="bs" x1="493" y1="116" x2="590" y2="116" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
+    <g class="mn" data-group-mm="bs" data-id-mm="fact_ticket_form_timesheet_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="fact_ticket_form_timesheet" data-body-mm="Output: ticket_id, service_id, user_id, username, last_update, row_no, department, date, shift, workday, timeoff, code_of_budget, non_contracted, specific_on_site_allowance, eligible_for_pit_exemption, work_description, is_fixed, rn. Power Query: TransformColumnTypes workday=number, date=date.">
+      <rect x="590" y="99" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+      <text x="740" y="116" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact_ticket_form_timesheet</text>
+      <text x="740" y="130" text-anchor="middle" font-size="10" fill="#6741d9">UNION 4 nguồn · workday · code_of_budget</text>
+    </g>
+
+    <!-- base_service → Sum_of_workday -->
+    <line class="mc" data-group-mm="bs" x1="120" y1="165" x2="285" y2="165" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+    <g class="mn" data-group-mm="bs" data-id-mm="mm-sow-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="elem→&gt;&gt;'id' = 'service_sum_work_day'" data-body-mm="DISTINCT ON (id) ORDER BY last_update DESC → jsonb_array_elements(form::jsonb) → WHERE elem→&gt;&gt;'id' = 'service_sum_work_day'. Lấy tổng ngày công từ form của ticket service.">
+      <rect x="285" y="149" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+      <text x="389" y="166" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">DISTINCT ON id</text>
+      <text x="389" y="178" text-anchor="middle" font-size="10" fill="#997a00">elem id = 'service_sum_work_day'</text>
+    </g>
+    <line class="mc" data-group-mm="bs" x1="493" y1="166" x2="590" y2="166" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
+    <g class="mn" data-group-mm="bs" data-id-mm="Sum_of_workday_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="Sum_of_workday" data-body-mm="base_service.ticket → DISTINCT ON id → jsonb_array_elements(form) → filter elem id='service_sum_work_day' → lấy value AS service_sum_work_day. Output: id, last_update, last_update_time, service_sum_work_day (number).">
+      <rect x="590" y="149" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+      <text x="740" y="166" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">Sum_of_workday</text>
+      <text x="740" y="180" text-anchor="middle" font-size="10" fill="#6741d9">Tổng ngày công từ form service</text>
+    </g>
+
+    <!-- base_service → fact_ticket_form -->
+    <line class="mc" data-group-mm="bs" x1="120" y1="215" x2="285" y2="215" stroke="#0c8599" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+    <g class="mn" data-group-mm="bs" data-id-mm="mm-ftf-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="man_month.fact_ticket_form" data-body-mm="SELECT * FROM man_month.fact_ticket_form. Bảng đã được xử lý sẵn trên data_mart. Chứa thông tin form của các ticket.">
+      <rect x="285" y="199" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+      <text x="389" y="216" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">man_month.fact_ticket_form</text>
+      <text x="389" y="228" text-anchor="middle" font-size="10" fill="#997a00">SELECT *</text>
+    </g>
+    <line class="mc" data-group-mm="bs" x1="493" y1="216" x2="590" y2="216" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
+    <g class="mn" data-group-mm="bs" data-id-mm="fact_ticket_form_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="fact_ticket_form" data-body-mm="man_month.fact_ticket_form → SELECT *. Power Query lấy thẳng không transform thêm.">
+      <rect x="590" y="199" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+      <text x="740" y="216" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact_ticket_form</text>
+      <text x="740" y="230" text-anchor="middle" font-size="10" fill="#6741d9">Form data từ ticket service</text>
+    </g>
+
+    <!-- Divider -->
+    <line x1="20" y1="285" x2="900" y2="285" stroke="#e5e7eb" stroke-width="0.5"/>
+
+    <!-- base_payroll → payroll -->
+    <g class="mn" data-group-mm="bp" data-id-mm="mm-bp-src" data-badge-mm="NGUỒN" data-color-mm="#3b5bdb" data-title-mm="base_payroll.record" data-body-mm="ROW_NUMBER() OVER (PARTITION BY id ORDER BY _airbyte_extracted_at DESC) = 1 → LATERAL jsonb_each_text(columns) → filter columns_key IN (ngay_luong_co_so, ngay_co_so) → JOIN dim_user → UNION payroll_support → filter columns_value ≠ '0'.">
+      <rect x="20" y="300" width="200" height="52" rx="10" fill="#3b5bdb" stroke="#2f4ec4" stroke-width="0.5"/>
+      <text x="120" y="322" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_payroll.record</text>
+      <text x="120" y="340" text-anchor="middle" font-size="10.5" fill="#a5b4fc">ngay_luong_co_so</text>
+    </g>
+    <g class="mn" data-group-mm="bp" data-id-mm="mm-bp-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="columns_key IN (ngay_luong_co_so, ngay_co_so)" data-body-mm="ROW_NUMBER dedup → LATERAL jsonb_each_text → filter columns_key IN ('ngay_luong_co_so','ngay_co_so') → JOIN dim_user (user_id) → UNION payroll_support → filter columns_value ≠ '0'.">
+      <rect x="285" y="308" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+      <text x="389" y="325" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">columns_key IN</text>
+      <text x="389" y="337" text-anchor="middle" font-size="10" fill="#997a00">ngay_luong_co_so · ngay_co_so</text>
+    </g>
+    <line class="mc" data-group-mm="bp" x1="220" y1="326" x2="285" y2="326" stroke="#3b5bdb" stroke-width="1" opacity=".5"/>
+    <line class="mc" data-group-mm="bp" x1="493" y1="326" x2="590" y2="326" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
+    <g class="mn" data-group-mm="bp" data-id-mm="payroll_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="payroll" data-body-mm="base_payroll.record → ROW_NUMBER dedup → LATERAL jsonb_each_text → filter ngay_luong_co_so/ngay_co_so → JOIN dim_user → UNION payroll_support → filter ≠ '0'. Output: payroll_name, payroll_id, cycle_range, user_id, report_month, columns_key, columns_value, columns_name_vi, username.">
+      <rect x="590" y="308" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+      <text x="740" y="325" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">payroll</text>
+      <text x="740" y="339" text-anchor="middle" font-size="10" fill="#6741d9">Ngày lương cơ sở · UNION payroll_support</text>
+    </g>
+
+    <!-- Divider -->
+    <line x1="20" y1="375" x2="900" y2="375" stroke="#e5e7eb" stroke-width="0.5"/>
+
+    <!-- Data mart dims -->
+    <g class="mn" data-group-mm="dm" data-id-mm="mm-dm-src" data-badge-mm="NGUỒN" data-color-mm="#2f9e44" data-title-mm="data_mart — man_month schema" data-body-mm="Các bảng dim trên data_mart.man_month: dim_user, dim_table_code, dim_ticket, dim_project_task, dim_project_tasklist, fact_ticket_project_document, fact_end_time_project, department.">
+      <rect x="20" y="390" width="200" height="52" rx="10" fill="#2f9e44" stroke="#237032" stroke-width="0.5"/>
+      <text x="120" y="412" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">data_mart</text>
+      <text x="120" y="430" text-anchor="middle" font-size="10.5" fill="#b2f2bb">man_month schema</text>
+    </g>
+    <line class="mc" data-group-mm="dm" x1="120" y1="442" x2="120" y2="700" stroke="#2f9e44" stroke-width="1" stroke-dasharray="4 3" opacity=".25"/>
+
+    <!-- dim_user -->
+    <line class="mc" data-group-mm="dm" x1="120" y1="410" x2="285" y2="410" stroke="#2f9e44" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+    <g class="mn" data-group-mm="dm" data-id-mm="mm-du-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="man_month.dim_user · UNION User_past" data-body-mm="SELECT * FROM man_month.dim_user → UNION User_past (bảng tĩnh NV nghỉ việc) → TransformColumnTypes user_id=text → Replace username: buithituyetsinhnkv→sinhbtt, nkvvip01→patersoni.">
+      <rect x="285" y="394" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+      <text x="389" y="411" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">man_month.dim_user</text>
+      <text x="389" y="423" text-anchor="middle" font-size="10" fill="#997a00">UNION User_past · replace username</text>
+    </g>
+    <line class="mc" data-group-mm="dm" x1="493" y1="411" x2="590" y2="411" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
+    <g class="mn" data-group-mm="dm" data-id-mm="dim_user_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="dim_user" data-body-mm="man_month.dim_user UNION User_past → TransformColumnTypes user_id=text → Replace: buithituyetsinhnkv→sinhbtt, nkvvip01→patersoni.">
+      <rect x="590" y="394" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+      <text x="740" y="411" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim_user</text>
+      <text x="740" y="425" text-anchor="middle" font-size="10" fill="#6741d9">NV · UNION User_past · replace username</text>
+    </g>
+
+    <!-- dim_table_code -->
+    <line class="mc" data-group-mm="dm" x1="120" y1="460" x2="285" y2="460" stroke="#2f9e44" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+    <g class="mn" data-group-mm="dm" data-id-mm="mm-dtc-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="man_month.dim_table_code · filter + sort" data-body-mm="SELECT * FROM man_month.dim_table_code → filter code_of_budget_plan ≠ '' → sort ASC → filter row_id ≠ 16907 (xóa dòng lỗi).">
+      <rect x="285" y="444" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+      <text x="389" y="461" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">man_month.dim_table_code</text>
+      <text x="389" y="473" text-anchor="middle" font-size="10" fill="#997a00">filter code≠'' · sort · filter row≠16907</text>
+    </g>
+    <line class="mc" data-group-mm="dm" x1="493" y1="461" x2="590" y2="461" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
+    <g class="mn" data-group-mm="dm" data-id-mm="dim_table_code_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="dim_table_code" data-body-mm="man_month.dim_table_code → filter code_of_budget_plan ≠ '' → sort by code ASC → filter row_id ≠ 16907.">
+      <rect x="590" y="444" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+      <text x="740" y="461" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim_table_code</text>
+      <text x="740" y="475" text-anchor="middle" font-size="10" fill="#6741d9">Code ngân sách · filter + sort</text>
+    </g>
+
+    <!-- fact_ticket_project_document -->
+    <line class="mc" data-group-mm="dm" x1="120" y1="510" x2="285" y2="510" stroke="#2f9e44" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+    <g class="mn" data-group-mm="dm" data-id-mm="mm-ftpd-cond" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="fact_ticket_project_document · dedup by project_code" data-body-mm="SELECT * FROM man_month.fact_ticket_project_document → filter user_base_id ≠ null → Group By project_code → giữ dòng có last_update MAX mỗi project → TransformColumnTypes total_mm/non_contracted_mm/contracted_mm=number.">
+      <rect x="285" y="494" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+      <text x="389" y="511" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">fact_ticket_project_document</text>
+      <text x="389" y="523" text-anchor="middle" font-size="10" fill="#997a00">dedup: MAX last_update per project_code</text>
+    </g>
+    <line class="mc" data-group-mm="dm" x1="493" y1="511" x2="590" y2="511" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
+    <g class="mn" data-group-mm="dm" data-id-mm="fact_ticket_project_document_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="fact_ticket_project_document" data-body-mm="Bảng tài liệu project → filter user_base_id ≠ null → Group By project_code giữ MAX last_update → total_mm, non_contracted_mm, contracted_mm dạng number.">
+      <rect x="590" y="494" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+      <text x="740" y="511" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">fact_ticket_project_document</text>
+      <text x="740" y="525" text-anchor="middle" font-size="10" fill="#6741d9">Tài liệu project · dedup per project_code</text>
+    </g>
+
+    <!-- Các dim đơn giản -->
+    <line class="mc" data-group-mm="dm" x1="120" y1="560" x2="285" y2="560" stroke="#2f9e44" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+    <g class="mn" data-group-mm="dm" data-id-mm="mm-simple-dims" data-badge-mm="FILTER" data-color-mm="#e67700" data-title-mm="Các bảng dim đơn giản" data-body-mm="SELECT * từ các bảng: dim_ticket, dim_project_task (dedup task_id), dim_project_tasklist, department (filter type≠''), fact_end_time_project (filter project_code≠null), Department_order (tính thứ tự BOD→Non-tech→Tech).">
+      <rect x="285" y="544" width="208" height="34" rx="6" fill="#fff7e6" stroke="#f59f00" stroke-width="1"/>
+      <text x="389" y="561" text-anchor="middle" font-size="11" font-weight="600" fill="#664d03">SELECT * / filter / dedup</text>
+      <text x="389" y="573" text-anchor="middle" font-size="10" fill="#997a00">dim_ticket · dim_project_task/list · dept</text>
+    </g>
+    <line class="mc" data-group-mm="dm" x1="493" y1="561" x2="560" y2="561" stroke="#6741d9" stroke-width="1" opacity=".5"/>
+    <line class="mc" data-group-mm="dm" x1="560" y1="551" x2="560" y2="651" stroke="#6741d9" stroke-width="0.5" opacity=".3"/>
+
+    <line class="mc" data-group-mm="dm" x1="560" y1="561" x2="590" y2="561" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
+    <g class="mn" data-group-mm="dm" data-id-mm="dim_ticket_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="dim_ticket" data-body-mm="man_month.dim_ticket → SELECT *. Danh sách ticket master.">
+      <rect x="590" y="544" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+      <text x="740" y="561" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim_ticket + dim_project_task/list</text>
+      <text x="740" y="575" text-anchor="middle" font-size="10" fill="#6741d9">Danh mục ticket · project task/list</text>
+    </g>
+
+    <line class="mc" data-group-mm="dm" x1="560" y1="611" x2="590" y2="611" stroke="#6741d9" stroke-width="1" marker-end="url(#arr-mm-out)"/>
+    <g class="mn" data-group-mm="dm" data-id-mm="department_mm" data-badge-mm="PQ TABLE" data-color-mm="#6741d9" data-title-mm="department + fact_end_time_project + Department_order" data-body-mm="department: filter type≠''. fact_end_time_project: filter project_code≠null. Department_order: Distinct dept → add group_order (BOD=0, Non-tech=1, Tech=2) → sort → AddIndex (thứ tự 1,2,3...).">
+      <rect x="590" y="594" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
+      <text x="740" y="611" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">department · fact_end_time · Dept_order</text>
+      <text x="740" y="625" text-anchor="middle" font-size="10" fill="#6741d9">Phòng ban · end date project · thứ tự</text>
+    </g>
+
+    <!-- Divider -->
+    <line x1="20" y1="670" x2="900" y2="670" stroke="#e5e7eb" stroke-width="0.5"/>
+
+    <!-- Static tables -->
+    <g class="mn" data-group-mm="st" data-id-mm="mm-st-src" data-badge-mm="TĨNH" data-color-mm="#7c3aed" data-title-mm="Bảng tĩnh (base64 embedded)" data-body-mm="3 bảng nhúng dữ liệu tĩnh trong Power Query: User_past (NV nghỉ việc), list_metric (danh sách metric), payroll_support (ngày công bổ sung). Tất cả dùng Table.FromRows + Binary.Decompress base64.">
+      <rect x="20" y="685" width="200" height="52" rx="10" fill="#7c3aed" stroke="#6b21a8" stroke-width="0.5"/>
+      <text x="120" y="707" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Bảng tĩnh</text>
+      <text x="120" y="725" text-anchor="middle" font-size="10.5" fill="#ddd6fe">base64 embedded</text>
+    </g>
+    <line class="mc" data-group-mm="st" x1="120" y1="737" x2="120" y2="920" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4 3" opacity=".25"/>
+
+    <line class="mc" data-group-mm="st" x1="120" y1="753" x2="285" y2="753" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+    <g class="mn" data-group-mm="st" data-id-mm="User_past_mm" data-badge-mm="PQ TABLE" data-color-mm="#7c3aed" data-title-mm="User_past" data-body-mm="Table.FromRows + Binary.Decompress base64. Chứa thông tin NV đã nghỉ việc (employee_id, user_id, code, name, email, username...). filter username≠''. Dùng để UNION vào dim_user.">
+      <rect x="590" y="737" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#7c3aed" stroke-width="1"/>
+      <text x="740" y="754" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">User_past</text>
+      <text x="740" y="768" text-anchor="middle" font-size="10" fill="#7c3aed">NV nghỉ việc · base64 · filter username≠''</text>
+    </g>
+    <line class="mc" data-group-mm="st" x1="285" y1="756" x2="590" y2="756" stroke="#7c3aed" stroke-width="1" marker-end="url(#arr-mm-out)" opacity=".6"/>
+
+    <line class="mc" data-group-mm="st" x1="120" y1="815" x2="285" y2="815" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+    <g class="mn" data-group-mm="st" data-id-mm="list_metric_mm" data-badge-mm="PQ TABLE" data-color-mm="#7c3aed" data-title-mm="list_metric" data-body-mm="Table.FromRows + Binary.Decompress base64. Cột: No., Metrics, Significant, Data source. Danh sách các metric được định nghĩa cho báo cáo Man-month.">
+      <rect x="590" y="799" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#7c3aed" stroke-width="1"/>
+      <text x="740" y="816" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">list_metric</text>
+      <text x="740" y="830" text-anchor="middle" font-size="10" fill="#7c3aed">Danh sách metric · base64</text>
+    </g>
+    <line class="mc" data-group-mm="st" x1="285" y1="818" x2="590" y2="818" stroke="#7c3aed" stroke-width="1" marker-end="url(#arr-mm-out)" opacity=".6"/>
+
+    <line class="mc" data-group-mm="st" x1="120" y1="878" x2="285" y2="878" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4 3" opacity=".35"/>
+    <g class="mn" data-group-mm="st" data-id-mm="payroll_support_mm" data-badge-mm="PQ TABLE" data-color-mm="#7c3aed" data-title-mm="payroll_support" data-body-mm="Table.FromRows + Binary.Decompress base64. Cột: payroll_name, payroll_id, cycle_range, user_id, report_month, columns_key, columns_value, columns_name_vi, username. Dữ liệu bổ sung ngày công cho những tháng thiếu.">
+      <rect x="590" y="862" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#7c3aed" stroke-width="1"/>
+      <text x="740" y="879" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">payroll_support</text>
+      <text x="740" y="893" text-anchor="middle" font-size="10" fill="#7c3aed">Ngày công bổ sung · base64</text>
+    </g>
+    <line class="mc" data-group-mm="st" x1="285" y1="881" x2="590" y2="881" stroke="#7c3aed" stroke-width="1" marker-end="url(#arr-mm-out)" opacity=".6"/>
+
+    </svg>
+
+    <div class="mm-legend">
+      <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#0c8599"></div>base_service (ticket/timesheet)</div>
+      <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#3b5bdb"></div>base_payroll (ngày lương)</div>
+      <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#2f9e44"></div>Data Mart dim/fact</div>
+      <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#7c3aed;border-radius:2px"></div>Bảng tĩnh (base64)</div>
+      <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#f59f00;border-radius:2px"></div>Điều kiện lọc</div>
+      <div class="mm-legend-item"><div class="mm-legend-dot" style="background:#6741d9;border-radius:2px"></div>Bảng đầu ra</div>
+    </div>
+    </div>
+
+  </div><!-- /tab-content mt2 -->
+
+</div><!-- /page m1 -->
+
+<!-- ═══ MM PAGE 2: INPUT ═══ -->
+<div class="page" id="m2">
+  <div class="ph">
+    <div class="ph-eyebrow">02 / 04 · Man-month</div>
+    <h1 class="ph-title">Lưu ý input dữ liệu</h1>
+    <p class="ph-desc">Điều kiện dữ liệu đầu vào để báo cáo Man-month ra đúng số</p>
+  </div>
+  <div class="sub"><div class="sub-bar"></div>Timesheet (base_service.ticket svc=11998)</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — "Month of timesheet" phải đúng định dạng DD/MM/YYYY</div>
+      <div class="adm-body">Data mart parse bằng <code>to_date(month_display, 'DD/MM/YYYY')</code>. Sai định dạng → <code>date = NULL</code> → dòng bị loại.</div></div>
+    <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — block_id phải thuộc (12009, 16591)</div>
+      <div class="adm-body">Query timesheet filter <code>block_id IN (12009, 16591)</code>. Ticket submit vào block khác sẽ không được đọc.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ Dedup theo username × tháng</div>
+      <div class="adm-body">ticket_rank: <code>ROW_NUMBER() OVER (PARTITION BY username, date_trunc('month', date) ORDER BY MAX(last_update) DESC)</code>. Chỉ lấy version mới nhất (rn=1) cho nguồn thường. Nguồn 1a (is_fixed=1) và fact_man_month (ticket_id=0) luôn lấy toàn bộ.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ fact_man_month — dữ liệu nhập tay</div>
+      <div class="adm-body"><code>public.fact_man_month</code> là nguồn dữ liệu MM nhập tay (ticket_id=0). JOIN <code>man_month.employee_hrm</code> qua ssn để lấy employee_code. Luôn được include, không bị dedup bởi ticket_rank.</div></div>
+  </div>
+  <div class="sub"><div class="sub-bar"></div>Ngày lương cơ sở (payroll)</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="adm warning"><div class="adm-title">⚠ Bắt buộc — Phải có record ngay_luong_co_so trong base_payroll</div>
+      <div class="adm-body">Bảng <code>payroll</code> trong Man-month lấy columns_key IN (ngay_luong_co_so, ngay_co_so). Nếu không có record này, MM = workday / null → kết quả sai hoặc blank.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ payroll_support — bổ sung tháng thiếu</div>
+      <div class="adm-body">Bảng tĩnh <code>payroll_support</code> (base64 embed) UNION vào bảng payroll để bổ sung các tháng thiếu dữ liệu ngày lương cơ sở. Khi có tháng mới thiếu, cần cập nhật bảng này.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ columns_value = '0' bị loại</div>
+      <div class="adm-body">Bảng payroll filter <code>columns_value ≠ '0'</code> để loại bỏ các dòng có giá trị ngày lương = 0 (giá trị mặc định rỗng từ hệ thống).</div></div>
+  </div>
+  <div class="sub"><div class="sub-bar"></div>Nhân viên & Phòng ban</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="adm warning"><div class="adm-title">⚠ Username phải nhất quán</div>
+      <div class="adm-body">dim_user join với timesheet qua username. Replace username NKV: <code>buithituyetsinhnkv→sinhbtt</code>, <code>nkvvip01→patersoni</code>. NV nghỉ việc cần thêm vào <code>User_past</code>.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ Department_order — thứ tự hiển thị</div>
+      <div class="adm-body">Tính tự động từ bảng department: BOD=0, Non-technical=1, Technical=2 → sort → đánh số 1,2,3... Nếu thêm phòng ban mới, thứ tự tự cập nhật khi refresh.</div></div>
+  </div>
+</div>
+
+<!-- ═══ MM PAGE 3: DAX ═══ -->
+<div class="page" id="m3">
+  <div class="ph">
+    <div class="ph-eyebrow">03 / 04 · Man-month</div>
+    <h1 class="ph-title">Lưu ý công thức DAX</h1>
+    <p class="ph-desc">Cơ chế Calculation Groups và các measure chính trong báo cáo Man-month</p>
+  </div>
+  <div class="sub"><div class="sub-bar"></div>4 Calculation Groups</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="adm note"><div class="adm-title">ℹ 4 Calculation Groups — phân tích theo chiều khác nhau</div>
+      <div class="adm-body">Báo cáo có 4 Calculation Groups phục vụ 4 cách nhìn:<br>
+      • <strong>DPM</strong> — phân bổ theo Department/PM<br>
+      • <strong>pic</strong> — phân bổ theo PIC (người phụ trách)<br>
+      • <strong>Accountant</strong> — phân bổ theo kế toán<br>
+      • <strong>User</strong> — phân bổ theo nhân viên<br>
+      Mỗi group là một Calculation Group table, không phải bảng dữ liệu thường.</div></div>
+    <div class="adm warning"><div class="adm-title">⚠ Quan trọng — dim_metric và list_metric là 2 bảng khác nhau</div>
+      <div class="adm-body"><code>dim_metric</code> là Calculated table (DAX). <code>list_metric</code> là bảng M (base64 tĩnh). Không nhầm lẫn khi debug — nếu metric không hiển thị, kiểm tra cả 2 bảng này.</div></div>
+    <div class="adm note"><div class="adm-title">ℹ MM = workday / ngay_luong_co_so</div>
+      <div class="adm-body">Công thức MM cơ bản: <code>workday / ngay_luong_co_so</code> trong tháng. Dùng timesheet làm tử số, payroll làm mẫu số. Nếu payroll thiếu tháng → MM = blank (không chia được 0).</div></div>
+  </div>
+  <div class="sub"><div class="sub-bar"></div>Lưu ý measure</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="adm note"><div class="adm-title">ℹ fact_ticket_form_timesheet là bảng fact chính</div>
+      <div class="adm-body">Toàn bộ measure MM đều tính trên bảng này. Cột <code>workday</code> (number), <code>code_of_budget</code>, <code>username</code>, <code>date</code>, <code>is_fixed</code>, <code>rn</code> là các cột quan trọng nhất.</div></div>
+    <div class="adm warning"><div class="adm-title">⚠ rn=1 chỉ áp dụng cho nguồn thường (is_fixed=0)</div>
+      <div class="adm-body">Trong bảng timesheet: <code>rn</code> = NULL cho is_fixed=1 và ticket_id=0 (vì không tham gia ticket_rank). Khi viết measure cần filter đúng điều kiện, không dùng <code>rn = 1</code> một mình mà không kết hợp với is_fixed.</div></div>
+  </div>
+</div>
+
+<!-- ═══ MM PAGE 4: FILTER ═══ -->
+<div class="page" id="m4">
+  <div class="ph">
+    <div class="ph-eyebrow">04 / 04 · Man-month</div>
+    <h1 class="ph-title">Lưu ý khi filter / xem báo cáo</h1>
+    <p class="ph-desc">Cách đọc số đúng trong báo cáo Man-month</p>
+  </div>
+  <div class="sub"><div class="sub-bar"></div>Nguyên tắc đọc số</div>
+  <ul class="checklist">
+    <li><span class="ci ci-ok">✓</span><span><strong>MM = workday / ngay_luong_co_so</strong>. Số MM hợp lệ nằm trong khoảng 0–1 mỗi tháng. Tổng MM theo project của 1 NV trong tháng = tổng các dòng code_of_budget.</span></li>
+    <li><span class="ci ci-ok">✓</span><span><strong>Chọn đúng Calculation Group</strong> khi xem báo cáo: DPM / pic / Accountant / User. Mỗi group cho kết quả theo chiều khác nhau.</span></li>
+    <li><span class="ci ci-warn">!</span><span><strong>fact_man_month (ticket_id=0)</strong> là dữ liệu nhập tay — không có ticket_id, luôn được include. Nếu thấy dữ liệu bất thường kiểm tra nguồn này trước.</span></li>
+    <li><span class="ci ci-warn">!</span><span><strong>is_fixed=1</strong> (nguồn 1a): luôn lấy toàn bộ không dedup. Dùng cho các trường hợp cần giữ cả 2 version (late fix).</span></li>
+    <li><span class="ci ci-warn">!</span><span><strong>Sum_of_workday</strong>: tổng ngày công từ form service — khác với workday trong timesheet. Dùng để check consistency, không phải số chính trong báo cáo MM.</span></li>
+    <li><span class="ci ci-bad">✗</span><span><strong>Không filter code_of_budget = null</strong> vì fact_man_month có thể dùng code khác. Kiểm tra cả cột code_to_be_charged nếu join với fact_man_month.</span></li>
+  </ul>
+  <div class="sub" style="margin-top:32px"><div class="sub-bar"></div>Checklist trước khi gửi báo cáo</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Kiểm tra</th><th>Cách verify</th><th>Thời điểm</th></tr></thead>
+      <tbody>
+        <tr><td>Timesheet tháng hiện tại đã submit</td><td>Ticket svc=11998 có block_id 12009/16591, date &gt; 31/12/2025</td><td class="ok">Trước mỗi refresh</td></tr>
+        <tr><td>Ngày lương cơ sở tháng có dữ liệu</td><td>Kiểm tra bảng payroll có record tháng đó</td><td class="ok">Trước mỗi refresh</td></tr>
+        <tr><td>Username NV mới khớp giữa HRM và timesheet</td><td>Lọc dòng MM = null sau join</td><td class="warn">Khi onboard NV mới</td></tr>
+        <tr><td>payroll_support cập nhật đủ tháng</td><td>Kiểm tra tháng thiếu trong bảng payroll</td><td class="warn">Khi có tháng không có payroll</td></tr>
+        <tr><td>Tổng MM hợp lý (0–1 per NV per tháng)</td><td>Tổng MM theo NV trong tháng ≤ 1</td><td class="ok">Kiểm tra cuối cùng</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</main>
+
+<script>
+  // ── PAGE NAVIGATION ──
+  const allNavItems = document.querySelectorAll('.nav-item[data-page]');
+  const allPages    = document.querySelectorAll('.page');
+
+  allNavItems.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id  = btn.getAttribute('data-page');
+      const rpt = btn.getAttribute('data-rpt');
+      allPages.forEach(p => p.classList.remove('active'));
+      allNavItems.forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+      // Update header title
+      const titles = { luong: 'Báo cáo Lương', mm: 'Man-month' };
+      document.getElementById('hdr-title').textContent = titles[rpt] || 'Báo cáo';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // ── SIDEBAR ACCORDION ──
+  document.querySelectorAll('.rpt-header').forEach(hdr => {
+    hdr.addEventListener('click', () => {
+      const rpt   = hdr.getAttribute('data-rpt');
+      const pages = document.getElementById('rpt-' + rpt);
+      const isOpen = pages.classList.contains('active');
+      // Collapse all
+      document.querySelectorAll('.rpt-pages').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.rpt-header').forEach(h => h.classList.remove('active'));
+      // Expand clicked if it was closed
+      if (!isOpen) {
+        pages.classList.add('active');
+        hdr.classList.add('active');
+      }
+    });
+  });
+
+  // ── TAB SWITCHING (Báo cáo Lương) ──
+  document.querySelectorAll('.tab-btn[data-tab]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id    = btn.getAttribute('data-tab');
+      const group = btn.closest('.page');
+      group.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      group.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+    });
+  });
+
+  // ── MINDMAP: Báo cáo Lương ──
+  (function() {
+    const detailEl = document.getElementById('mm-detail');
+    const badgeEl  = document.getElementById('mm-detail-badge');
+    const titleEl  = document.getElementById('mm-detail-title');
+    const bodyEl   = document.getElementById('mm-detail-body');
+    const closeBtn = document.getElementById('mm-detail-close');
+    if (!detailEl) return;
+    const colorMap = { 'NGUỒN':{'bg':'#e8f4fd','color':'#0c6598'}, 'FILTER':{'bg':'#fff3cd','color':'#856404'}, 'PQ TABLE':{'bg':'#ede9fe','color':'#4c1d95'} };
+    document.querySelectorAll('.mn[data-id]').forEach(node => {
+      node.addEventListener('click', function() {
+        const badge = this.getAttribute('data-badge')||'INFO';
+        const title = this.getAttribute('data-title')||'';
+        const body  = this.getAttribute('data-body') ||'';
+        const col   = colorMap[badge]||{bg:'#f1f3f5',color:'#333'};
+        badgeEl.textContent = badge; badgeEl.style.background = col.bg; badgeEl.style.color = col.color;
+        titleEl.textContent = title; bodyEl.innerHTML = body;
+        detailEl.classList.add('open');
+        document.querySelectorAll('.mn').forEach(n=>n.classList.remove('highlighted'));
+        this.classList.add('highlighted');
+      });
+    });
+    if (closeBtn) closeBtn.addEventListener('click', ()=>{ detailEl.classList.remove('open'); document.querySelectorAll('.mn').forEach(n=>n.classList.remove('highlighted')); });
+    document.querySelectorAll('.mm-filter[data-group]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const g = this.getAttribute('data-group');
+        document.querySelectorAll('.mm-filter[data-group]').forEach(b=>b.classList.remove('active'));
+        this.classList.add('active');
+        document.querySelectorAll('.mn[data-group]').forEach(n=>n.classList.toggle('dimmed', g!=='all' && n.getAttribute('data-group')!==g));
+        document.querySelectorAll('.mc[data-group]').forEach(c=>c.classList.toggle('dimmed', g!=='all' && c.getAttribute('data-group')!==c.getAttribute('data-group')==g));
+        document.querySelectorAll('.mc').forEach(c=>c.classList.toggle('dimmed', g!=='all' && c.getAttribute('data-group')!==g));
+        detailEl.classList.remove('open');
+      });
+    });
+  })();
+
+  // ── MINDMAP: Man-month ──
+  (function() {
+    const detailEl = document.getElementById('mm-detail-mm');
+    const badgeEl  = document.getElementById('mm-detail-badge-mm');
+    const titleEl  = document.getElementById('mm-detail-title-mm');
+    const bodyEl   = document.getElementById('mm-detail-body-mm');
+    const closeBtn = document.getElementById('mm-detail-close-mm');
+    if (!detailEl) return;
+    const colorMap = { 'NGUỒN':{'bg':'#e8f4fd','color':'#0c6598'}, 'FILTER':{'bg':'#fff3cd','color':'#856404'}, 'PQ TABLE':{'bg':'#ede9fe','color':'#4c1d95'}, 'TĨNH':{'bg':'#f5f3ff','color':'#5b21b6'} };
+    document.querySelectorAll('.mn[data-id-mm]').forEach(node => {
+      node.addEventListener('click', function() {
+        const badge = this.getAttribute('data-badge-mm')||'INFO';
+        const title = this.getAttribute('data-title-mm')||'';
+        const body  = this.getAttribute('data-body-mm') ||'';
+        const col   = colorMap[badge]||{bg:'#f1f3f5',color:'#333'};
+        badgeEl.textContent = badge; badgeEl.style.background = col.bg; badgeEl.style.color = col.color;
+        titleEl.textContent = title; bodyEl.innerHTML = body;
+        detailEl.classList.add('open');
+      });
+    });
+    if (closeBtn) closeBtn.addEventListener('click', ()=>{ detailEl.classList.remove('open'); });
+    document.querySelectorAll('.mm-filter[data-group-mm]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const g = this.getAttribute('data-group-mm');
+        document.querySelectorAll('.mm-filter[data-group-mm]').forEach(b=>b.classList.remove('active'));
+        this.classList.add('active');
+        document.querySelectorAll('.mn[data-group-mm]').forEach(n=>n.classList.toggle('dimmed', g!=='all' && n.getAttribute('data-group-mm')!==g));
+        document.querySelectorAll('.mc[data-group-mm]').forEach(c=>c.classList.toggle('dimmed', g!=='all' && c.getAttribute('data-group-mm')!==g));
+        detailEl.classList.remove('open');
+      });
+    });
+  })();
+</script>
+</body>
+</html>

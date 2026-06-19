@@ -892,7 +892,7 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
 
 <g class="mn" data-group="dm" data-id="dm-tbl82" data-badge="NGUỒN" data-color="#2f9e44"
    data-title="base_table.data — table_id = 82"
-   data-body="SELECT id, vals, user_id, last_update WHERE table_id='82'. vals là JSONB chứa code_of_budget_plan và các thông tin ngân sách. Đây là bảng danh mục dùng chung, phân biệt loại bởi table_id.">
+   data-body="SELECT id, Value, user_id, last_update WHERE table_id='82'. Value là JSONB chứa code_of_budget_plan và các thông tin ngân sách. Đây là bảng danh mục dùng chung, phân biệt loại bởi table_id.">
   <rect x="20" y="1340" width="200" height="52" rx="10" fill="#2f9e44" stroke="#237032" stroke-width="0.5"/>
   <text x="120" y="1360" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_table.data</text>
   <text x="120" y="1378" text-anchor="middle" font-size="10.5" fill="#b2f2bb">table_id = 82</text>
@@ -900,15 +900,15 @@ td code{font-family:var(--mono);font-size:11px;background:var(--code-bg);padding
 <line class="mc" data-group="dm" x1="220" y1="1366" x2="590" y2="1366" stroke="#2f9e44" stroke-width="1" marker-end="url(#arr-dm)"/>
 <g class="mn" data-group="dm" data-id="dim_table_code" data-badge="PQ TABLE" data-color="#6741d9"
    data-title="dim_table_code"
-   data-body="base_table.data WHERE table_id='82' → id, vals, user_id, last_update. vals JSONB chứa code_of_budget_plan, tên code, thông tin nhóm ngân sách.">
+   data-body="base_table.data WHERE table_id='82' → id, Value, user_id, last_update. Value JSONB chứa code_of_budget_plan, tên code, thông tin nhóm ngân sách.">
   <rect x="590" y="1349" width="300" height="38" rx="7" fill="#f3f0ff" stroke="#6741d9" stroke-width="1"/>
   <text x="740" y="1366" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3b0764">dim_table_code</text>
-  <text x="740" y="1380" text-anchor="middle" font-size="10" fill="#6741d9">Code ngân sách · vals JSONB</text>
+  <text x="740" y="1380" text-anchor="middle" font-size="10" fill="#6741d9">Code ngân sách · Value JSONB</text>
 </g>
 
 <g class="mn" data-group="dm" data-id="dm-tbl69" data-badge="NGUỒN" data-color="#2f9e44"
    data-title="base_table.data — table_id = 69"
-   data-body="SELECT id, vals, user_id, last_update WHERE table_id='69'. Power Query: filter type &lt;&gt; '' để loại bỏ dòng trống, replace 'Business Development 1' → 'Business Development Department'.">
+   data-body="SELECT id, Value, user_id, last_update WHERE table_id='69'. Power Query: filter type &lt;&gt; '' để loại bỏ dòng trống, replace 'Business Development 1' → 'Business Development Department'.">
   <rect x="20" y="1412" width="200" height="52" rx="10" fill="#2f9e44" stroke="#237032" stroke-width="0.5"/>
   <text x="120" y="1432" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">base_table.data</text>
   <text x="120" y="1450" text-anchor="middle" font-size="10.5" fill="#b2f2bb">table_id = 69</text>
@@ -1776,13 +1776,13 @@ const RPT = {
   // BÁO CÁO LƯƠNG
   // ──────────────────────────────────────
   luong: {
-    label:'Báo cáo Lương', sub:'Power BI · Tháng → NV → code/dpm × Type', bg:'#4051b5',
+    label:'Báo cáo Lương', sub:'Payroll Report - Version Payroll', bg:'#4051b5',
     sources: [
       // ── base_payroll ──
       { id:'bp', label:'base_payroll', sub:'.record · .payroll', colorKey:'bp',
         ids:[
           { id:'bp-rec', dn:'Payroll Record',
-            df:'Payroll Name\nPayroll Status\nReport Month\nReport Year\nUser Id\nColumns (JSONB)' },
+            df:'Payroll Name\nPayroll Status\nReport Month\nReport Year\nUser Id\n' },
           { id:'bp-mst', dn:'Payroll Master',
             df:'Payroll Id\nPayroll Name\nPayroll Status' },
         ],
@@ -1826,9 +1826,9 @@ const RPT = {
       { id:'tbl', label:'base_table', sub:'.data', colorKey:'tbl',
         ids:[
           { id:'tbl-82', dn:'Table of Code (id=82)',
-            df:'Id\nVals\nCode of Budget Plan\nLast Update' },
+            df:'Id\nValue\nCode of Budget Plan\nLast Update' },
           { id:'tbl-69', dn:'Department (id=69)',
-            df:'Id\nVals\nDepartment Name\nLast Update' },
+            df:'Id\nValue\nDepartment Name\nLast Update' },
         ],
         metrics:['Dim Table Code','Department'],
       },
@@ -1839,7 +1839,7 @@ const RPT = {
   // MAN-MONTH
   // ──────────────────────────────────────
   mm: {
-    label:'Man-month Report', sub:'Power BI · Project → NV → Tháng × Metric', bg:'#0c8599',
+    label:'Man-month Report', sub:'Overview project - Man-month project - Man-month Engineer', bg:'#0c8599',
     sources: [
       // ── base_service.ticket ──
       { id:'mbs', label:'base_service', sub:'.ticket', colorKey:'mbs',
@@ -1866,9 +1866,9 @@ const RPT = {
       { id:'mtbl', label:'base_table', sub:'.data', colorKey:'tbl',
         ids:[
           { id:'mtbl-82', dn:'Table of Code (id=82)',
-            df:'Id\nVals\nCode of Budget Plan\nLast Update' },
+            df:'Id\nValue\nCode of Budget Plan\nLast Update' },
           { id:'mtbl-69', dn:'Department (id=69)',
-            df:'Id\nVals\nDepartment Name\nType\nLast Update' },
+            df:'Id\nValue\nDepartment Name\nType\nLast Update' },
         ],
         metrics:['Dim Table Code','Department'],
       },
